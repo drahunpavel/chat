@@ -10,7 +10,7 @@ import './styleComponents.css';
 import Draggable, {DraggableCore} from 'react-draggable'; // Both at the same time
 
 
-class ViewChatComponent extends React.Component {
+class ViewRequestCallComponent extends React.Component {
 
   static propTypes = {
 
@@ -22,23 +22,6 @@ class ViewChatComponent extends React.Component {
   
     zindex:"",
   }
-
-  initResizeR=(EO)=>{
-    EO.preventDefault();
-
-    console.log("init resize right------------")
-
-    let ResizeBtnRight = document.getElementById('ResizeBtnRight');
-    let border = document.getElementById('wrapper');
-
-  };
-  initResizeL=(EO)=>{
-    EO.preventDefault();
-
-    console.log("init resize left------------")
-
-
-  };
 
   WindowButtonStartChat=(EO)=>{
     EO.preventDefault();
@@ -87,6 +70,18 @@ handleChange=(EO)=>{
 
   let left = startWidth + EO.pageX - screen.width;
   console.log(left)
+  // left < 0 && (left=0);
+  // left + cropBlock.offsetWidth > border.offsetLeft + border.offsetWidth  && (left = border.offsetLeft + border.offsetWidth - cropBlock.offsetWidth - 8);
+  // let top =  startTop + e.clientY - startY;
+  // top < 0 && (top=0);
+  // top + cropBlock.offsetHeight > border.offsetTop + border.offsetHeight  && (top = border.offsetTop + border.offsetHeight - cropBlock.offsetHeight - 8);
+  // cropBlock.style.top = top + 'px';
+  // cropBlock.style.left = left  + 'px';
+  // cropBlock.style.backgroundPosition = '-' + cropBlock.style.left + ' -' + cropBlock.style.top
+
+
+
+
 
 
   var box = EO.target.getBoundingClientRect();
@@ -94,6 +89,27 @@ handleChange=(EO)=>{
   console.log(box)
 
 }
+
+// Bounds=(params)=> {
+//   let dd=params.dd;
+//   let bounds = params.bounds;
+//   let bb=document.getElementById(bounds).getBoundingClientRect();
+//   let target = document.getElementById(params.target).getBoundingClientRect();
+//   let partQ = (params.partQ === undefined) ? .5: params.partQ ;
+//   let left = (params.left === undefined) ? -target.width * partQ : params.left;
+//   let top = (params.top === undefined) ? -target.height * partQ : params.top;
+//   let offsetRight = (params.offsetRight === undefined) ? -target.width * partQ : params.offsetRight;
+//   let offsetBottom = (params.offsetBottom === undefined) ? -target.height * partQ : params.offsetBottom;
+
+//   console.log(partQ)
+//   dd.applyBounds({
+//     top: top,
+//     left: left,
+//     width: bb.width - offsetRight - left,
+//     height: bb.height - offsetBottom - top
+//   });
+
+// };
 
 
   render() {
@@ -112,10 +128,9 @@ handleChange=(EO)=>{
       >
       <div id="Window" className="Window">
         <div id="DndWindow" className="cursor"  onMouseDown={this.handleChange}>
-          <div className="WindowHead">Чат с банком</div>
+          <div className="WindowHead">Заказать звонок</div>
           {/* <div className="WindowClose">-dddddddddddddddddd</div> */}
         </div>
-        <div className="WindowWelcome">Вас приветствует БПС-Сбербанк. Задайте интересующий вопрос.</div>
         
         <div className="WindowFieldLabel">Ваше имя:
           <div className="WindowFieldControlFrame">
@@ -128,12 +143,12 @@ handleChange=(EO)=>{
           <div className={this.state.nameIsEmpty ? "WindowFieldError" : "WindowFieldError-display-none"}>Введите свое имя</div>
         </div>
         
-        <div className="WindowFieldLabel">Номер телефона:
+        <div className="WindowFieldLabel">Ваш телефон:
           <div className="WindowFieldControlFrame">
             <input 
               className="WindowFieldEdit"
               type="text"
-              
+               
               ref="fieldNumber"
               onChange={this.onFieldChange.bind(this, "numberIsEmpty")}/>
           </div>
@@ -142,9 +157,28 @@ handleChange=(EO)=>{
               Введите номер телефона
           </div>
         </div>
-        
-        
-          <div className="WindowButton-chat">
+
+        <div className="WindowFieldLabel">Тема обращения:
+          <div className="WindowFieldControlFrame">
+            <input 
+              className="WindowFieldEdit"
+              type="text"/>
+          </div>
+        </div>
+
+        <div className="WindowFieldLabel">Укажите удобное время звонка
+          <div className="WindowFieldControlFrame">
+            <input 
+              className="WindowFieldEdit"
+              type="text"/>
+          </div>
+        </div>
+
+        <div className="WindowFieldLabel">График работы контакт-центра:&nbsp;<strong className="strong-style">Круглосуточно</strong>
+        </div>
+
+        <div className="WindowFieldButton">
+          <div className="WindowButton-call">
             <button 
               className="WindowFormSendingButton"
               onClick={this.WindowButtonStartChat}
@@ -153,19 +187,33 @@ handleChange=(EO)=>{
                 Начать чат
             </button>
           </div>
-        
+        </div>
       
-      <div className="ResizeBtn-Right" id="ResizeBtnRight" onClick={this.initResizeR}></div>
-      <div className="ResizeBtn-Left" id="ResizeBtnLeft" onClick={this.initResizeL}></div>
+      <div className="modification-right"></div>
+      <div className="modification-left"></div>
 
       </div>
       </Draggable>
 
+
+// {/* <Draggable bounds="body" {...dragHandlers}>
+// <div className="box">
+//   I can only be moved within the confines of the body element.
+// </div>
+// </Draggable> */}
+
+
+            //   <Draggable handle="strong" {...dragHandlers}>
+            //   <div className="box no-cursor">
+            //     <strong className=""><div>Drag here</div></strong>
+            //     <div>You must click my handle to drag me</div>
+            //   </div>
+            // </Draggable>
     )
 
   }
 
 }
 
-export default ViewChatComponent;
-
+export default ViewRequestCallComponent;
+//export default ViewChatComponent;

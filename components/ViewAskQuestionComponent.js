@@ -10,7 +10,7 @@ import './styleComponents.css';
 import Draggable, {DraggableCore} from 'react-draggable'; // Both at the same time
 
 
-class ViewChatComponent extends React.Component {
+class ViewAskQuestionComponent extends React.Component {
 
   static propTypes = {
 
@@ -22,23 +22,6 @@ class ViewChatComponent extends React.Component {
   
     zindex:"",
   }
-
-  initResizeR=(EO)=>{
-    EO.preventDefault();
-
-    console.log("init resize right------------")
-
-    let ResizeBtnRight = document.getElementById('ResizeBtnRight');
-    let border = document.getElementById('wrapper');
-
-  };
-  initResizeL=(EO)=>{
-    EO.preventDefault();
-
-    console.log("init resize left------------")
-
-
-  };
 
   WindowButtonStartChat=(EO)=>{
     EO.preventDefault();
@@ -87,6 +70,18 @@ handleChange=(EO)=>{
 
   let left = startWidth + EO.pageX - screen.width;
   console.log(left)
+  // left < 0 && (left=0);
+  // left + cropBlock.offsetWidth > border.offsetLeft + border.offsetWidth  && (left = border.offsetLeft + border.offsetWidth - cropBlock.offsetWidth - 8);
+  // let top =  startTop + e.clientY - startY;
+  // top < 0 && (top=0);
+  // top + cropBlock.offsetHeight > border.offsetTop + border.offsetHeight  && (top = border.offsetTop + border.offsetHeight - cropBlock.offsetHeight - 8);
+  // cropBlock.style.top = top + 'px';
+  // cropBlock.style.left = left  + 'px';
+  // cropBlock.style.backgroundPosition = '-' + cropBlock.style.left + ' -' + cropBlock.style.top
+
+
+
+
 
 
   var box = EO.target.getBoundingClientRect();
@@ -95,15 +90,11 @@ handleChange=(EO)=>{
 
 }
 
-
   render() {
 
     let nameIsEmpty=this.state.nameIsEmpty,
         numberIsEmpty=this.state.numberIsEmpty;
 
-//         const window=document.getElementById('WindowHeadDrag');
-// console.log(window)
-//const dragHandlers = {onStart: this.onStart, onStop: this.onStop};
     return (
       <Draggable 
        handle="#DndWindow" 
@@ -112,7 +103,7 @@ handleChange=(EO)=>{
       >
       <div id="Window" className="Window">
         <div id="DndWindow" className="cursor"  onMouseDown={this.handleChange}>
-          <div className="WindowHead">Чат с банком</div>
+          <div className="WindowHead">Задать вопрос</div>
           {/* <div className="WindowClose">-dddddddddddddddddd</div> */}
         </div>
         <div className="WindowWelcome">Вас приветствует БПС-Сбербанк. Задайте интересующий вопрос.</div>
@@ -128,44 +119,58 @@ handleChange=(EO)=>{
           <div className={this.state.nameIsEmpty ? "WindowFieldError" : "WindowFieldError-display-none"}>Введите свое имя</div>
         </div>
         
-        <div className="WindowFieldLabel">Номер телефона:
+        <div className="WindowFieldLabel">Ваш E-mail:
           <div className="WindowFieldControlFrame">
             <input 
               className="WindowFieldEdit"
               type="text"
-              
+               
               ref="fieldNumber"
               onChange={this.onFieldChange.bind(this, "numberIsEmpty")}/>
           </div>
           <div 
             className={this.state.numberIsEmpty ? "WindowFieldError" : "WindowFieldError-display-none"}>
-              Введите номер телефона
+              Введите Ваш E-mail
           </div>
         </div>
-        
-        
-          <div className="WindowButton-chat">
+
+        <div className="WindowFieldLabel">Вопрос:
+          <div className="WindowFieldControlFrame">
+            <textarea 
+              className="WindowFieldEdit WindowFieldEdit-textarea"
+              name="text"
+              rows="4"
+              ref="fieldNumber"
+              onChange={this.onFieldChange.bind(this, "numberIsEmpty")}/>
+          </div>
+          <div 
+            className={this.state.numberIsEmpty ? "WindowFieldError" : "WindowFieldError-display-none"}>
+              Введите Ваш вопрос
+          </div>
+        </div>
+
+
+          <div className="WindowButton-ask">
             <button 
               className="WindowFormSendingButton"
               onClick={this.WindowButtonStartChat}
               disabled={nameIsEmpty||numberIsEmpty}
             >
-                Начать чат
+                Свяжитесь со мной
             </button>
           </div>
-        
+
       
-      <div className="ResizeBtn-Right" id="ResizeBtnRight" onClick={this.initResizeR}></div>
-      <div className="ResizeBtn-Left" id="ResizeBtnLeft" onClick={this.initResizeL}></div>
+      <div className="modification-right"></div>
+      <div className="modification-left"></div>
 
       </div>
       </Draggable>
-
     )
 
   }
 
 }
 
-export default ViewChatComponent;
-
+export default ViewAskQuestionComponent;
+//export default ViewChatComponent;
