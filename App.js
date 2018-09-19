@@ -2,21 +2,20 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Fragment from 'render-fragment';
 
-import ViewChatComponent from './components/ViewChatComponent';
-import ViewRequestCallComponent from "./components/ViewRequestCallComponent";
-import ViewAskQuestionComponent from "./components/ViewAskQuestionComponent";
+
+
+
+import BlockWindowWrap from "./components/BlockWindowWrap";
+
 
 class App extends React.Component {
   render() {
 
     return (
-      <Fragment>
-      <ViewChatComponent />
-      {/* <ViewRequestCallComponent/>
-      <ViewAskQuestionComponent/> */}
-      </Fragment>
+
+      <BlockWindowWrap/>
+
       )
   }
 }

@@ -2,7 +2,7 @@
 import ReactDOM from "react-dom";
 //import PropTypes from 'prop-types';
 
-import './styleComponents.css';
+import './styleComponents.scss';
 
 // import { DragSource ,DragDropContext } from 'react-dnd';
 // import HTML5Backend from 'react-dnd-html5-backend';

@@ -2,7 +2,7 @@
 import ReactDOM from "react-dom";
 //import PropTypes from 'prop-types';
 
-import './styleComponents.css';
+import './styleComponents.scss';
 
 // import { DragSource ,DragDropContext } from 'react-dnd';
 // import HTML5Backend from 'react-dnd-html5-backend';
@@ -20,6 +20,8 @@ class ViewChatComponent extends React.Component {
     nameIsEmpty: true,
     numberIsEmpty: true,
 
+    sizeY:372,
+    sizeX:321,
   }
 
   WindowButtonStartChat = (EO) => {
@@ -33,7 +35,6 @@ class ViewChatComponent extends React.Component {
 
   //функция проверки полей воода
   onFieldChange = (fieldInput, EO) => {
-    console.log(fieldInput)
 
     if (fieldInput=="nameIsEmpty" && EO.target.value.trim().length > 0 && EO.target.value.trim().length < 20) {
       this.setState({ ["" + fieldInput]: false });
@@ -45,20 +46,47 @@ class ViewChatComponent extends React.Component {
     }
   }
 
-  myMouse=(e)=>{
-    console.log(e)
+  myMouse=(EO)=>{
+    //console.log(EO)
+
+
+
+
+
+
+    let startX = EO.clientX;
+    let startY = EO.clientY;
+    console.log("clickpoint: " + startX + "*" +startY )
+    console.log("--------------------------");
+    this.setState({
+      sizeX:this.state.startWidth,
+      sizeY:this.state.startHeight,
+    })
   }
+
+
+  doResize=(EO)=> {
+      let width = startWidth + EO.clientX - startX;
+      width < 20 && (width = 20);
+      let height = startHeight + EO.clientY - startY;
+      height < 20 && (height = 20);
+      cropBlock.style.width = width + "px";
+      cropBlock.style.height = height + "px";
+  }
+  
+
+
   //Объявляем
   componentDidMount() {
     let {myMouse} = this;//деструктуризация
     window.addEventListener('mousedown', ()=>myMouse('down'));
-    window.addEventListener('mousemove', ()=>myMouse('move'));
+    //window.addEventListener('mousemove', ()=>myMouse('move'));
     window.addEventListener('mouseup', ()=>myMouse('up'));
    }
  //Удаляем
    componentWillUnmount() {
     window.removeEventListener('mousedown',this.myMouse);
-    window.removeEventListener('mousemove',this.myMouse);
+    //window.removeEventListener('mousemove',this.myMouse);
     window.removeEventListener('mouseup', this.myMouse);
    }
 
@@ -69,8 +97,8 @@ class ViewChatComponent extends React.Component {
 
     return (
 
-        <div ref={(el) => this.containerRef = el} id="Window" className="Window">
-          <div  id="DndWindow" className="cursor" onMouseDown={this.handleChange}>
+        <div style={{width:this.state.sizeX+"px", height:this.state.sizeY+"px"}} className="Window">
+          <div  id="DndWindow" className="cursor">
             <div className="WindowHead">Чат с банком</div>
             {/* <div className="WindowClose">-dddddddddddddddddd</div> */}
           </div>
@@ -114,7 +142,7 @@ class ViewChatComponent extends React.Component {
           </div>
 
 
-          <div className="ResizeBtn-Right" id="ResizeBtnRight" onClick={this.myResize} ></div>
+          <div className="resizeBtn"  onClick={this.myMouse} ></div>
           <div className="ResizeBtn-Left" id="ResizeBtnLeft" onClick={this.initResizeL}></div>
 
         </div>
