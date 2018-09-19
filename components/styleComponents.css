@@ -1,3 +1,7 @@
+#container{
+  border: 1px solid black;
+  
+}
 .Window {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   border-radius: 5px;

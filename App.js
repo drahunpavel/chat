@@ -14,8 +14,8 @@ class App extends React.Component {
     return (
       <Fragment>
       <ViewChatComponent />
-      <ViewRequestCallComponent/>
-      <ViewAskQuestionComponent/>
+      {/* <ViewRequestCallComponent/>
+      <ViewAskQuestionComponent/> */}
       </Fragment>
       )
   }
