@@ -62,43 +62,41 @@ class BlockWindowWrap extends React.Component {
             console.log("click1")
 
             this.setState({
-                begin: true,
+                beginResize: true,
             })
         }
         if (click === "click2") {
             console.log("click2")
             this.setState({
-                begin: false,
-                isStarted: false
+                beginResize: false,
+                isStartedResize: false
+            })
+        }
+        if (click === "click3") {
+            console.log("click3")
+            this.setState({
+                beginDrop: true,
+            })
+        }
+        if (click === "click4") {
+            console.log("click4")
+            this.setState({
+                beginDrop: false,
+                isStartedDrop: false,
+                
             })
         }
     };
 
-    myResize2 = (click) => {
-        if (click === "click1") {
-            console.log("click1")
-
-            this.setState({
-                begin: true,
-            })
-        }
-        if (click === "click2") {
-            console.log("click2")
-            this.setState({
-                begin: false,
-                isStarted: false
-            })
-        }
-    };
 
 
 
     mouseMove = (EO) => {
-
-        if (this.state.begin === true) {
+        
+        if (this.state.beginResize === true) {
 
             //создаем стартовую точку
-            if (!this.state.isStarted) {
+            if (!this.state.isStartedResize) {
 
                 this.setState({
                     startX: EO.clientX,
@@ -107,14 +105,9 @@ class BlockWindowWrap extends React.Component {
                     startWidth: this.BlockWindowWrap.offsetWidth,
                     startHeight: this.BlockWindowWrap.offsetHeight,
 
-                    startTop: this.BlockWindowWrap.offsetTop,
-                    startLeft: this.BlockWindowWrap.offsetLeft,
-
-                    isStarted: true
+                    isStartedResize: true
                 })
             }
-
-
 
             let deltaX = EO.clientX - this.state.startX;
             let deltaY = EO.clientY - this.state.startY;
@@ -132,18 +125,63 @@ class BlockWindowWrap extends React.Component {
             console.log("реальное изменение размера " + width + ":" + height);
             console.log("---------------");
 
+            this.setState({
+                sizeX: width,
+                sizeY: height,
+            })
 
-            let left = this.state.startLeft + deltaX;
-            let top = this.state.startTop + deltaY;
+        }
+        if (this.state.beginDrop === true) {
+
+            //создаем стартовую точку
+            if (!this.state.isStartedDrop) {
+
+                this.setState({
+                    // startX: EO.clientX,
+                    // startY: EO.clientY,
+
+                    startWidth: this.BlockWindowWrap.offsetWidth,
+                    startHeight: this.BlockWindowWrap.offsetHeight,
+
+                    
+                    startDropX:EO.clientX,
+                    startDropY:EO.clientY,
+                    startTop : this.BlockWindowWrap.offsetTop,
+                    startLeft : this.BlockWindowWrap.offsetLeft,
+
+
+                    isStartedResize: true
+                })
+            }
+
+            let deltaDX = EO.clientX - this.state.startLeft;
+            let deltaDY = EO.clientY - this.state.startTop;
+
+            // console.log("Начальные ширина/высота: " + this.state.startWidth + ":" + this.state.startHeight);
+            // console.log("---------------");
+
+            // console.log("дельта смещения: " + deltaX + ":" + deltaY);
+            // console.log("---------------");
+
+
+            console.log("координаты относительно начала окна: "+this.state.startTop+"/"+this.state.startLeft);
+            console.log("---------------");
+
+            console.log("дельта сдвига: "+deltaDX+"/"+deltaDY);
+            console.log("---------------");
+            
+            let left = this.state.startLeft + deltaDX;
+            let top = this.state.startTop + deltaDY;
+
+            console.log("Новые координаты: "+left+"/"+top);
+            console.log("---------------");
 
 
 
             this.setState({
-
-                sizeX: width,
-                sizeY: height,
                 locationX: left,
                 locationY: top,
+                position: "absolute"
             })
 
         }
@@ -152,9 +190,10 @@ class BlockWindowWrap extends React.Component {
 
 
     forceMouseUp = () => {
-        console.log('force mouseUp')//this.setstate {begin = false}
+        console.log('force mouseUp')//this.setstate {beginResize = false}
         this.setState({
-            begin: false,
+            beginResize: false,
+            beginDrop:false,
         })
     }
 
@@ -179,18 +218,22 @@ class BlockWindowWrap extends React.Component {
     render() {
         let { btn, title, welcome } = this.props;//деструктуризация
         //console.log("startX/startY: "+ this.state.startX+"/"+this.state.startY)
-
+        //console.log(this.state.startDropX, this.state.startDropY, this.state.startTop, this.state.startLeft)
+        
         return (
 
             <div
 
-                style={{ width: this.state.sizeX + "px", height: this.state.sizeY + "px" }}
+                style={{position:this.state.position, top: this.state.locationY + "px", left: this.state.locationX + "px", width: this.state.sizeX + "px", height: this.state.sizeY + "px" }}
                 className="BlockWindowWrap"
                 ref={BlockWindowWrap => { this.BlockWindowWrap = BlockWindowWrap }}
             //ref="bla" //второй способ через ref
             >
 
-                <div className="header">
+                <div  
+                onMouseDown={() => this.myResize('click3')} onMouseUp={() => this.myResize('click4')}
+                
+                className="header">
                     {title}
                 </div>
 
