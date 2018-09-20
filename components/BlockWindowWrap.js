@@ -56,6 +56,11 @@ class BlockWindowWrap extends React.Component {
     myResize = (click) => {
         if(click==="click1"){
             console.log("click1")
+            // let startWidth=this.BlockWindowWrap.offsetWidth;
+            // let startHeight=this.BlockWindowWrap.offsetHeight;
+            // console.log("BlockWindowWrap: "+startWidth +"/"+startHeight);
+            // console.log("---------------");
+
             this.setState({
                 begin:true,
             })
@@ -64,39 +69,53 @@ class BlockWindowWrap extends React.Component {
             console.log("click2")
             this.setState({
                 begin:false,
+                isStarted:false
             })
         }
-    
-    
     };
 
 
-    
-    // doResize = (EO) => {
-    //     let width = startWidth + EO.clientX - startX;
-    //     width < 20 && (width = 20);
-    //     let height = startHeight + EO.clientY - startY;
-    //     height < 20 && (height = 20);
-    //     cropBlock.style.width = width + "px";
-    //     cropBlock.style.height = height + "px";
-    // }
-
-
     mouseMove=(EO)=>{
-        //console.log(this.state.begin)
+
         if(this.state.begin===true){
             
-            //console.log(EO.clientX+'|'+EO.clientX)
-            // this.setState({
-            //     startX:EO.clientX,
-            //     startY:EO.clientY,
-            // })
-            
-            let startX=EO.clientX;
-            let startY=EO.clientY;
+            //создаем стартовую точку
+            if(!this.state.isStarted){
+ 
+                this.setState({
+                    startX:EO.clientX,
+                    startY:EO.clientY,
+                    startWidth:this.BlockWindowWrap.offsetWidth,
+                    startHeight:this.BlockWindowWrap.offsetHeight,
+                    isStarted:true
+                })
+            }
+
+            // let startWidth =this.BlockWindowWrap.offsetWidth;
+            // let startHeight = this.BlockWindowWrap.offsetHeight;
 
 
-        
+            let deltaX=EO.clientX-this.state.startX;
+            let deltaY=EO.clientY-this.state.startY;
+
+            console.log("Начальные ширина/высота: "+this.state.startWidth+":"+this.state.startHeight);
+            console.log("---------------");
+
+            console.log("дельта смещения: "+deltaX+":"+deltaY);
+            console.log("---------------");
+
+            // let width=startWidth+deltaX;
+            // let height=startHeight+deltaY;
+            let width=this.state.startWidth+deltaX;
+            let height=this.state.startHeight+deltaY;
+            console.log("реальное изменение размера "+width+":"+height);
+            console.log("---------------");
+            this.setState({
+
+                sizeX:width,
+                sizeY:height,
+            })
+
         }
     }
 
@@ -104,28 +123,42 @@ class BlockWindowWrap extends React.Component {
 
     forceMouseUp=()=>{
         console.log('force mouseUp')//this.setstate {begin = false}
+    this.setState({
+        begin:false,
+    })
     }
 
     //Объявляем
     componentDidMount() {
         //let { myMouse } = this;//деструктуризация
+
+        //console.log(this.refs.bla.offsetWidth) // второй способ через ref
+        window.addEventListener('mousedown', this.onMouseDown);
         window.addEventListener('mouseup', this.forceMouseUp);
         window.addEventListener('mousemove', this.mouseMove);
 
     }
     //Удаляем
     componentWillUnmount() {
+        window.removeEventListener('mousedown', this.onMouseDown);
         window.removeEventListener('onmouseup', this.forceMouseUp);
         window.removeEventListener('mousemove',this.mouseMove);
 
     }
 
     render() {
-        let { btn, code } = this.props;
+
+        //console.log("startX/startY: "+ this.state.startX+"/"+this.state.startY)
+
         return (
 
-            <div style={{ width: this.state.sizeX + "px", height: this.state.sizeY + "px" }} className="BlockWindowWrap">
-
+            <div 
+                style={{ width: this.state.sizeX + "px", height: this.state.sizeY + "px" }} 
+                className="BlockWindowWrap"
+                ref={BlockWindowWrap=>{this.BlockWindowWrap=BlockWindowWrap}}
+                //ref="bla" //второй способ через ref
+                >
+                
                 <div className="header"></div>
 
                 <div className="main"></div>
