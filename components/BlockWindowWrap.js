@@ -107,7 +107,9 @@ class BlockWindowWrap extends React.Component {
             // let width=startWidth+deltaX;
             // let height=startHeight+deltaY;
             let width=this.state.startWidth+deltaX;
+            (width < 300 && (width = 300)) || (width>800 && (width=800)); //max size width
             let height=this.state.startHeight+deltaY;
+            (height < 300 && (height = 300)) || (height>627 && (height=627));
             console.log("реальное изменение размера "+width+":"+height);
             console.log("---------------");
             this.setState({
@@ -147,7 +149,7 @@ class BlockWindowWrap extends React.Component {
     }
 
     render() {
-
+        let { btn, code } = this.props;
         //console.log("startX/startY: "+ this.state.startX+"/"+this.state.startY)
 
         return (
@@ -162,13 +164,14 @@ class BlockWindowWrap extends React.Component {
                 <div className="header"></div>
 
                 <div className="main"></div>
-                <div className="footer">
-                    {/* <button>
+                
+                    <button className="footer">
                         {btn}
-                    </button> */}
-                </div>
+                    </button>
+               
 
-                <div className="resizeBtn" onMouseDown={() => this.myResize('click1')} onMouseUp={() => this.myResize('click2')} ></div>
+                <div className="resizeBtnBR" onMouseDown={() => this.myResize('click1')} onMouseUp={() => this.myResize('click2')} ></div>
+                <div className="resizeBtnBL" onMouseDown={() => this.myResize('click1')} onMouseUp={() => this.myResize('click2')} ></div>
             </div>
 
 
