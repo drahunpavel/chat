@@ -118,6 +118,7 @@ class BlockWindowWrap extends React.Component {
             console.log("дельта смещения: " + deltaX + ":" + deltaY);
             console.log("---------------");
 
+            //new coordinates when resizing + limitation
             let width = this.state.startWidth + deltaX;
             (width < 300 && (width = 300)) || (width > 800 && (width = 800)); //max size width
             let height = this.state.startHeight + deltaY;
@@ -170,12 +171,18 @@ class BlockWindowWrap extends React.Component {
             console.log("дельта сдвига: "+deltaDX+"/"+deltaDY);
             console.log("---------------");
             
+            //window sizes
+            let clientWidth=window.innerWidth;
+            let clientHeight=window.innerHeight;
+            console.log("window sizes: "+clientWidth,clientHeight)
+
+            //new coordinates when moving + limitation
             let left = this.state.startLeft + deltaDX;
+            (left < 0 && (left = 0)) || (left > clientWidth-321 && (left = clientWidth-321)); //max size width
             let top = this.state.startTop + deltaDY;
-
-            console.log("Новые координаты: "+left+"/"+top);
+            (top < 0 && (top = 0)) || (top > clientHeight-372 && (top = clientHeight-372));//max size height
+            console.log("new coordinates when moving: "+left+"/"+top);
             console.log("---------------");
-
 
 
             this.setState({
