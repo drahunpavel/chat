@@ -32,7 +32,7 @@ class BlockWindowWrap extends React.Component {
         sizeY: 372,
         sizeX: 321,
 
-        zindex: 1,//z-index выбранного окна
+        zindex: 9000,//z-index выбранного окна
     }
 
     WindowButtonStartChat = (EO) => {
@@ -63,6 +63,7 @@ class BlockWindowWrap extends React.Component {
 
             this.setState({
                 beginResize: true,
+                
             })
         }
         if (click === "click2") {
@@ -83,22 +84,32 @@ class BlockWindowWrap extends React.Component {
             this.setState({
                 beginDrop: false,
                 isStartedDrop: false,
-                
+
             })
         }
     };
 
+    changeZIndex=(index)=>{
+        if(index==='click'){
+            console.log('click')
+            this.setState({
+                zindex:this.state.zindex+1,
+            })
+        }
+    }
 
 
 
     mouseMove = (EO) => {
-        
+
         if (this.state.beginResize === true) {
 
             //создаем стартовую точку
             if (!this.state.isStartedResize) {
 
                 this.setState({
+
+
                     startX: EO.clientX,
                     startY: EO.clientY,
 
@@ -138,80 +149,36 @@ class BlockWindowWrap extends React.Component {
             if (!this.state.isStartedDrop) {
 
                 this.setState({
-                    // startX: EO.clientX,
-                    // startY: EO.clientY,
 
                     startWidth: this.BlockWindowWrap.offsetWidth,
                     startHeight: this.BlockWindowWrap.offsetHeight,
 
-                    
-                    startDropX:EO.clientX,
-                    startDropY:EO.clientY,
+                    startDropX: EO.clientX,
+                    startDropY: EO.clientY,
 
-                    startTop : this.BlockWindowWrap.offsetTop,
-                    startLeft : this.BlockWindowWrap.offsetLeft,
-
+                    startTop: this.BlockWindowWrap.offsetTop,
+                    startLeft: this.BlockWindowWrap.offsetLeft,
 
                     isStartedDrop: true
                 })
             }
 
-            let deltaDX = EO.clientX- this.state.startLeft;
-            let deltaDY = EO.clientY- this.state.startTop;
+            let deltaDX = EO.clientX - this.state.startLeft;
+            let deltaDY = EO.clientY - this.state.startTop;
 
-            // console.log("Начальные ширина/высота: " + this.state.startWidth + ":" + this.state.startHeight);
-            // console.log("---------------");
+            //let arrElementData = this.BlockWindowWrap.getBoundingClientRect();
 
-            // console.log("дельта смещения: " + deltaX + ":" + deltaY);
-            // console.log("---------------");
-
-            let arrElementData=this.BlockWindowWrap.getBoundingClientRect();
-            
-            //console.log(arrElementData)
-            // let arrTop=arr.top;
-            // let arrLeft=arr.left;
-            // console.log("arrLeft "+arrLeft+" arrTop "+arrTop)
-
-            // let shiftX = EO.pageX - arrLeft;
-            // let shiftY = EO.pageY - arrTop;
-
-            // console.log("shiftX "+shiftX+" shiftY "+shiftY)
-
-
-            let getCoordsY=arrElementData.top+pageYOffset;
-            let getCoordsX=arrElementData.left+pageXOffset;
-                //console.log('Начальные координаты: '+getCoordsX+'/'+getCoordsX)
- //сдвиг курсора относительно верхнего левого угла shiftx/y
-            let shiftx=EO.pageX-getCoordsX;
-            let shifty=EO.pageY-getCoordsY;
-                //console.log('относительно верхнего левого угла: '+shiftx+'/'+shifty)
-
-            //console.log(this.BlockWindowWrap.offsetWidth-EO.clientX)
-
-
-
-            
             //window sizes
-            let clientWidth=window.innerWidth;
-            let clientHeight=window.innerHeight;
+            let clientWidth = window.innerWidth;
+            let clientHeight = window.innerHeight;
 
-            let zzz=this.state.startDropX-this.state.startLeft;
+            let zzz = this.state.startDropX - this.state.startLeft;
             console.log(zzz)
             //new coordinates when moving + limitation
-            let left = this.state.startLeft  + deltaDX-zzz;
-            (left < 0 && (left = 0)) || (left > clientWidth-321 && (left = clientWidth-321)); //max size width
-            let top = this.state.startTop + deltaDY-15;
-            (top < 0 && (top = 0)) || (top > clientHeight-372 && (top = clientHeight-372));//max size height
-
-            
-            console.log("---------------");
-            console.log('левый отступ '+this.state.startLeft)
-            console.log('курсор на экране '+EO.clientX)
-            console.log('Первый клик '+this.state.startDropX)
-           // console.log(this.state.startDropX-this.state.startLeft)
-            //console.log(this.state.startDropX+'/'+this.state.startDropY)
-
-            console.log('длина окна '+this.BlockWindowWrap.offsetWidth)
+            let left = this.state.startLeft + deltaDX - zzz;
+            (left < 0 && (left = 0)) || (left > clientWidth - 321 && (left = clientWidth - 321)); //max size width
+            let top = this.state.startTop + deltaDY - 15;
+            (top < 0 && (top = 0)) || (top > clientHeight - 372 && (top = clientHeight - 372));//max size height
 
             this.setState({
                 locationX: left,
@@ -222,13 +189,11 @@ class BlockWindowWrap extends React.Component {
         }
     }
 
-
-
     forceMouseUp = () => {
         console.log('force mouseUp')//this.setstate {beginResize = false}
         this.setState({
             beginResize: false,
-            beginDrop:false,
+            beginDrop: false,
         })
     }
 
@@ -252,23 +217,21 @@ class BlockWindowWrap extends React.Component {
 
     render() {
         let { btn, title, welcome } = this.props;//деструктуризация
-        //console.log("startX/startY: "+ this.state.startX+"/"+this.state.startY)
-        //console.log(this.state.startDropX, this.state.startDropY, this.state.startTop, this.state.startLeft)
-        
+        console.log(this.state.zindex)
         return (
 
             <div
-
-                style={{position:this.state.position, top: this.state.locationY + "px", left: this.state.locationX + "px", width: this.state.sizeX + "px", height: this.state.sizeY + "px" }}
+                onMouseDown={() => this.changeZIndex('click')}
+                style={{ position: this.state.position, top: this.state.locationY + "px", left: this.state.locationX + "px", width: this.state.sizeX + "px", height: this.state.sizeY + "px" }}
                 className="BlockWindowWrap"
                 ref={BlockWindowWrap => { this.BlockWindowWrap = BlockWindowWrap }}
             //ref="bla" //второй способ через ref
             >
 
-                <div  
-                onMouseDown={() => this.myResize('click3')} onMouseUp={() => this.myResize('click4')}
-                
-                className="header">
+                <div
+                    onMouseDown={() => this.myResize('click3')} onMouseUp={() => this.myResize('click4')}
+
+                    className="header">
                     {title}
                 </div>
 
