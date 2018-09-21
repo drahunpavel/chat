@@ -147,16 +147,17 @@ class BlockWindowWrap extends React.Component {
                     
                     startDropX:EO.clientX,
                     startDropY:EO.clientY,
+
                     startTop : this.BlockWindowWrap.offsetTop,
                     startLeft : this.BlockWindowWrap.offsetLeft,
 
 
-                    isStartedResize: true
+                    isStartedDrop: true
                 })
             }
 
-            let deltaDX = EO.clientX - this.state.startLeft;
-            let deltaDY = EO.clientY - this.state.startTop;
+            let deltaDX = EO.clientX- this.state.startLeft;
+            let deltaDY = EO.clientY- this.state.startTop;
 
             // console.log("Начальные ширина/высота: " + this.state.startWidth + ":" + this.state.startHeight);
             // console.log("---------------");
@@ -164,26 +165,53 @@ class BlockWindowWrap extends React.Component {
             // console.log("дельта смещения: " + deltaX + ":" + deltaY);
             // console.log("---------------");
 
+            let arrElementData=this.BlockWindowWrap.getBoundingClientRect();
+            
+            //console.log(arrElementData)
+            // let arrTop=arr.top;
+            // let arrLeft=arr.left;
+            // console.log("arrLeft "+arrLeft+" arrTop "+arrTop)
 
-            console.log("координаты относительно начала окна: "+this.state.startTop+"/"+this.state.startLeft);
-            console.log("---------------");
+            // let shiftX = EO.pageX - arrLeft;
+            // let shiftY = EO.pageY - arrTop;
 
-            console.log("дельта сдвига: "+deltaDX+"/"+deltaDY);
-            console.log("---------------");
+            // console.log("shiftX "+shiftX+" shiftY "+shiftY)
+
+
+            let getCoordsY=arrElementData.top+pageYOffset;
+            let getCoordsX=arrElementData.left+pageXOffset;
+                //console.log('Начальные координаты: '+getCoordsX+'/'+getCoordsX)
+ //сдвиг курсора относительно верхнего левого угла shiftx/y
+            let shiftx=EO.pageX-getCoordsX;
+            let shifty=EO.pageY-getCoordsY;
+                //console.log('относительно верхнего левого угла: '+shiftx+'/'+shifty)
+
+            //console.log(this.BlockWindowWrap.offsetWidth-EO.clientX)
+
+
+
             
             //window sizes
             let clientWidth=window.innerWidth;
             let clientHeight=window.innerHeight;
-            console.log("window sizes: "+clientWidth,clientHeight)
 
+            let zzz=this.state.startDropX-this.state.startLeft;
+            console.log(zzz)
             //new coordinates when moving + limitation
-            let left = this.state.startLeft + deltaDX;
+            let left = this.state.startLeft  + deltaDX-zzz;
             (left < 0 && (left = 0)) || (left > clientWidth-321 && (left = clientWidth-321)); //max size width
-            let top = this.state.startTop + deltaDY;
+            let top = this.state.startTop + deltaDY-15;
             (top < 0 && (top = 0)) || (top > clientHeight-372 && (top = clientHeight-372));//max size height
-            console.log("new coordinates when moving: "+left+"/"+top);
-            console.log("---------------");
 
+            
+            console.log("---------------");
+            console.log('левый отступ '+this.state.startLeft)
+            console.log('курсор на экране '+EO.clientX)
+            console.log('Первый клик '+this.state.startDropX)
+           // console.log(this.state.startDropX-this.state.startLeft)
+            //console.log(this.state.startDropX+'/'+this.state.startDropY)
+
+            console.log('длина окна '+this.BlockWindowWrap.offsetWidth)
 
             this.setState({
                 locationX: left,
