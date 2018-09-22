@@ -60,29 +60,42 @@ class BlockWindowWrap extends React.Component {
     //Функция отслеживания кликов
     myResize = (click) => {
         if (click === "click1") {
-            console.log("click1")
+            console.log("click1 mouseDown Resize")
             this.setState({
                 beginResize: true,
             })
         };
         if (click === "click2") {
-            console.log("click2")
+            console.log("click2 mouseUp Resize")
             this.setState({
                 beginResize: false,
                 isStartedResize: false
             })
         };
         if (click === "click3") {
-            console.log("click3")
+            console.log("click3 mouseDown Drop")
             this.setState({
                 beginDrop: true,
             })
         };
         if (click === "click4") {
-            console.log("click4")
+            console.log("click4 mouseUp Drop")
             this.setState({
                 beginDrop: false,
                 isStartedDrop: false,
+            })
+        };
+        if (click === "click5") {
+            console.log("click5 mouseDown ResizeLeft")
+            this.setState({
+                beginResizeLeft: true,
+            })
+        };
+        if (click === "click6") {
+            console.log("click6 mouseUp ResizeLeft")
+            this.setState({
+                beginResize: false,
+                beginResizeLeft: false
             })
         };
     };
@@ -115,6 +128,8 @@ class BlockWindowWrap extends React.Component {
                     startWidth: this.BlockWindowWrap.offsetWidth,   
                     startHeight: this.BlockWindowWrap.offsetHeight,
 
+                    startTop: this.BlockWindowWrap.offsetTop,
+                    startLeft: this.BlockWindowWrap.offsetLeft,
 
                     isStartedResize: true
                 })
@@ -124,24 +139,23 @@ class BlockWindowWrap extends React.Component {
             let deltaX = EO.clientX - this.state.startX;
             let deltaY = EO.clientY - this.state.startY;
 
-            console.log("Старт координаты: " + this.state.startX + ":" + this.state.startY);         
-            console.log("Актуальные координаты: " + EO.clientX + ":" + EO.clientY);  
+            let delta2X = this.state.startX - EO.clientX;
+            let delta2Y = this.state.startY- EO.clientY;
+
+            // console.log("Старт координаты: " + this.state.startX + ":" + this.state.startY);         
+            // console.log("Актуальные координаты: " + EO.clientX + ":" + EO.clientY);  
             // console.log("Начальные ширина/высота: " + this.state.startWidth + ":" + this.state.startHeight);
             // console.log("---------------");
 
-            console.log("дельта смещения: " + deltaX + ":" + deltaY);
-            console.log("---------------");
+            // console.log("дельта смещения: " + deltaX + ":" + deltaY);
+            // console.log("---------------");
 
             //new coordinates when resizing + limitation
             let width = this.state.startWidth + deltaX;
-
-
-
             (width < 300 && (width = 300)) || (width > 500 && (width = 500)); //max size width
             let height = this.state.startHeight + deltaY;
             (height < 300 && (height = 300)) || (height > 427 && (height = 427));//max size height
             console.log("реальное изменение размера " + width + ":" + height);
-            // console.log("---------------");
 
             this.setState({
                 //запись в стейт нового размера блока
@@ -151,7 +165,66 @@ class BlockWindowWrap extends React.Component {
 
         };
 
+//ResizeLeft
+        if (this.state.beginResizeLeft === true) {
 
+            //создаем точку для хранения стартовых данных
+            if (!this.state.isStartedResizeLeft) {
+
+                this.setState({
+                    //Стартовые координаты
+                    startX: EO.clientX,
+                    startY: EO.clientY,
+
+                    //начальный размер элемента
+                    startWidth: this.BlockWindowWrap.offsetWidth,   
+                    startHeight: this.BlockWindowWrap.offsetHeight,
+
+                    startTop: this.BlockWindowWrap.offsetTop,
+                    startLeft: this.BlockWindowWrap.offsetLeft,
+
+                    isStartedResize: true
+                })
+            }
+
+            //дельта: актуальные значения - стартовые
+            let deltaX = EO.clientX - this.state.startX;
+            let deltaY = EO.clientY - this.state.startY;
+
+            let delta2X = this.state.startX - EO.clientX;
+            let delta2Y = this.state.startY- EO.clientY;
+
+            // console.log("Старт координаты: " + this.state.startX + ":" + this.state.startY);         
+            // console.log("Актуальные координаты: " + EO.clientX + ":" + EO.clientY);  
+            // console.log("Начальные ширина/высота: " + this.state.startWidth + ":" + this.state.startHeight);
+            // console.log("---------------");
+
+            // console.log("дельта смещения: " + deltaX + ":" + deltaY);
+            // console.log("---------------");
+
+            //new coordinates when resizing + limitation
+            let width = this.state.startWidth + deltaX;
+            (width < 300 && (width = 300)) || (width > 500 && (width = 500)); //max size width
+            let height = this.state.startHeight + deltaY;
+            (height < 300 && (height = 300)) || (height > 427 && (height = 427));//max size height
+            console.log("реальное изменение размера " + width + ":" + height);
+            // console.log("---------------");
+
+            //             //new coordinates when resizing + limitation
+            // let width = this.state.startWidth + delta2X;
+            // (width < 300 && (width = 300)) || (width > 500 && (width = 500)); //max size width
+            // let height = this.state.startHeight + delta2Y;
+            // (height < 300 && (height = 300)) || (height > 427 && (height = 427));//max size height
+            // console.log("реальное изменение размера " + width + ":" + height);
+            // // console.log("---------------");
+
+            this.setState({
+                //запись в стейт нового размера блока
+                sizeX: width,   
+                sizeY: height,
+            })
+
+        };
 
 
 
@@ -165,6 +238,7 @@ class BlockWindowWrap extends React.Component {
 
                     startDropX: EO.clientX,
                     startDropY: EO.clientY,
+                    
                     startX:this.state.startDropX,
                     startY:this.state.startDropY,
 
@@ -209,6 +283,9 @@ class BlockWindowWrap extends React.Component {
         this.setState({
             beginResize: false,
             beginDrop: false,
+
+            isStartedResize: false,
+            isStartedDrop: false,
         })
     }
 
@@ -232,7 +309,8 @@ class BlockWindowWrap extends React.Component {
 
     render() {
         let { btn, title, welcome } = this.props;//деструктуризация
-        
+        //console.log(this.state.startX,this.state.startY)
+        console.log(this.state.startLeft)
         return (
 
             <div
@@ -259,7 +337,7 @@ class BlockWindowWrap extends React.Component {
                 </div>
 
                 <div className="resizeBtnBR" onMouseDown={() => this.myResize('click1')} onMouseUp={() => this.myResize('click2')} ></div>
-                <div className="" onMouseDown={() => this.myResize('click1')} onMouseUp={() => this.myResize('click2')} ></div>
+                <div className="resizeBtnBL" onMouseDown={() => this.myResize('click5')} onMouseUp={() => this.myResize('click6')} ></div>
             </div>
 
 
