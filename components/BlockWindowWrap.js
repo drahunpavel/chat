@@ -29,10 +29,15 @@ class BlockWindowWrap extends React.Component {
         nameIsEmpty: true,
         numberIsEmpty: true,
 
-        sizeY: 372, //начальные размеры окна
-        sizeX: 321,
+        sizeY: 300, //начальные размеры окна
+        sizeX: 300,
 
         zindex: 9000,//z-index выбранного окна
+
+        displayWindow:false,
+
+        locationX:150,
+        locationY:150,
     }
 
     WindowButtonStartChat = (EO) => {
@@ -110,7 +115,15 @@ class BlockWindowWrap extends React.Component {
         };
     };
 
-
+    close=(EO)=>{
+        console.log('click close');
+        this.setState({
+            displayWindow:!this.state.displayWindow,
+            
+            locationX:this.BlockWindowWrap.offsetLeft,
+            locationY:this.BlockWindowWrap.offsetLeft
+        })
+    }
 
     mouseMove = (EO) => {
         //стартовая точка для resize
@@ -156,7 +169,7 @@ class BlockWindowWrap extends React.Component {
             // let height = this.state.startHeight + deltaY;
             let height = this.state.startHeight + deltaY;
             (height < 300 && (height = 300)) || (height > 427 && (height = 427));//max size height
-            console.log("реальное изменение размера " + width + ":" + height);
+            //console.log("реальное изменение размера " + width + ":" + height);
 
             this.setState({
                 //запись в стейт нового размера блока
@@ -320,27 +333,31 @@ class BlockWindowWrap extends React.Component {
 
             <div
                 onMouseDown={() => this.changeZIndex('click')}
+                
                 style={{ position: this.state.position, top: this.state.locationY + "px", left: this.state.locationX + "px", width: this.state.sizeX + "px", height: this.state.sizeY + "px", zIndex: this.state.zindex }}
-                className="BlockWindowWrap"
+                className={'BlockWindowWrap-' + this.state.displayWindow}
                 ref={BlockWindowWrap => { this.BlockWindowWrap = BlockWindowWrap }}
             //ref="bla" //второй способ через ref
             >
+                
 
                 <div
                     onMouseDown={() => this.myResize('click3')} onMouseUp={() => this.myResize('click4')}
 
                     className="header">
-                    {title}
+                    {title} 
+                    
                 </div>
 
                 <div className="main"></div>
-                {welcome}
+                {/* {welcome} */} Добро пожаловать
                 <div className="footer">
                     <button className="buttom">
                         {btn}
+                        
                     </button>
                 </div>
-
+                <div className='close' onClick={this.close}></div>
                 <div className="resizeBtnBR" onMouseDown={() => this.myResize('click1')} onMouseUp={() => this.myResize('click2')} ></div>
                 <div className="" onMouseDown={() => this.myResize('click5')} onMouseUp={() => this.myResize('click6')} ></div>
             </div>
