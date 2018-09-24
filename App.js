@@ -11,9 +11,13 @@ let SocButtons=require('./src/socButtons.json')
 
 class App extends React.Component {
   state = {
-    menuOpen: false
+    menuOpen: false,
+
+    SocButtonsArr:SocButtons,
   };
 
+
+  
   menuIsOpen = () => {
     console.log("click menuIsOpen");
     this.setState({
@@ -25,9 +29,22 @@ class App extends React.Component {
     console.log(SocButtons)
     return (
       // <BlockWindowWrap/>
+      <div>
       <div onClick={this.menuIsOpen} className={this.state.menuOpen ? 'ISocMenuClose':'ISocMenu'}>
 
 
+
+
+      </div>
+      <ul>
+            {this.state.SocButtonsArr.map(v=>
+            <li key={v.code}
+              style={{backgroundImage:v.image, position: "absolute", width: 50+"px", height: 50+"px", backgroundSize: 100+"%"}}
+            >
+              {/* {v.hint} */}
+            </li>
+            )}
+      </ul>
       </div>
     );
   }
