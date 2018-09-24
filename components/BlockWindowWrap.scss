@@ -52,7 +52,7 @@
   .resizeBtnBR {
     width: 15px;
     height: 15px;
-    background-image: url("/images/resizeR.png");
+    background-image: url("/src/images/resizeR.png");
     position: absolute;
     right: 0;
     bottom: 0;
@@ -62,7 +62,7 @@
   .resizeBtnBL {
     width: 15px;
     height: 15px;
-    background-image: url("/images/resizeR.png");
+    background-image: url("/src/images/resizeR.png");
     position: absolute;
     left: 0;
     bottom: 0;
@@ -74,7 +74,7 @@
   .close {
     width: 20px;
     height: 11px;
-    background-image: url("/images/close.png");
+    background-image: url("/src/images/close.png");
     position: absolute;
     right: 10px;
     top: 2px;

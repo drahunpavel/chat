@@ -1,0 +1,72 @@
+.ISocMenu{
+    width: 50px;
+    height: 50px;
+    background-image: url("/src/images/soc_open.png");
+    position: absolute;
+    right: 30px;
+    bottom: 30px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    border-radius: 49px;
+    background-size: 100%;
+    cursor: pointer;
+    animation: socMenuOpen 5s infinite; 
+}
+
+.ISocMenu:hover{
+    width: 50px;
+    height: 50px;
+    background-image: url("/src/images/soc_open.png");
+    position: absolute;
+    right: 30px;
+    bottom: 30px;
+    background-size: 100%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    border-radius: 49px;
+    cursor: pointer;
+    animation:socMenuClose 0.8s 1 forwards;
+}
+
+.ISocMenuClose{
+    width: 50px;
+    height: 50px;
+    background-image: url("/src/images/soc_close.png");
+    position: absolute;
+    right: 30px;
+    bottom: 30px;
+    background-size: 100%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    border-radius: 49px;
+    cursor: pointer;
+}
+.ISocMenuClose:hover{
+    width: 50px;
+    height: 50px;
+    background-image: url("/src/images/soc_close.png");
+    position: absolute;
+    right: 30px;
+    bottom: 30px;
+    background-size: 100%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    border-radius: 49px;
+    cursor: pointer;
+    animation:socMenuClose 0.8s 1 forwards;
+}
+
+@keyframes socMenuClose{
+    from {transform: scale(1);}
+    // 50% {transform: scale(1);}
+    to {transform: scale(1.2);}
+}
+@keyframes socMenuOpen{
+0%{transform: scale(1);}
+10%{transform: scale(1);}
+20%{transform: scale(1);}
+30%{transform: scale(1);}
+40%{transform: scale(1);}
+50%{transform: scale(1);}
+60%{transform: scale(1);}
+70%{transform: scale(1);}
+80%{transform: scale(1);}
+90%{transform: scale(1);}
+100%{transform: scale(1.2);}
+}

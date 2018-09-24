@@ -1,0 +1,38 @@
+[
+    { 
+        "id": "SocMenuCallBack", 
+        "image": "callback.png",
+        "hint": "Заказать звонок", 
+        "way": "#0"
+    },
+    { 
+        "id": "SocMenuMail", 
+        "image": "mail.png",
+        "hint": "Отправить вопрос на Email", 
+        "way": "#0"
+    },
+    { 
+        "id": "SocMenuChat", 
+        "image": "chat.png",
+        "hint": "Чат с банком", 
+        "way": "#0"
+    },
+    { 
+        "id": "SocMenuTelegram", 
+        "image": "telegram.png",
+        "hint": "Написать в Telegram", 
+        "way": "http://telegram.me/BPS_SBERBANKBOT"
+    },
+    { 
+        "id":"SocMenuFacebook",
+        "image": "facebook.png",
+        "hint": "Написать в Messenger", 
+        "way": "https://www.messenger.com/t/sberbank.bps"
+    },
+    { 
+        "id": "SocMenuViber", 
+        "image": "viber.png",
+        "hint": "Написать в Viber", 
+        "way": "viber://pa?chatURI=bps-sberbank"
+    }
+]
