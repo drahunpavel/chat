@@ -27,6 +27,46 @@
   .main {
     text-align: left;
     margin: 30px 0px;
+
+    .WindowWelcome {
+      font: 18px/22px "Arial", "Tahoma", "Helevetica", sans-serif;
+      margin-bottom: 8px;
+      font-weight: 400;
+      margin-top: 40px;
+      margin-left:5px;
+    }
+    .WindowFieldLabel {
+      color: #a6a6a6;
+      font: 12px/18px "Arial", "Tahoma", "Helevetica", sans-serif;
+      margin-bottom: 12px;
+    }
+    .WindowFieldControlFrame {
+      border-bottom: 1px solid #cccccc;
+      background: #ffffff;
+      margin-bottom: 5px;
+      line-height: 1;
+      padding: 4px;
+      color: #666666;
+      /* position: relative; */
+    }
+    .WindowFieldEdit {
+      font-size: 16px;
+      line-height: 18px;
+      color: #000;
+      outline: none;
+      height: 18px;
+      border-style: none;
+      font-weight: 600;
+      width: 100%;
+    }
+    .WindowFieldError {
+      position: absolute;
+      color: #f80000;
+      font: italic 11px/0.5 "Arial", "Tahoma", "Helevetica", sans-serif;
+    }
+    .WindowFieldError-display-none {
+      display: none;
+    }
   }
 
   .footer {
@@ -45,8 +85,11 @@
       color: #fff;
       text-align: center;
       font-weight: bold;
+
     }
-    button:focus {outline:0;}
+    .buttom:focus {
+      outline:0;
+    }
   }
 
   .resizeBtnBR {

@@ -3,10 +3,6 @@ import ReactDOM from 'react-dom';
 import Fragment from 'render-fragment';
 import PropTypes from 'prop-types';
 
-import ViewChatComponent from './ViewChatComponent';
-import ViewRequestCallComponent from "./ViewRequestCallComponent";
-import ViewAskQuestionComponent from "./ViewAskQuestionComponent";
-
 
 
 import './BlockWindowWrap.scss';
@@ -29,15 +25,15 @@ class BlockWindowWrap extends React.Component {
         nameIsEmpty: true,
         numberIsEmpty: true,
 
-        sizeY: 300, //начальные размеры окна
+        sizeY: 400, //начальные размеры окна
         sizeX: 300,
 
         zindex: 9000,//z-index выбранного окна
 
-        displayWindow:false,
+        displayWindow: false,
 
-        locationX:150,
-        locationY:150,
+        locationX: this.props.startLeftChat,
+        locationY: this.props.startTopChat,
     }
 
     WindowButtonStartChat = (EO) => {
@@ -115,13 +111,13 @@ class BlockWindowWrap extends React.Component {
         };
     };
 
-    close=(EO)=>{
+    close = (EO) => {
         console.log('click close');
         this.setState({
-            displayWindow:!this.state.displayWindow,
-            
-            locationX:this.BlockWindowWrap.offsetLeft,
-            locationY:this.BlockWindowWrap.offsetLeft
+            displayWindow: !this.state.displayWindow,
+
+            locationX: this.BlockWindowWrap.offsetLeft,
+            locationY: this.BlockWindowWrap.offsetLeft
         })
     }
 
@@ -165,10 +161,10 @@ class BlockWindowWrap extends React.Component {
 
             //new coordinates when resizing + limitation
             let width = this.state.startWidth + deltaX;
-            (width < 300 && (width = 300)) || (width > 500 && (width = 500)); //max size width
+            (width < 300 && (width = 300)) || (width > 600 && (width = 600)); //max size width
             // let height = this.state.startHeight + deltaY;
             let height = this.state.startHeight + deltaY;
-            (height < 300 && (height = 300)) || (height > 427 && (height = 427));//max size height
+            (height < 400 && (height = 400)) || (height > 550 && (height = 550));//max size height
             //console.log("реальное изменение размера " + width + ":" + height);
 
             this.setState({
@@ -295,7 +291,7 @@ class BlockWindowWrap extends React.Component {
 
 
     forceMouseUp = () => {
-        console.log('force mouseUp')
+        //  console.log('force mouseUp')
         this.setState({
             beginResizeLeft: false,
             beginResize: false,
@@ -325,38 +321,250 @@ class BlockWindowWrap extends React.Component {
 
     }
 
+
+    //Отображение содержимого в окошках
+
+    //////////////////////////////////Рендер "Запросить звонок"
+    renderCallBackTitle = () => {
+        return (
+            <div className="WindowHead">Заказать звонок</div>
+        )
+    }
+    renderCallBackWelcome = () => {
+        return (
+            <div className="WindowWelcome">Вас приветствует БПС-Сбербанк. Задайте интересующий вопрос.</div>
+        )
+    }
+    renderCallBackMain = () => {
+        return (
+            <div>
+                <div className="WindowFieldLabel">Ваше имя:
+          <div className="WindowFieldControlFrame">
+                        <input
+                            className="WindowFieldEdit"
+                            type="text"
+                            ref="fieldName"
+                            onChange={this.onFieldChange.bind(this, "nameIsEmpty")} />
+                    </div>
+                    <div className={this.state.nameIsEmpty ? "WindowFieldError" : "WindowFieldError-display-none"}>Введите свое имя</div>
+                </div>
+
+                <div className="WindowFieldLabel">Ваш телефон:
+          <div className="WindowFieldControlFrame">
+                        <input
+                            className="WindowFieldEdit"
+                            type="text"
+
+                            ref="fieldNumber"
+                            onChange={this.onFieldChange.bind(this, "numberIsEmpty")} />
+                    </div>
+                    <div
+                        className={this.state.numberIsEmpty ? "WindowFieldError" : "WindowFieldError-display-none"}>
+                        Введите номер телефона
+          </div>
+                </div>
+
+                <div className="WindowFieldLabel">Тема обращения:
+          <div className="WindowFieldControlFrame">
+  
+                        <select
+                            className="WindowFieldEdit">
+                            <option value="volvo">Депозиты</option>
+                            <option value="saab">Кредитование юридических лиц</option>
+                            <option value="vw">Кредитование</option>
+                            <option value="audi">Услуги БПС Сбербанка</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div className="WindowFieldLabel">Укажите удобное время звонка
+                    <div className="WindowFieldControlFrame">
+
+                        <select
+                            className="WindowFieldEdit">
+                            <option value="volvo">С 9:00 до 10:00</option>
+                            <option value="saab">С 11:00 до 12:00</option>
+                            <option value="vw">С 12:00 до 13:00</option>
+                            <option value="audi">С 13:00 до 14:00</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div className="WindowFieldLabel">График работы контакт-центра:&nbsp;<strong className="strong-style">Круглосуточно</strong>
+                </div>
+            </div>
+        )
+    }
+    renderCallBackButtom = () => {
+        return (
+            <div className="footer">
+                <button
+                    className="buttom"
+                //onClick={this.WindowButtonStartChat}
+                //disabled={nameIsEmpty || numberIsEmpty}
+                >
+                    Перезвоните мне
+            </button>
+            </div>
+        )
+    }
+    //////////////////////////////////Конец Рендера "Запросить звонок"
+
+
+    //////////////////////////////////Рендер "Отправить вопрос"
+    renderMailtitle = () => {
+        return (
+            <div className="WindowHead">Задать вопрос</div>
+        )
+    }
+    renderMailWelcome = () => {
+        return (
+            <div className="WindowWelcome">Вас приветствует БПС-Сбербанк. Задайте интересующий вопрос.</div>
+        )
+    }
+    renderMailMain = () => {
+        return (
+            <div>
+                <div className="WindowFieldLabel">Ваше имя:
+            <div className="WindowFieldControlFrame">
+                        <input
+                            className="WindowFieldEdit"
+                            type="text"
+                            ref="fieldName"
+                            onChange={this.onFieldChange.bind(this, "nameIsEmpty")} />
+                    </div>
+                    <div className={this.state.nameIsEmpty ? "WindowFieldError" : "WindowFieldError-display-none"}>Введите свое имя</div>
+                </div>
+
+                <div className="WindowFieldLabel">Номер телефона:
+            <div className="WindowFieldControlFrame">
+                        <input
+                            className="WindowFieldEdit"
+                            type="text"
+
+                            ref="fieldNumber"
+                            onChange={this.onFieldChange.bind(this, "numberIsEmpty")} />
+                    </div>
+                    <div
+                        className={this.state.numberIsEmpty ? "WindowFieldError" : "WindowFieldError-display-none"}>
+                        Введите номер телефона
+                    </div>
+                </div>
+            </div>
+        )
+    }
+    renderMailButtom = () => {
+        return (
+            <div className="footer">
+                <button
+                    className="buttom"
+                //onClick={this.WindowButtonStartChat}
+                //disabled={nameIsEmpty || numberIsEmpty}
+                >
+                    Свяжитесь со мной
+            </button>
+            </div>
+        )
+    }
+    //////////////////////////////////Конец Рендера ""Отправить вопрос"
+
+
+    //////////////////////////////////Рендер чата
+    renderChatTitle = () => {
+        return (
+            <div className="WindowHead">Чат с банком</div>
+        )
+    }
+    renderChatWelcome = () => {
+        return (
+            <div className="WindowWelcome">Вас приветствует БПС-Сбербанк. Задайте интересующий вопрос.</div>
+        )
+    }
+    renderChatMain = () => {
+        return (
+            <div>
+                <div className="WindowFieldLabel">Ваше имя:
+            <div className="WindowFieldControlFrame">
+                        <input
+                            className="WindowFieldEdit"
+                            type="text"
+                            ref="fieldName"
+                            onChange={this.onFieldChange.bind(this, "nameIsEmpty")} />
+                    </div>
+                    <div className={this.state.nameIsEmpty ? "WindowFieldError" : "WindowFieldError-display-none"}>Введите свое имя</div>
+                </div>
+
+                <div className="WindowFieldLabel">Номер телефона:
+            <div className="WindowFieldControlFrame">
+                        <input
+                            className="WindowFieldEdit"
+                            type="text"
+
+                            ref="fieldNumber"
+                            onChange={this.onFieldChange.bind(this, "numberIsEmpty")} />
+                    </div>
+                    <div
+                        className={this.state.numberIsEmpty ? "WindowFieldError" : "WindowFieldError-display-none"}>
+                        Введите номер телефона
+            </div>
+                </div>
+            </div>
+        )
+    }
+    renderChatButtom = () => {
+        return (
+            <div className="footer">
+                <button
+                    className="buttom"
+                //onClick={this.WindowButtonStartChat}
+                //disabled={nameIsEmpty || numberIsEmpty}
+                >
+                    Начать чат
+            </button>
+            </div>
+        )
+    }
+    //////////////////////////////////Конец Рендера чата
+
+
     render() {
         let { btn, title, welcome } = this.props;//деструктуризация
-        //console.log(this.state.startX,this.state.startY)
-        //console.log(this.state.startLeft)
+
         return (
 
             <div
                 onMouseDown={() => this.changeZIndex('click')}
-                
+
                 style={{ position: this.state.position, top: this.state.locationY + "px", left: this.state.locationX + "px", width: this.state.sizeX + "px", height: this.state.sizeY + "px", zIndex: this.state.zindex }}
                 className={'BlockWindowWrap-' + this.state.displayWindow}
                 ref={BlockWindowWrap => { this.BlockWindowWrap = BlockWindowWrap }}
             //ref="bla" //второй способ через ref
             >
-                
+
 
                 <div
                     onMouseDown={() => this.myResize('click3')} onMouseUp={() => this.myResize('click4')}
-
                     className="header">
-                    {title} 
-                    
+                    {this.props.CallBack && this.renderCallBackTitle()}
+                    {this.props.Mail && this.renderMailtitle()}
+                    {this.props.Chat && this.renderChatTitle()}
                 </div>
 
-                <div className="main"></div>
-                {/* {welcome} */} Добро пожаловать
-                <div className="footer">
-                    <button className="buttom">
-                        {btn}
-                        
-                    </button>
+                <div className="main">
+                    {this.props.CallBack && this.renderCallBackWelcome()}
+                    {this.props.CallBack && this.renderCallBackMain()}
+
+                    {this.props.Mail && this.renderMailWelcome()}
+                    {this.props.Mail && this.renderMailMain()}
+
+                    {this.props.Chat && this.renderChatWelcome()}
+                    {this.props.Chat && this.renderChatMain()}
                 </div>
+
+                {this.props.CallBack && this.renderCallBackButtom()}
+                {this.props.Mail && this.renderMailButtom()}
+                {this.props.Chat && this.renderChatButtom()}
+
                 <div className='close' onClick={this.close}></div>
                 <div className="resizeBtnBR" onMouseDown={() => this.myResize('click1')} onMouseUp={() => this.myResize('click2')} ></div>
                 <div className="" onMouseDown={() => this.myResize('click5')} onMouseUp={() => this.myResize('click6')} ></div>

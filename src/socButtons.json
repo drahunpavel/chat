@@ -16,7 +16,7 @@
     { 
         "code":3,
         "id": "SocMenuChat", 
-        "image": "url(chat.png)",
+        "image": "url(/src/images/chat.png)",
         "hint": "Чат с банком", 
         "way": "#0"
     },
