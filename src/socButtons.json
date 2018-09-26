@@ -1,21 +1,21 @@
 [
     { 
         "code":1,
-        "id": "SocMenuCallBack", 
+        "id": "CallBack", 
         "image": "url(/src/images/callback.png)",
         "hint": "Заказать звонок", 
         "way": "#0"
     },
     { 
         "code":2,
-        "id": "SocMenuMail", 
+        "id": "Mail", 
         "image": "url(/src/images/mail.png)",
         "hint": "Отправить вопрос на Email", 
         "way": "#0"
     },
     { 
         "code":3,
-        "id": "SocMenuChat", 
+        "id": "Chat", 
         "image": "url(/src/images/chat.png)",
         "hint": "Чат с банком", 
         "way": "#0"

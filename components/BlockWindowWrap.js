@@ -30,7 +30,7 @@ class BlockWindowWrap extends React.Component {
 
         zindex: 9000,//z-index выбранного окна
 
-        displayWindow: false,
+        
 
         locationX: this.props.startLeftChat,
         locationY: this.props.startTopChat,
@@ -110,12 +110,22 @@ class BlockWindowWrap extends React.Component {
             })
         };
     };
-
+    //функция сворачивания окна
     close = (EO) => {
-        console.log('click close');
-        this.setState({
-            displayWindow: !this.state.displayWindow,
 
+        let zzz;
+        if(this.props.CallBack){
+            zzz='1';
+        }
+        if(this.props.Mail){
+            zzz='2';
+        }
+        if(this.props.Chat){
+            zzz='3';
+        }
+        this.props.cbClose(zzz);
+        this.setState({
+            //displayWindow: true,
             locationX: this.BlockWindowWrap.offsetLeft,
             locationY: this.BlockWindowWrap.offsetLeft
         })
@@ -321,6 +331,21 @@ class BlockWindowWrap extends React.Component {
 
     }
 
+    static getDerivedStateFromProps(props, state){
+        let isHide=true
+        if(props.CallBack&&props.isCallBack){
+            isHide=false;
+        }
+        if(props.Mail&&props.isMail){
+            isHide=false;
+        }
+        if(props.Chat&&props.isChat){
+            isHide=false;
+        }
+        return {
+            displayWindow: isHide,
+        }
+    }
 
     //Отображение содержимого в окошках
 
@@ -529,7 +554,7 @@ class BlockWindowWrap extends React.Component {
 
     render() {
         let { btn, title, welcome } = this.props;//деструктуризация
-
+        console.log("--0",this.state.displayWindow)
         return (
 
             <div
