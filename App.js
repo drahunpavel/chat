@@ -170,7 +170,7 @@ class App extends React.Component {
                   onClick={() => this.isSelected(v.code, v.hint)}//передача в isSelected номера выбранного элемента
                   data-product-id={v.code}
                   data-tooltip={v.hint}
-                  style={{ backgroundImage: v.image }} tooltip
+                  style={{ backgroundImage: v.image }}
                 >
                   <div className={this.state.menuOpen ? 'tooltip' : 'tooltip-none'}>{v.hint}</div>
                 </div>
