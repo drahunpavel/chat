@@ -31,7 +31,7 @@ class BlockWindowWrap extends React.Component {
         zindex: 9000,//z-index выбранного окна
 
         
-
+        //top,left координаты окна после изменений 
         locationX: this.props.startLeftChat,
         locationY: this.props.startTopChat,
     }
@@ -61,39 +61,39 @@ class BlockWindowWrap extends React.Component {
     //Функция отслеживания кликов
     myResize = (click) => {
         if (click === "click1") {
-            console.log("click1 mouseDown Resize")
+            //console.log("click1 mouseDown Resize")
             this.setState({
                 beginResize: true,
             })
         };
         if (click === "click2") {
-            console.log("click2 mouseUp Resize")
+            //console.log("click2 mouseUp Resize")
             this.setState({
                 beginResize: false,
                 isStartedResize: false
             })
         };
         if (click === "click3") {
-            console.log("click3 mouseDown Drop")
+            //console.log("click3 mouseDown Drop")
             this.setState({
                 beginDrop: true,
             })
         };
         if (click === "click4") {
-            console.log("click4 mouseUp Drop")
+            //console.log("click4 mouseUp Drop")
             this.setState({
                 beginDrop: false,
                 isStartedDrop: false,
             })
         };
         if (click === "click5") {
-            console.log("click5 mouseDown ResizeLeft")
+            //console.log("click5 mouseDown ResizeLeft")
             this.setState({
                 beginResizeLeft: true,
             })
         };
         if (click === "click6") {
-            console.log("click6 mouseUp ResizeLeft")
+            //console.log("click6 mouseUp ResizeLeft")
             this.setState({
                 beginResize: false,
                 beginResizeLeft: false
@@ -104,30 +104,35 @@ class BlockWindowWrap extends React.Component {
     //функция измененения Z-index
     changeZIndex = (index) => {
         if (index === 'click') {
-            console.log('click')
+            //console.log('click')
             this.setState({
                 zindex: this.state.zindex + 1,
             })
         };
     };
-    //функция сворачивания окна
-    close = (EO) => {
 
-        let zzz;
+    //функция сворачивания окна
+    close = () => {
+        //console.log(this.props)
+        let closeWindow;
         if(this.props.CallBack){
-            zzz='1';
+            //console.log('close win1 ')
+            closeWindow='1';
         }
         if(this.props.Mail){
-            zzz='2';
+            //console.log('close win2 ')
+            closeWindow='2';
         }
         if(this.props.Chat){
-            zzz='3';
+            //console.log('close win3 ')
+            closeWindow='3';
         }
-        this.props.cbClose(zzz);
+        //передаем в родитель номер свернутого окна
+        this.props.cbClose(closeWindow);
         this.setState({
             //displayWindow: true,
             locationX: this.BlockWindowWrap.offsetLeft,
-            locationY: this.BlockWindowWrap.offsetLeft
+            locationY: this.BlockWindowWrap.offsetTop
         })
     }
 
@@ -313,42 +318,9 @@ class BlockWindowWrap extends React.Component {
         })
     }
 
-    //Объявляем
-    componentDidMount() {
-        //let { myMouse } = this;
 
-        //console.log(this.refs.bla.offsetWidth) // второй способ через ref
-        window.addEventListener('mousedown', this.onMouseDown);
-        window.addEventListener('mouseup', this.forceMouseUp);
-        window.addEventListener('mousemove', this.mouseMove);
-
-    }
-    //Удаляем
-    componentWillUnmount() {
-        window.removeEventListener('mousedown', this.onMouseDown);
-        window.removeEventListener('onmouseup', this.forceMouseUp);
-        window.removeEventListener('mousemove', this.mouseMove);
-
-    }
-
-    static getDerivedStateFromProps(props, state){
-        let isHide=true
-        if(props.CallBack&&props.isCallBack){
-            isHide=false;
-        }
-        if(props.Mail&&props.isMail){
-            isHide=false;
-        }
-        if(props.Chat&&props.isChat){
-            isHide=false;
-        }
-        return {
-            displayWindow: isHide,
-        }
-    }
-
+    
     //Отображение содержимого в окошках
-
     //////////////////////////////////Рендер "Запросить звонок"
     renderCallBackTitle = () => {
         return (
@@ -552,9 +524,49 @@ class BlockWindowWrap extends React.Component {
     //////////////////////////////////Конец Рендера чата
 
 
+    //Объявляем
+    componentDidMount() {
+        //let { myMouse } = this;
+
+        //console.log(this.refs.bla.offsetWidth) // второй способ через ref
+        window.addEventListener('mousedown', this.onMouseDown);
+        window.addEventListener('mouseup', this.forceMouseUp);
+        window.addEventListener('mousemove', this.mouseMove);
+
+    }
+    //Удаляем
+    componentWillUnmount() {
+        window.removeEventListener('mousedown', this.onMouseDown);
+        window.removeEventListener('onmouseup', this.forceMouseUp);
+        window.removeEventListener('mousemove', this.mouseMove);
+
+    }
+
+    static getDerivedStateFromProps(props, state){
+        let isHide=true
+        if(props.CallBack&&props.isCallBack){
+            isHide=false;
+
+        }
+        if(props.Mail&&props.isMail){
+            isHide=false;
+        }
+        if(props.Chat&&props.isChat){
+            isHide=false;
+        }
+        return {
+            displayWindow: isHide,
+        }
+    }
+
+
+
     render() {
         let { btn, title, welcome } = this.props;//деструктуризация
-        console.log("--0",this.state.displayWindow)
+        if(this.props.CallBack){
+        }
+        
+
         return (
 
             <div

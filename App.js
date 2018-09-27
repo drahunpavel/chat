@@ -17,61 +17,69 @@ class App extends React.Component {
 
     SocButtonsArr: SocButtons,
 
-    cht1:false,
-    cht2:false,
-    cht3:false,
+    //состояние открытия каждого из окон
+    //начальное состояние false=закрыто
+    //cht1=CallBack
+    //cht2=Mail
+    //cht3=Chat
+    cht1: false,
+    cht2: false,
+    cht3: false,
   };
 
 
   //проверка состояния меню
   menuIsOpen = () => {
-    console.log("click menuIsOpen");
+    //console.log("click menuIsOpen");
     this.setState({
       menuOpen: !this.state.menuOpen,
     })
   };
 
-  isSelected=(EO)=>{
-
- 
-    if(EO===1){
- 
-      this.setState({
-          menuOpen: false,
-          //isSelectedType:v.id,
-          cht1:!this.state.cht1,
-      }) 
-    }
-    if(EO===2){
+  //функция выбранной иконки из меню
+    //1=cht1=CallBack
+    //2=cht2=Mail
+    //3=cht3=Chat
+  isSelected = (fieldNumber) => {
+    if (fieldNumber === 1) {
       this.setState({
         menuOpen: false,
-        //isSelectedType:v.id,
-        cht2:!this.state.cht2,
-      }) 
+        cht1: !this.state.cht1,
+      })
     }
-    if(EO===3){
+    if (fieldNumber === 2) {
       this.setState({
         menuOpen: false,
-        //isSelectedType:v.id,
-        cht3:!this.state.cht3,
-      }) 
+        cht2: !this.state.cht2,
+      })
+    }
+    if (fieldNumber === 3) {
+      this.setState({
+        menuOpen: false,
+        cht3: !this.state.cht3,
+      })
     }
   }
 
-  cbCloseStatus=(zzz)=>{
-    if(zzz==='1'){
+  //функция првоерки закрытого состояния
+    //1=cht1=CallBack
+    //2=cht2=Mail
+    //3=cht3=Chat
+  cbCloseStatus = (closedWindow) => {
+    if (closedWindow === '1') {
+      console.log('closedWindow '+closedWindow)
       this.setState({
-        cht1:!this.state.cht1,
+        cht1: !this.state.cht1,
       })
     }
-    if(zzz==='2'){
+    if (closedWindow === '2') {
       this.setState({
-        cht2:!this.state.cht2,
+        cht2: !this.state.cht2,
       })
     }
-    if(zzz==='3'){
+    if (closedWindow === '3') {
       this.setState({
-        cht3:!this.state.cht3,
+        cht3: !this.state.cht3,
       })
     }
   }
@@ -80,7 +88,7 @@ class App extends React.Component {
     //размеры окна
     let clientWidth = window.innerWidth;
     let clientHeight = window.innerHeight;
-
+    // console.log(this.state.cht1)
     return (
       <div>
 
@@ -90,8 +98,10 @@ class App extends React.Component {
           isCallBack={this.state.cht1}
           cbClose={this.cbCloseStatus}
           //startLeftChat, startTopChat - координаты стартового расположения полей
-          startLeftChat={clientWidth-420}
-          startTopChat={clientHeight-510}
+          startLeftChat={clientWidth - 420}
+          startTopChat={clientHeight - 510}
+          // startLeftChat={0}
+          // startTopChat={0}
         />
 
         {/* Mail-ответить email */}
@@ -99,8 +109,8 @@ class App extends React.Component {
           Mail
           isMail={this.state.cht2}
           cbClose={this.cbCloseStatus}
-          startLeftChat={clientWidth-440}
-          startTopChat={clientHeight-480}
+          startLeftChat={clientWidth - 440}
+          startTopChat={clientHeight - 480}
         />
 
         {/* Chat-чат с оператором */}
@@ -108,26 +118,23 @@ class App extends React.Component {
           Chat
           isChat={this.state.cht3}
           cbClose={this.cbCloseStatus}
-          startLeftChat={clientWidth-460}
-          startTopChat={clientHeight-450}
+          startLeftChat={clientWidth - 460}
+          startTopChat={clientHeight - 450}
         />
 
         <div onClick={this.menuIsOpen} className={this.state.menuOpen ? 'ISocMenuClose' : 'ISocMenu'}>
         </div>
-        
+
         {/*Перебор с подготовленного JSON всех элементов меню с иконками*/}
         <div className='SocButtons'>
           {this.state.SocButtonsArr.map(v =>
             <div
               className={this.state.menuOpen ? "menuSelection" : "null"}
-              onClick={()=>this.isSelected(v.code)}
+              onClick={() => this.isSelected(v.code)}//передача в isSelected номера выбранного элемента
               key={v.code}
               data-product-id={v.code}
               style={{ backgroundImage: v.image }}
             >
-
-
-
             </div>
           )}
 
