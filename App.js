@@ -43,8 +43,11 @@ class App extends React.Component {
   //1=cht1=CallBack
   //2=cht2=Mail
   //3=cht3=Chat
-  isSelected = (fieldNumber) => {
+  isSelected = (fieldNumber, EO) => {
     if (fieldNumber === 1) {
+
+      let zzzzz = EO
+      console.log(zzzzz)
       this.setState({
         cht1: !this.state.cht1,
       })
@@ -161,14 +164,17 @@ class App extends React.Component {
             <div key={v.code}>
               {/* Ниже выборка всех элементов без ссылок */}
               {v.way === '' &&
+
                 <div
                   className={this.state.menuOpen ? "menuSelection" : "null"}
-                  onClick={() => this.isSelected(v.code)}//передача в isSelected номера выбранного элемента
+                  onClick={() => this.isSelected(v.code, v.hint)}//передача в isSelected номера выбранного элемента
                   data-product-id={v.code}
                   data-tooltip={v.hint}
-                  style={{ backgroundImage: v.image }}
+                  style={{ backgroundImage: v.image }} tooltip
                 >
+                  <div className={this.state.menuOpen ? 'tooltip' : 'tooltip-none'}>{v.hint}</div>
                 </div>
+
               }
               {/* Ниже выборка всех элементов с ссылками */}
               {v.way != '' &&
@@ -180,6 +186,7 @@ class App extends React.Component {
                     data-tooltip={v.hint}
                     style={{ backgroundImage: v.image }}
                   >
+                    <div className={this.state.menuOpen ? 'tooltip' : 'tooltip-none'}>{v.hint}</div>
                   </div>
                 </a>
               }
