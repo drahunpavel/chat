@@ -28,7 +28,7 @@ class BlockWindowWrap extends React.Component {
         sizeY: 400, //начальные размеры окна
         sizeX: 300,
 
-        zindex: 9000,//z-index выбранного окна
+        //zindex: 9000,//z-index выбранного окна
 
         
         //top,left координаты окна после изменений 
@@ -101,12 +101,13 @@ class BlockWindowWrap extends React.Component {
         };
     };
 
-    //функция измененения Z-index
     changeZIndex = (index) => {
         if (index === 'click') {
             //console.log('click')
+
+            this.props.cbchangeZIndex(index);
             this.setState({
-                zindex: this.state.zindex + 1,
+                zindex:this.props.counterZindex
             })
         };
     };
@@ -135,6 +136,8 @@ class BlockWindowWrap extends React.Component {
             locationY: this.BlockWindowWrap.offsetTop
         })
     }
+
+
 
     mouseMove = (EO) => {
         //стартовая точка для resize
@@ -324,6 +327,7 @@ class BlockWindowWrap extends React.Component {
     //////////////////////////////////Рендер "Запросить звонок"
     renderCallBackTitle = () => {
         return (
+            
             <div className="WindowHead">Заказать звонок</div>
         )
     }
@@ -532,7 +536,7 @@ class BlockWindowWrap extends React.Component {
         window.addEventListener('mousedown', this.onMouseDown);
         window.addEventListener('mouseup', this.forceMouseUp);
         window.addEventListener('mousemove', this.mouseMove);
-
+        
     }
     //Удаляем
     componentWillUnmount() {
@@ -563,10 +567,6 @@ class BlockWindowWrap extends React.Component {
 
     render() {
         let { btn, title, welcome } = this.props;//деструктуризация
-        if(this.props.CallBack){
-        }
-        
-
         return (
 
             <div

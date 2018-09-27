@@ -25,6 +25,9 @@ class App extends React.Component {
     cht1: false,
     cht2: false,
     cht3: false,
+
+    //счетчик zIndex
+    counterZindex:9000,
   };
 
 
@@ -67,7 +70,7 @@ class App extends React.Component {
     //3=cht3=Chat
   cbCloseStatus = (closedWindow) => {
     if (closedWindow === '1') {
-      console.log('closedWindow '+closedWindow)
+      //console.log('closedWindow '+closedWindow)
       this.setState({
         cht1: !this.state.cht1,
       })
@@ -83,12 +86,24 @@ class App extends React.Component {
       })
     }
   }
-
+  //функция изменения Z-index
+  cbZindex=(clickOnWindow)=>{
+    if (clickOnWindow){
+      this.setState({
+        counterZindex:this.state.counterZindex+1,
+      })
+    }
+  }
+  
+  showingTooltip=()=>{
+        
+  }
   render() {
     //размеры окна
     let clientWidth = window.innerWidth;
     let clientHeight = window.innerHeight;
     // console.log(this.state.cht1)
+
     return (
       <div>
 
@@ -97,6 +112,10 @@ class App extends React.Component {
           CallBack
           isCallBack={this.state.cht1}
           cbClose={this.cbCloseStatus}
+
+          cbchangeZIndex={this.cbZindex}
+          counterZindex={this.state.counterZindex+1}
+          
           //startLeftChat, startTopChat - координаты стартового расположения полей
           startLeftChat={clientWidth - 420}
           startTopChat={clientHeight - 510}
@@ -109,6 +128,10 @@ class App extends React.Component {
           Mail
           isMail={this.state.cht2}
           cbClose={this.cbCloseStatus}
+
+          cbchangeZIndex={this.cbZindex}
+          counterZindex={this.state.counterZindex+1}
+
           startLeftChat={clientWidth - 440}
           startTopChat={clientHeight - 480}
         />
@@ -118,6 +141,10 @@ class App extends React.Component {
           Chat
           isChat={this.state.cht3}
           cbClose={this.cbCloseStatus}
+
+          cbchangeZIndex={this.cbZindex}
+          counterZindex={this.state.counterZindex+1}
+
           startLeftChat={clientWidth - 460}
           startTopChat={clientHeight - 450}
         />
@@ -133,6 +160,7 @@ class App extends React.Component {
               onClick={() => this.isSelected(v.code)}//передача в isSelected номера выбранного элемента
               key={v.code}
               data-product-id={v.code}
+              data-tooltip={v.hint}
               style={{ backgroundImage: v.image }}
             >
             </div>
