@@ -43,11 +43,8 @@ class App extends React.Component {
   //1=cht1=CallBack
   //2=cht2=Mail
   //3=cht3=Chat
-  isSelected = (fieldNumber, EO) => {
+  isSelected = (fieldNumber) => {
     if (fieldNumber === 1) {
-
-      let zzzzz = EO
-      console.log(zzzzz)
       this.setState({
         cht1: !this.state.cht1,
       })
@@ -74,7 +71,6 @@ class App extends React.Component {
   //3=cht3=Chat
   cbCloseStatus = (closedWindow) => {
     if (closedWindow === '1') {
-      //console.log('closedWindow '+closedWindow)
       this.setState({
         cht1: !this.state.cht1,
       })
@@ -121,8 +117,6 @@ class App extends React.Component {
           //startLeftChat, startTopChat - координаты стартового расположения полей
           startLeftChat={clientWidth - 420}
           startTopChat={clientHeight - 510}
-        // startLeftChat={0}
-        // startTopChat={0}
         />
 
         {/* Mail-ответить email */}
@@ -151,10 +145,6 @@ class App extends React.Component {
           startTopChat={clientHeight - 450}
         />
 
-        <a>
-
-        </a>
-
         <div onClick={this.menuIsOpen} className={this.state.menuOpen ? 'ISocMenuClose' : 'ISocMenu'}>
         </div>
 
@@ -163,27 +153,43 @@ class App extends React.Component {
           {this.state.SocButtonsArr.map(v =>
             <div key={v.code}>
               {/* Ниже выборка всех элементов без ссылок */}
-              {v.way === '' &&
+              {v.id === 'CallBack' &&//проверка входящего JSON
 
                 <div
                   className={this.state.menuOpen ? "menuSelection" : "null"}
                   onClick={() => this.isSelected(v.code, v.hint)}//передача в isSelected номера выбранного элемента
-                  data-product-id={v.code}
-                  data-tooltip={v.hint}
-                  style={{ backgroundImage: v.image }}
+                  style={this.state.cht1 ? { backgroundImage: v.image2 } : { backgroundImage: v.image }}
                 >
                   <div className={this.state.menuOpen ? 'tooltip' : 'tooltip-none'}>{v.hint}</div>
                 </div>
 
               }
+              {v.id === 'Mail' &&//проверка входящего JSON
+
+                <div
+                  className={this.state.menuOpen ? "menuSelection" : "null"}
+                  onClick={() => this.isSelected(v.code, v.hint)}//передача в isSelected номера выбранного элемента
+                  style={this.state.cht2 ? { backgroundImage: v.image2 } : { backgroundImage: v.image }}
+                >
+                  <div className={this.state.menuOpen ? 'tooltip' : 'tooltip-none'}>{v.hint}</div>
+                </div>
+              }
+              {v.id === 'Chat' &&//проверка входящего JSON
+
+                <div
+                  className={this.state.menuOpen ? "menuSelection" : "null"}
+                  onClick={() => this.isSelected(v.code, v.hint)}//передача в isSelected номера выбранного элемента
+                  style={this.state.cht3 ? { backgroundImage: v.image2 } : { backgroundImage: v.image }}
+                >
+                  <div className={this.state.menuOpen ? 'tooltip' : 'tooltip-none'}>{v.hint}</div>
+                </div>
+              }
               {/* Ниже выборка всех элементов с ссылками */}
-              {v.way != '' &&
+              {v.way != '' &&//проверка входящего JSON
                 <a target="_blank" href={v.way}>
                   <div
                     className={this.state.menuOpen ? "menuSelection" : "null"}
                     onClick={() => this.isSelected(v.code)}//передача в isSelected номера выбранного элемента
-                    data-product-id={v.code}
-                    data-tooltip={v.hint}
                     style={{ backgroundImage: v.image }}
                   >
                     <div className={this.state.menuOpen ? 'tooltip' : 'tooltip-none'}>{v.hint}</div>
