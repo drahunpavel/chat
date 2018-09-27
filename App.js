@@ -27,7 +27,7 @@ class App extends React.Component {
     cht3: false,
 
     //счетчик zIndex
-    counterZindex:9000,
+    counterZindex: 9000,
   };
 
 
@@ -40,34 +40,35 @@ class App extends React.Component {
   };
 
   //функция выбранной иконки из меню
-    //1=cht1=CallBack
-    //2=cht2=Mail
-    //3=cht3=Chat
+  //1=cht1=CallBack
+  //2=cht2=Mail
+  //3=cht3=Chat
   isSelected = (fieldNumber) => {
     if (fieldNumber === 1) {
       this.setState({
-        menuOpen: false,
         cht1: !this.state.cht1,
       })
     }
     if (fieldNumber === 2) {
       this.setState({
-        menuOpen: false,
         cht2: !this.state.cht2,
       })
     }
     if (fieldNumber === 3) {
       this.setState({
-        menuOpen: false,
         cht3: !this.state.cht3,
       })
     }
+
+    this.setState({
+      menuOpen: false,
+    })
   }
 
   //функция првоерки закрытого состояния
-    //1=cht1=CallBack
-    //2=cht2=Mail
-    //3=cht3=Chat
+  //1=cht1=CallBack
+  //2=cht2=Mail
+  //3=cht3=Chat
   cbCloseStatus = (closedWindow) => {
     if (closedWindow === '1') {
       //console.log('closedWindow '+closedWindow)
@@ -87,17 +88,15 @@ class App extends React.Component {
     }
   }
   //функция изменения Z-index
-  cbZindex=(clickOnWindow)=>{
-    if (clickOnWindow){
+  cbZindex = (clickOnWindow) => {
+    if (clickOnWindow) {
       this.setState({
-        counterZindex:this.state.counterZindex+1,
+        counterZindex: this.state.counterZindex + 1,
       })
     }
   }
-  
-  showingTooltip=()=>{
-        
-  }
+
+
   render() {
     //размеры окна
     let clientWidth = window.innerWidth;
@@ -114,13 +113,13 @@ class App extends React.Component {
           cbClose={this.cbCloseStatus}
 
           cbchangeZIndex={this.cbZindex}
-          counterZindex={this.state.counterZindex+1}
-          
+          counterZindex={this.state.counterZindex + 1}
+
           //startLeftChat, startTopChat - координаты стартового расположения полей
           startLeftChat={clientWidth - 420}
           startTopChat={clientHeight - 510}
-          // startLeftChat={0}
-          // startTopChat={0}
+        // startLeftChat={0}
+        // startTopChat={0}
         />
 
         {/* Mail-ответить email */}
@@ -130,7 +129,7 @@ class App extends React.Component {
           cbClose={this.cbCloseStatus}
 
           cbchangeZIndex={this.cbZindex}
-          counterZindex={this.state.counterZindex+1}
+          counterZindex={this.state.counterZindex + 1}
 
           startLeftChat={clientWidth - 440}
           startTopChat={clientHeight - 480}
@@ -143,11 +142,15 @@ class App extends React.Component {
           cbClose={this.cbCloseStatus}
 
           cbchangeZIndex={this.cbZindex}
-          counterZindex={this.state.counterZindex+1}
+          counterZindex={this.state.counterZindex + 1}
 
           startLeftChat={clientWidth - 460}
           startTopChat={clientHeight - 450}
         />
+
+        <a>
+
+        </a>
 
         <div onClick={this.menuIsOpen} className={this.state.menuOpen ? 'ISocMenuClose' : 'ISocMenu'}>
         </div>
@@ -155,14 +158,31 @@ class App extends React.Component {
         {/*Перебор с подготовленного JSON всех элементов меню с иконками*/}
         <div className='SocButtons'>
           {this.state.SocButtonsArr.map(v =>
-            <div
-              className={this.state.menuOpen ? "menuSelection" : "null"}
-              onClick={() => this.isSelected(v.code)}//передача в isSelected номера выбранного элемента
-              key={v.code}
-              data-product-id={v.code}
-              data-tooltip={v.hint}
-              style={{ backgroundImage: v.image }}
-            >
+            <div key={v.code}>
+              {/* Ниже выборка всех элементов без ссылок */}
+              {v.way === '' &&
+                <div
+                  className={this.state.menuOpen ? "menuSelection" : "null"}
+                  onClick={() => this.isSelected(v.code)}//передача в isSelected номера выбранного элемента
+                  data-product-id={v.code}
+                  data-tooltip={v.hint}
+                  style={{ backgroundImage: v.image }}
+                >
+                </div>
+              }
+              {/* Ниже выборка всех элементов с ссылками */}
+              {v.way != '' &&
+                <a target="_blank" href={v.way}>
+                  <div
+                    className={this.state.menuOpen ? "menuSelection" : "null"}
+                    onClick={() => this.isSelected(v.code)}//передача в isSelected номера выбранного элемента
+                    data-product-id={v.code}
+                    data-tooltip={v.hint}
+                    style={{ backgroundImage: v.image }}
+                  >
+                  </div>
+                </a>
+              }
             </div>
           )}
 

@@ -526,6 +526,11 @@ class BlockWindowWrap extends React.Component {
         )
     }
     //////////////////////////////////Конец Рендера чата
+    renderChatButtom11111 = () => {
+        return (
+            <a href='https://www.bps-sberbank.by/'></a>
+        )
+    }
 
 
     //Объявляем

@@ -4,21 +4,21 @@
         "id": "CallBack", 
         "image": "url(/src/images/callback.png)",
         "hint": "Заказать звонок", 
-        "way": "#0"
+        "way": ""
     },
     { 
         "code":2,
         "id": "Mail", 
         "image": "url(/src/images/mail.png)",
         "hint": "Отправить вопрос на Email", 
-        "way": "#0"
+        "way": ""
     },
     { 
         "code":3,
         "id": "Chat", 
         "image": "url(/src/images/chat.png)",
         "hint": "Чат с банком", 
-        "way": "#0"
+        "way": ""
     },
     { 
         "code":4,
