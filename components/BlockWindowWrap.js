@@ -102,14 +102,22 @@ class BlockWindowWrap extends React.Component {
     };
 
     changeZIndex = (index) => {
-        if (index === 'click') {
-            //console.log('click')
+        // if (index === 'clickCallBack') {
+        //     console.log('clickCallBack')
 
-            this.props.cbchangeZIndex(index);
-            this.setState({
-                zindex:this.props.counterZindex
-            })
-        };
+            
+        //     // this.setState({
+        //     //     zindex:this.props.counterZindex
+        //     // })
+        // };
+        // if(index === 'clickMail'){
+        //     console.log('clickMail')
+        // }
+        // if(index === 'clickChat'){
+        //     console.log('clickChat')
+        // }
+
+        this.props.cbchangeZIndex(index);
     };
 
     //функция сворачивания окна
@@ -553,6 +561,7 @@ class BlockWindowWrap extends React.Component {
 
     static getDerivedStateFromProps(props, state){
         let isHide=true
+        //console.log(props)
         if(props.CallBack&&props.isCallBack){
             isHide=false;
 
@@ -572,12 +581,14 @@ class BlockWindowWrap extends React.Component {
 
     render() {
         let { btn, title, welcome } = this.props;//деструктуризация
+        //console.log(this.props.PositionNumber)
         return (
 
             <div
-                onMouseDown={() => this.changeZIndex('click')}
-
-                style={{ position: this.state.position, top: this.state.locationY + "px", left: this.state.locationX + "px", width: this.state.sizeX + "px", height: this.state.sizeY + "px", zIndex: this.state.zindex }}
+                onMouseDown={() => this.props.CallBack &&this.changeZIndex('clickCallBack')||this.props.Mail &&this.changeZIndex('clickMail')||this.props.Chat &&this.changeZIndex('clickChat')}
+                // onMouseDown={() => this.props.Mail &&this.changeZIndex('clickMail')}
+                // onMouseDown={() => this.props.Chat &&this.changeZIndex('clickChat')}
+                style={{ position: this.state.position, top: this.state.locationY + "px", left: this.state.locationX + "px", width: this.state.sizeX + "px", height: this.state.sizeY + "px", zIndex: this.props.counterZindex }}
                 className={'BlockWindowWrap-' + this.state.displayWindow}
                 ref={BlockWindowWrap => { this.BlockWindowWrap = BlockWindowWrap }}
             //ref="bla" //второй способ через ref
