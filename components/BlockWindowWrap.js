@@ -22,10 +22,18 @@ class BlockWindowWrap extends React.Component {
 
     state = {
         //состояния ошибок полей с именем, номером
-        nameIsEmpty: true,
-        numberIsEmpty: true,
+        nameChatIsEmpty: false,
+        numberChatIsEmpty: false,
 
-        sizeY: 400, //начальные размеры окна
+        nameMailIsEmpty: false,
+        mailMailIsEmpty: false,
+        textMailIsEmpty:false,
+
+        nameCallBackIsEmpty: false,
+        numberCallBackIsEmpty: false,
+        textMailIsEmpty:false,
+
+        sizeY: 450, //начальные размеры окна
         sizeX: 300,
 
         //zindex: 9000,//z-index выбранного окна
@@ -40,20 +48,71 @@ class BlockWindowWrap extends React.Component {
         EO.preventDefault();
         let fieldName = ReactDOM.findDOMNode(this.refs.fieldName).value;
         let fieldNumber = ReactDOM.findDOMNode(this.refs.fieldNumber).value;
-        console.log("Click start chat------------")
-        console.log("fieldName: " + fieldName);
-        console.log("fieldNumber: " + fieldNumber);
+        //let fieldSelect1 = ReactDOM.findDOMNode(this.refs.fieldSelect1).value;
+        //let fieldSelect2 = ReactDOM.findDOMNode(this.refs.fieldSelect2).value;
+        console.log("------------Click start Chat------------")
+        console.log("Name: " + fieldName);
+        console.log("Phone: " + fieldNumber);
+    }
+
+    WindowButtonStartMail = (EO) => {
+        EO.preventDefault();
+        let fieldName = ReactDOM.findDOMNode(this.refs.fieldName).value;
+        let fieldNumber = ReactDOM.findDOMNode(this.refs.fieldNumber).value;
+        let fieldTextarea = ReactDOM.findDOMNode(this.refs.fieldTextarea).value;
+        //let fieldSelect2 = ReactDOM.findDOMNode(this.refs.fieldSelect2).value;
+        console.log("------------Click start Mail------------")
+        console.log("Name: " + fieldName);
+        console.log("Phone: " + fieldNumber);
+        console.log("Text: " + fieldTextarea);
+    }
+
+    WindowButtonStartCallBack = (EO) => {
+        EO.preventDefault();
+        let fieldName = ReactDOM.findDOMNode(this.refs.fieldName).value;
+        let fieldNumber = ReactDOM.findDOMNode(this.refs.fieldNumber).value;
+        let fieldSelect1 = ReactDOM.findDOMNode(this.refs.fieldSelect1).value;
+        let fieldSelect2 = ReactDOM.findDOMNode(this.refs.fieldSelect2).value;
+        console.log("------------Click start Call Back------------")
+        console.log("Name: " + fieldName);
+        console.log("Phone: " + fieldNumber);
+        console.log("Select1: " + fieldSelect1);
+        console.log("Select2: " + fieldSelect2);
     }
 
     //функция проверки полей воода
     onFieldChange = (fieldInput, EO) => {
-
-        if (fieldInput == "nameIsEmpty" && EO.target.value.trim().length > 0 && EO.target.value.trim().length < 20) {
+        if (fieldInput == "nameChatIsEmpty" && EO.target.value.trim().length > 2 && EO.target.value.trim().length < 20) {
             this.setState({ ["" + fieldInput]: false });
         }
-        else if (fieldInput == "numberIsEmpty" && EO.target.value.match(/^(\+375|80)(29|25|44|33)(\d{3})(\d{2})(\d{2})$/)) {
+        else if (fieldInput == "numberChatIsEmpty" && EO.target.value.match(/^(\+375|80)(29|25|44|33)(\d{3})(\d{2})(\d{2})$/)) {
             this.setState({ ["" + fieldInput]: false });
-        } else {
+        } 
+
+        else if (fieldInput == "nameMailIsEmpty" && EO.target.value.trim().length > 2 && EO.target.value.trim().length < 20) {
+            this.setState({ ["" + fieldInput]: false });
+        } 
+        else if (fieldInput == "mailMailIsEmpty" && EO.target.value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)) {
+            this.setState({ ["" + fieldInput]: false });
+        } 
+        else if (fieldInput == "textMailIsEmpty" && EO.target.value.trim().length > 2 && EO.target.value.trim().length < 180) {
+            this.setState({ ["" + fieldInput]: false });
+        } 
+
+        else if (fieldInput == "nameCallBackIsEmpty" && EO.target.value.trim().length > 2 && EO.target.value.trim().length < 20) {
+            this.setState({ ["" + fieldInput]: false });
+        } 
+        else if (fieldInput == "numberCallBackIsEmpty" && EO.target.value.match(/^(\+375|80)(29|25|44|33)(\d{3})(\d{2})(\d{2})$/)) {
+            this.setState({ ["" + fieldInput]: false });
+        } 
+        // else if (fieldInput == "mailMailIsEmpty" && EO.target.value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)) {
+        //     this.setState({ ["" + fieldInput]: false });
+        // } 
+        // else if (fieldInput == "textMailIsEmpty" && EO.target.value.trim().length > 2 && EO.target.value.trim().length < 180) {
+        //     this.setState({ ["" + fieldInput]: false });
+        // } 
+
+        else {
             this.setState({ ["" + fieldInput]: true });
         }
     }
@@ -102,20 +161,7 @@ class BlockWindowWrap extends React.Component {
     };
 
     changeZIndex = (index) => {
-        // if (index === 'clickCallBack') {
-        //     console.log('clickCallBack')
 
-            
-        //     // this.setState({
-        //     //     zindex:this.props.counterZindex
-        //     // })
-        // };
-        // if(index === 'clickMail'){
-        //     console.log('clickMail')
-        // }
-        // if(index === 'clickChat'){
-        //     console.log('clickChat')
-        // }
 
         this.props.cbchangeZIndex(index);
     };
@@ -190,7 +236,7 @@ class BlockWindowWrap extends React.Component {
             (width < 300 && (width = 300)) || (width > 600 && (width = 600)); //max size width
             // let height = this.state.startHeight + deltaY;
             let height = this.state.startHeight + deltaY;
-            (height < 400 && (height = 400)) || (height > 550 && (height = 550));//max size height
+            (height < 450 && (height = 450)) || (height > 550 && (height = 550));//max size height
             //console.log("реальное изменение размера " + width + ":" + height);
 
             this.setState({
@@ -348,40 +394,41 @@ class BlockWindowWrap extends React.Component {
         return (
             <div>
                 <div className="WindowFieldLabel">Ваше имя:
-          <div className="WindowFieldControlFrame">
+                    <div className={this.state.nameCallBackIsEmpty ? "WindowFieldControlFrame-Error" : "WindowFieldControlFrame"}>
                         <input
                             className="WindowFieldEdit"
                             type="text"
                             ref="fieldName"
-                            onChange={this.onFieldChange.bind(this, "nameIsEmpty")} />
+                            onChange={this.onFieldChange.bind(this, "nameCallBackIsEmpty")} />
                     </div>
-                    <div className={this.state.nameIsEmpty ? "WindowFieldError" : "WindowFieldError-display-none"}>Введите свое имя</div>
+                    <div className={this.state.nameCallBackIsEmpty ? "WindowFieldError" : "WindowFieldError-display-none"}>Заполните поле</div>
                 </div>
 
                 <div className="WindowFieldLabel">Ваш телефон:
-          <div className="WindowFieldControlFrame">
+                    <div className="WindowFieldControlFrame">
                         <input
                             className="WindowFieldEdit"
                             type="text"
-
+                            placeholder="+37529"
                             ref="fieldNumber"
-                            onChange={this.onFieldChange.bind(this, "numberIsEmpty")} />
+                            onChange={this.onFieldChange.bind(this, "numberCallBackIsEmpty")} />
                     </div>
                     <div
-                        className={this.state.numberIsEmpty ? "WindowFieldError" : "WindowFieldError-display-none"}>
+                        className={this.state.numberCallBackIsEmpty ? "WindowFieldError" : "WindowFieldError-display-none"}>
                         Введите номер телефона
-          </div>
+                    </div>
                 </div>
 
                 <div className="WindowFieldLabel">Тема обращения:
-          <div className="WindowFieldControlFrame">
+                    <div className="WindowFieldControlFrame">
   
                         <select
+                            ref="fieldSelect1"
                             className="WindowFieldEdit">
-                            <option value="volvo">Депозиты</option>
-                            <option value="saab">Кредитование юридических лиц</option>
-                            <option value="vw">Кредитование</option>
-                            <option value="audi">Услуги БПС Сбербанка</option>
+                            <option value="Депозиты">Депозиты</option>
+                            <option value="Кредитование юридических лиц">Кредитование юридических лиц</option>
+                            <option value="Кредитование">Кредитование</option>
+                            <option value="Услуги БПС Сбербанка">Услуги БПС Сбербанка</option>
                         </select>
                     </div>
                 </div>
@@ -390,11 +437,12 @@ class BlockWindowWrap extends React.Component {
                     <div className="WindowFieldControlFrame">
 
                         <select
+                            ref="fieldSelect2"
                             className="WindowFieldEdit">
-                            <option value="volvo">С 9:00 до 10:00</option>
-                            <option value="saab">С 11:00 до 12:00</option>
-                            <option value="vw">С 12:00 до 13:00</option>
-                            <option value="audi">С 13:00 до 14:00</option>
+                            <option value="С 9:00 до 10:00">С 9:00 до 10:00</option>
+                            <option value="С 11:00 до 12:00">С 11:00 до 12:00</option>
+                            <option value="С 12:00 до 13:00">С 12:00 до 13:00</option>
+                            <option value="С 12:00 до 13:00">С 12:00 до 13:00</option>
                         </select>
                     </div>
                 </div>
@@ -408,9 +456,10 @@ class BlockWindowWrap extends React.Component {
         return (
             <div className="footer">
                 <button
-                    className="buttom"
-                //onClick={this.WindowButtonStartChat}
-                //disabled={nameIsEmpty || numberIsEmpty}
+                    className="button"
+                onClick={this.WindowButtonStartCallBack}
+                // disabled={this.state.nameChatIsEmpty || this.state.numberChatIsEmpty}
+                disabled={this.state.nameCallBackIsEmpty||this.state.numberCallBackIsEmpty}
                 >
                     Перезвоните мне
             </button>
@@ -435,30 +484,47 @@ class BlockWindowWrap extends React.Component {
         return (
             <div>
                 <div className="WindowFieldLabel">Ваше имя:
-            <div className="WindowFieldControlFrame">
+                    <div className="WindowFieldControlFrame">
                         <input
                             className="WindowFieldEdit"
                             type="text"
                             ref="fieldName"
-                            onChange={this.onFieldChange.bind(this, "nameIsEmpty")} />
+                            onChange={this.onFieldChange.bind(this, "nameMailIsEmpty")} />
                     </div>
-                    <div className={this.state.nameIsEmpty ? "WindowFieldError" : "WindowFieldError-display-none"}>Введите свое имя</div>
+                    <div className={this.state.nameMailIsEmpty ? "WindowFieldError" : "WindowFieldError-display-none"}>
+                        Заполните поле
+                    </div>
                 </div>
 
-                <div className="WindowFieldLabel">Номер телефона:
-            <div className="WindowFieldControlFrame">
+                <div className="WindowFieldLabel">Ваш E-mail:
+                    <div className="WindowFieldControlFrame">
                         <input
                             className="WindowFieldEdit"
                             type="text"
 
                             ref="fieldNumber"
-                            onChange={this.onFieldChange.bind(this, "numberIsEmpty")} />
+                            onChange={this.onFieldChange.bind(this, "mailMailIsEmpty")} />
                     </div>
                     <div
-                        className={this.state.numberIsEmpty ? "WindowFieldError" : "WindowFieldError-display-none"}>
-                        Введите номер телефона
+                        className={this.state.mailMailIsEmpty ? "WindowFieldError" : "WindowFieldError-display-none"}>
+                        Введите E-mail
                     </div>
                 </div>
+
+                <div className="WindowFieldLabel">Вопрос:
+                    <div className="WindowFieldControlFrame">
+                        <textarea
+                            className="WindowFieldTextareaEdit"
+                            type="text"
+                            ref="fieldTextarea"
+                            onChange={this.onFieldChange.bind(this, "textMailIsEmpty")} />
+                    </div>
+                    <div
+                        className={this.state.textMailIsEmpty ? "WindowFieldError" : "WindowFieldError-display-none"}>
+                        Заполните поле
+                    </div>
+                </div>
+
             </div>
         )
     }
@@ -466,9 +532,9 @@ class BlockWindowWrap extends React.Component {
         return (
             <div className="footer">
                 <button
-                    className="buttom"
-                //onClick={this.WindowButtonStartChat}
-                //disabled={nameIsEmpty || numberIsEmpty}
+                    className="button"
+                    onClick={this.WindowButtonStartMail}
+                    disabled={this.state.nameMailIsEmpty || this.state.mailMailIsEmpty}
                 >
                     Свяжитесь со мной
             </button>
@@ -492,30 +558,31 @@ class BlockWindowWrap extends React.Component {
     renderChatMain = () => {
         return (
             <div>
+                {/* поле с именем */}
                 <div className="WindowFieldLabel">Ваше имя:
-            <div className="WindowFieldControlFrame">
+                    <div className={this.state.nameChatIsEmpty ? "WindowFieldControlFrame-Error" : "WindowFieldControlFrame"}>
                         <input
                             className="WindowFieldEdit"
                             type="text"
                             ref="fieldName"
-                            onChange={this.onFieldChange.bind(this, "nameIsEmpty")} />
+                            onChange={this.onFieldChange.bind(this, "nameChatIsEmpty")} />
                     </div>
-                    <div className={this.state.nameIsEmpty ? "WindowFieldError" : "WindowFieldError-display-none"}>Введите свое имя</div>
+                    <div className={this.state.nameChatIsEmpty ? "WindowFieldError" : "WindowFieldError-display-none"}>Заполните поле</div>
                 </div>
-
+                {/* поле с номером телефона */}
                 <div className="WindowFieldLabel">Номер телефона:
-            <div className="WindowFieldControlFrame">
+                    <div className={this.state.numberChatIsEmpty ? "WindowFieldControlFrame-Error" : "WindowFieldControlFrame"}>
                         <input
                             className="WindowFieldEdit"
                             type="text"
-
                             ref="fieldNumber"
-                            onChange={this.onFieldChange.bind(this, "numberIsEmpty")} />
+                            placeholder="+37529"
+                            onChange={this.onFieldChange.bind(this, "numberChatIsEmpty")} />
                     </div>
                     <div
-                        className={this.state.numberIsEmpty ? "WindowFieldError" : "WindowFieldError-display-none"}>
+                        className={this.state.numberChatIsEmpty ? "WindowFieldError" : "WindowFieldError-display-none"}>
                         Введите номер телефона
-            </div>
+                    </div>
                 </div>
             </div>
         )
@@ -524,21 +591,17 @@ class BlockWindowWrap extends React.Component {
         return (
             <div className="footer">
                 <button
-                    className="buttom"
-                //onClick={this.WindowButtonStartChat}
-                //disabled={nameIsEmpty || numberIsEmpty}
+                    className="button"
+                    onClick={this.WindowButtonStartChat}
+                    disabled={this.state.nameChatIsEmpty || this.state.numberChatIsEmpty}
                 >
                     Начать чат
-            </button>
+                </button>
             </div>
         )
     }
     //////////////////////////////////Конец Рендера чата
-    renderChatButtom11111 = () => {
-        return (
-            <a href='https://www.bps-sberbank.by/'></a>
-        )
-    }
+
 
 
     //Объявляем

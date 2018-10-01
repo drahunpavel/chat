@@ -57,7 +57,7 @@ class App extends React.Component {
 
     if (fieldNumber === 1) {
       if (!this.state.cht1) {
-        console.log("open CallBack")
+        //console.log("open CallBack")
         this.setState({
           Zcht1: this.state.zIndexDefault + 1,
           Zcht2: this.state.zIndexDefault,
@@ -66,7 +66,7 @@ class App extends React.Component {
         })
         //this.state.selectedHash.push('CallBack');
       } else {
-        console.log("close CallBack")
+        //console.log("close CallBack")
         this.setState({
           Zcht1: this.state.zIndexDefault,
         })
@@ -80,7 +80,7 @@ class App extends React.Component {
     }
     if (fieldNumber === 2) {
       if (!this.state.cht2) {
-        console.log("open Mail")
+        //console.log("open Mail")
         this.setState({
           Zcht1: this.state.zIndexDefault-1,
           Zcht2: this.state.zIndexDefault + 1,
@@ -88,7 +88,7 @@ class App extends React.Component {
         })
         //this.state.selectedHash.push('Mail');
       } else {
-        console.log("close Mail")
+        //console.log("close Mail")
         this.setState({
           Zcht2: this.state.zIndexDefault,
         })
@@ -102,7 +102,7 @@ class App extends React.Component {
     }
     if (fieldNumber === 3) {
       if (!this.state.cht3) {
-        console.log("open Chat")
+        //console.log("open Chat")
         this.setState({
           Zcht1: this.state.zIndexDefault-1,
           Zcht2: this.state.zIndexDefault,
@@ -110,7 +110,7 @@ class App extends React.Component {
         })
         //this.state.selectedHash.push('Chat');
       } else {
-        console.log("close Chat")
+        //console.log("close Chat")
         this.setState({
           Zcht3: this.state.zIndexDefault,
         })
@@ -138,7 +138,7 @@ class App extends React.Component {
   //3=cht3=Chat
   cbCloseStatus = (closedWindow) => {
     if (closedWindow === '1') {
-      console.log("close CallBack")
+      //console.log("close CallBack")
       //let id_name='CallBack';
       //let position=this.state.selectedHash.indexOf(id_name);
       //if(~position) this.state.selectedHash.splice(position, 1)
@@ -147,7 +147,7 @@ class App extends React.Component {
       })
     }
     if (closedWindow === '2') {
-      console.log("close Mail")
+      //console.log("close Mail")
       //let id_name='Mail';
       //let position=this.state.selectedHash.indexOf(id_name);
       //if(~position) this.state.selectedHash.splice(position, 1)
@@ -156,7 +156,7 @@ class App extends React.Component {
       })
     }
     if (closedWindow === '3') {
-      console.log("close Chat")
+      //console.log("close Chat")
       //let id_name='Chat';
       //let position=this.state.selectedHash.indexOf(id_name);
       //if(~position) this.state.selectedHash.splice(position, 1)
