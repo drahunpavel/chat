@@ -32,10 +32,10 @@ class App extends React.Component {
 
     selectedHash: [],
 
-    zIndexDefault:9001,
-    Zcht1: 9000,
-    Zcht2: 9000,
-    Zcht3: 9000,
+    zIndexDefault:9000,
+    // Zcht1: 9000,
+    // Zcht2: 9000,
+    // Zcht3: 9000,
   };
 
 

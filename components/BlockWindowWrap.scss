@@ -22,12 +22,16 @@
     font-weight: bold;
     color: #fff;
     cursor:move;
+
+    .WindowHead{
+      margin: 5px;
+    }
   }
 
   .main {
     text-align: left;
     margin: 30px 0px;
-
+    
     .WindowWelcome {
       font: 18px/22px "Arial", "Tahoma", "Helevetica", sans-serif;
       margin-bottom: 8px;
@@ -163,4 +167,28 @@
 
 .BlockWindowWrap-true {
   display: none;
+}
+
+.ThanksCallBack-img{
+  width: 141px;
+  height: 231px;
+  margin-left: 15px;
+  margin-top: 40px;
+  background-image: url("/src/images/callback.jpg");
+  background-size: 100%;
+}
+.ThanksMail-img{
+  width: 141px;
+  height: 231px;
+  margin-left: 15px;
+  margin-top: 40px;
+  background-image: url("/src/images/callback.jpg");
+  background-size: 100%;
+}
+.renderThanks-text{
+  font: 16px/22px "Arial", "Tahoma", "Helevetica", sans-serif;
+  position: absolute;
+  left: 155px;
+  top: 45px;
+  font-weight: 400;
 }
