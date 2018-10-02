@@ -6,7 +6,6 @@ import ReactDOM from "react-dom";
 import "./components/App.scss";
 
 import BlockWindowWrap from "./components/BlockWindowWrap";
-import { runInThisContext } from "vm";
 
 let SocButtons = require('./src/socButtons.json')
 
@@ -36,6 +35,8 @@ class App extends React.Component {
     // Zcht1: 9000,
     // Zcht2: 9000,
     // Zcht3: 9000,
+
+    
   };
 
 
@@ -98,6 +99,7 @@ class App extends React.Component {
       }
       this.setState({
         cht2: !this.state.cht2,
+        changeWindowMail:false,//переключает содержимое окна Mail
       })
     }
     if (fieldNumber === 3) {
@@ -153,6 +155,7 @@ class App extends React.Component {
       //if(~position) this.state.selectedHash.splice(position, 1)
       this.setState({
         cht2: !this.state.cht2,
+        changeWindowMail:false,//переключает содержимое окна Mail
       })
     }
     if (closedWindow === '3') {
@@ -207,9 +210,7 @@ class App extends React.Component {
     //размеры окна
     let clientWidth = window.innerWidth;
     let clientHeight = window.innerHeight;
-    // console.log('Zcht1 ' + this.state.Zcht1)
-    // console.log('Zcht2 ' + this.state.Zcht2)
-    // console.log('Zcht3 ' + this.state.Zcht3)
+
     return (
       <div>
 
@@ -219,6 +220,7 @@ class App extends React.Component {
           PositionNumber={this.state.selectedHash.indexOf("CallBack")}
           isCallBack={this.state.cht1}
           cbClose={this.cbCloseStatus}
+
 
           cbchangeZIndex={this.cbZindex}
           counterZindex={this.state.Zcht1}
@@ -234,6 +236,8 @@ class App extends React.Component {
           PositionNumber={this.state.selectedHash.indexOf("Mail")}
           isMail={this.state.cht2}
           cbClose={this.cbCloseStatus}
+
+          changeWindowMail={this.state.changeWindowMail}
 
           cbchangeZIndex={this.cbZindex}
           counterZindex={this.state.Zcht2}
@@ -268,8 +272,8 @@ class App extends React.Component {
 
                 <div
                   className={this.state.menuOpen ? "menuSelection" : "null"}
-                  onClick={() => this.isSelected(v.code, v.hint)}//передача в isSelected номера выбранного элемента
-                  style={this.state.cht1 ? { backgroundImage: v.image2 } : { backgroundImage: v.image }}
+                  onClick={this.state.cht1 ?null: () => this.isSelected(v.code, v.hint)}//передача в isSelected номера выбранного элемента
+                  style={this.state.cht1 ? { backgroundImage: v.image2 } : { backgroundImage: v.image }}//от состояния this.state.cht1 меняется иконка в меню
                 >
                   <div className={this.state.menuOpen ? 'tooltip' : 'tooltip-none'}>{v.hint}</div>
                 </div>
@@ -279,7 +283,7 @@ class App extends React.Component {
 
                 <div
                   className={this.state.menuOpen ? "menuSelection" : "null"}
-                  onClick={() => this.isSelected(v.code, v.hint)}//передача в isSelected номера выбранного элемента
+                  onClick={this.state.cht2 ?null: () => this.isSelected(v.code, v.hint)}//передача в isSelected номера выбранного элемента
                   style={this.state.cht2 ? { backgroundImage: v.image2 } : { backgroundImage: v.image }}
                 >
                   <div className={this.state.menuOpen ? 'tooltip' : 'tooltip-none'}>{v.hint}</div>
@@ -289,7 +293,7 @@ class App extends React.Component {
 
                 <div
                   className={this.state.menuOpen ? "menuSelection" : "null"}
-                  onClick={() => this.isSelected(v.code, v.hint)}//передача в isSelected номера выбранного элемента
+                  onClick={this.state.cht3 ?null: () => this.isSelected(v.code, v.hint)}//передача в isSelected номера выбранного элемента
                   style={this.state.cht3 ? { backgroundImage: v.image2 } : { backgroundImage: v.image }}
                 >
                   <div className={this.state.menuOpen ? 'tooltip' : 'tooltip-none'}>{v.hint}</div>

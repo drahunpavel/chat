@@ -65,7 +65,7 @@ class BlockWindowWrap extends React.Component {
         console.log("Mail: " + this.state.mailMail);
         console.log("Text: " + this.state.textMail);
         this.setState({
-            changeWindowMail:true,
+            toShowRenderThanksMail:true, //переключатель для отображения renderThanksCallMail после нажатия кнопки
         })
     }
 
@@ -81,7 +81,7 @@ class BlockWindowWrap extends React.Component {
         console.log("Select1: " + fieldSelect1);
         console.log("Select2: " + fieldSelect2);
         this.setState({
-            changeWindowCallBack:true,
+            toShowRenderThanksCallBack:true, //переключатель для отображения renderThanksCallBack после нажатия кнопки
         })
     }
 
@@ -206,10 +206,16 @@ class BlockWindowWrap extends React.Component {
         if (this.props.CallBack) {
             //console.log('close win1 ')
             closeWindow = '1';
+            this.setState({
+                toShowRenderThanksCallBack:!this.state.toShowRenderThanksCallBack,//переключает содержимое окна CallBack
+            })
         }
         if (this.props.Mail) {
             //console.log('close win2 ')
             closeWindow = '2';
+            this.setState({
+                toShowRenderThanksMail:!this.state.toShowRenderThanksMail,//переключает содержимое окна Mail
+            })
         }
         if (this.props.Chat) {
             //console.log('close win3 ')
@@ -252,17 +258,6 @@ class BlockWindowWrap extends React.Component {
             //дельта: актуальные значения - стартовые
             let deltaX = EO.clientX - this.state.startX;
             let deltaY = EO.clientY - this.state.startY;
-
-            let delta2X = this.state.startX - EO.clientX;
-            let delta2Y = this.state.startY - EO.clientY;
-
-            // console.log("Старт координаты: " + this.state.startX + ":" + this.state.startY);         
-            // console.log("Актуальные координаты: " + EO.clientX + ":" + EO.clientY);  
-            // console.log("Начальные ширина/высота: " + this.state.startWidth + ":" + this.state.startHeight);
-            // console.log("---------------");
-
-            // console.log("дельта смещения: " + deltaX + ":" + deltaY);
-            // console.log("---------------");
 
             //new coordinates when resizing + limitation
             let width = this.state.startWidth + deltaX;
@@ -707,13 +702,10 @@ class BlockWindowWrap extends React.Component {
 
     render() {
         let { btn, title, welcome } = this.props;//деструктуризация
-        // console.log(this.state.changeWindowCallBack)
         return (
 
             <div
                 onMouseDown={() => this.props.CallBack && this.changeZIndex('clickCallBack') || this.props.Mail && this.changeZIndex('clickMail') || this.props.Chat && this.changeZIndex('clickChat')}
-                // onMouseDown={() => this.props.Mail &&this.changeZIndex('clickMail')}
-                // onMouseDown={() => this.props.Chat &&this.changeZIndex('clickChat')}
                 style={{ position: this.state.position, top: this.state.locationY + "px", left: this.state.locationX + "px", width: this.state.sizeX + "px", height: this.state.sizeY + "px", zIndex: this.props.counterZindex }}
                 className={'BlockWindowWrap-' + this.state.displayWindow}
                 ref={BlockWindowWrap => { this.BlockWindowWrap = BlockWindowWrap }}
@@ -731,25 +723,18 @@ class BlockWindowWrap extends React.Component {
                 </div>
 
                 <div className="main">
-                    {/* {this.props.CallBack && this.renderCallBackWelcome()} */}
-                    {this.state.changeWindowCallBack ? null: this.props.CallBack && this.renderCallBackWelcome()}
-                    {/* {this.props.CallBack && this.renderCallBackMain()} */}
-                    {this.state.changeWindowCallBack ? this.props.CallBack && this.renderThanksCallBack(): this.props.CallBack && this.renderCallBackMain()}
+                    {this.state.toShowRenderThanksCallBack? null: this.props.CallBack && this.renderCallBackWelcome()}
+                    {this.state.toShowRenderThanksCallBack ? this.props.CallBack && this.renderThanksCallBack(): this.props.CallBack && this.renderCallBackMain()}
 
-                    {/* {this.props.Mail && this.renderMailWelcome()} */}
-                    {this.state.changeWindowMail ? null: this.props.Mail && this.renderMailWelcome()}
-                    {/* {this.props.Mail && this.renderMailMain()} */}
-                    {this.state.changeWindowMail ? this.props.Mail&&this.renderThanksMail(): this.props.Mail && this.renderMailMain()}
+                    {this.state.toShowRenderThanksMail ? null: this.props.Mail && this.renderMailWelcome()}
+                    {this.state.toShowRenderThanksMail ? this.props.Mail&&this.renderThanksMail(): this.props.Mail && this.renderMailMain()}
 
                     {this.props.Chat && this.renderChatWelcome()}
                     {this.props.Chat && this.renderChatMain()}
-
-                    
                 </div>
 
-                {/* {this.props.CallBack && this.renderCallBackButtom()} */}
-                {this.state.changeWindowCallBack ? null: this.props.CallBack && this.renderCallBackButtom()}
-                {this.state.changeWindowMail ? null: this.props.Mail && this.renderMailButtom()}
+                {this.state.toShowRenderThanksCallBack ? null: this.props.CallBack && this.renderCallBackButtom()}
+                {this.state.toShowRenderThanksMail ? null: this.props.Mail && this.renderMailButtom()}
                 {this.props.Chat && this.renderChatButtom()}
 
                 <div className='close' onClick={this.close}></div>
