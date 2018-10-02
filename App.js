@@ -29,7 +29,7 @@ class App extends React.Component {
     //счетчик zIndex
     counterZindex: 9000,
 
-    selectedHash: [],
+    // selectedHash: [],
 
     zIndexDefault:9000,
     // Zcht1: 9000,
@@ -57,69 +57,71 @@ class App extends React.Component {
 
 
     if (fieldNumber === 1) {
-      if (!this.state.cht1) {
-        //console.log("open CallBack")
-        this.setState({
-          Zcht1: this.state.zIndexDefault + 1,
-          Zcht2: this.state.zIndexDefault,
-          Zcht3: this.state.zIndexDefault-1
+      console.log("open CallBack")
+      // if (!this.state.cht1) {
+      //   //console.log("open CallBack")
+      //   this.setState({
+      //     Zcht1: this.state.zIndexDefault + 1,
+      //     Zcht2: this.state.zIndexDefault,
+      //     Zcht3: this.state.zIndexDefault-1
           
-        })
-        //this.state.selectedHash.push('CallBack');
-      } else {
-        //console.log("close CallBack")
-        this.setState({
-          Zcht1: this.state.zIndexDefault,
-        })
-        //let id_name='CallBack';
-        //let position=this.state.selectedHash.indexOf(id_name);
-        //if(~position) this.state.selectedHash.splice(position, 1)
-      }
+      //   })
+      //   //this.state.selectedHash.push('CallBack');
+      // } else {
+      //   //console.log("close CallBack")
+      //   this.setState({
+      //     Zcht1: this.state.zIndexDefault,
+      //   })
+      //   //let id_name='CallBack';
+      //   //let position=this.state.selectedHash.indexOf(id_name);
+      //   //if(~position) this.state.selectedHash.splice(position, 1)
+      // }
       this.setState({
         cht1: !this.state.cht1,
       })
     }
     if (fieldNumber === 2) {
-      if (!this.state.cht2) {
-        //console.log("open Mail")
-        this.setState({
-          Zcht1: this.state.zIndexDefault-1,
-          Zcht2: this.state.zIndexDefault + 1,
-          Zcht3: this.state.zIndexDefault,
-        })
-        //this.state.selectedHash.push('Mail');
-      } else {
-        //console.log("close Mail")
-        this.setState({
-          Zcht2: this.state.zIndexDefault,
-        })
-        //let id_name='Mail';
-        //let position=this.state.selectedHash.indexOf(id_name);
-        //if(~position) this.state.selectedHash.splice(position, 1)
-      }
+      console.log("open Mail")
+      // if (!this.state.cht2) {
+      //   //console.log("open Mail")
+      //   this.setState({
+      //     Zcht1: this.state.zIndexDefault-1,
+      //     Zcht2: this.state.zIndexDefault + 1,
+      //     Zcht3: this.state.zIndexDefault,
+      //   })
+      //   //this.state.selectedHash.push('Mail');
+      // } else {
+      //   //console.log("close Mail")
+      //   this.setState({
+      //     Zcht2: this.state.zIndexDefault,
+      //   })
+      //   //let id_name='Mail';
+      //   //let position=this.state.selectedHash.indexOf(id_name);
+      //   //if(~position) this.state.selectedHash.splice(position, 1)
+      // }
       this.setState({
         cht2: !this.state.cht2,
-        changeWindowMail:false,//переключает содержимое окна Mail
       })
     }
     if (fieldNumber === 3) {
-      if (!this.state.cht3) {
-        //console.log("open Chat")
-        this.setState({
-          Zcht1: this.state.zIndexDefault-1,
-          Zcht2: this.state.zIndexDefault,
-          Zcht3: this.state.zIndexDefault + 1,
-        })
-        //this.state.selectedHash.push('Chat');
-      } else {
-        //console.log("close Chat")
-        this.setState({
-          Zcht3: this.state.zIndexDefault,
-        })
-        //let id_name='Chat';
-        //let position=this.state.selectedHash.indexOf(id_name);
-        //if(~position) this.state.selectedHash.splice(position, 1)
-      }
+      console.log("open Chat")
+      // if (!this.state.cht3) {
+      //   //console.log("open Chat")
+      //   this.setState({
+      //     Zcht1: this.state.zIndexDefault-1,
+      //     Zcht2: this.state.zIndexDefault,
+      //     Zcht3: this.state.zIndexDefault + 1,
+      //   })
+      //   //this.state.selectedHash.push('Chat');
+      // } else {
+      //   //console.log("close Chat")
+      //   this.setState({
+      //     Zcht3: this.state.zIndexDefault,
+      //   })
+      //   //let id_name='Chat';
+      //   //let position=this.state.selectedHash.indexOf(id_name);
+      //   //if(~position) this.state.selectedHash.splice(position, 1)
+      // }
 
       this.setState({
         cht3: !this.state.cht3,
@@ -168,56 +170,56 @@ class App extends React.Component {
       })
     }
   }
-  // //функция изменения Z-index
-  // cbZindex = (clickOnWindow) => {
-  //   if (clickOnWindow) {
-  //     this.setState({
-  //       counterZindex: this.state.counterZindex + 1,
-  //     })
-  //   }
-  // }
-
   //функция изменения Z-index
   cbZindex = (clickOnWindow) => {
-    if (clickOnWindow==="clickCallBack") {
-      // console.log('--1')
+    if (clickOnWindow) {
       this.setState({
-        Zcht1: this.state.zIndexDefault+1,
-        Zcht2: this.state.zIndexDefault,
-        Zcht3: this.state.zIndexDefault-1,
-      })
-    }
-    if(clickOnWindow==="clickMail"){
-      // console.log('--2')
-      this.setState({
-        Zcht1: this.state.zIndexDefault-1,
-        Zcht2: this.state.zIndexDefault+1,
-        Zcht3: this.state.zIndexDefault,
-      })
-    }
-    if(clickOnWindow==="clickChat"){
-      // console.log('--3')
-      this.setState({
-        Zcht1: this.state.zIndexDefault,
-        Zcht2: this.state.zIndexDefault-1,
-        Zcht3: this.state.zIndexDefault+1,
+        counterZindex: this.state.counterZindex + 1,
       })
     }
   }
+
+  // //функция изменения Z-index
+  // cbZindex = (clickOnWindow) => {
+  //   if (clickOnWindow==="clickCallBack") {
+  //     // console.log('--1')
+  //     this.setState({
+  //       Zcht1: this.state.zIndexDefault+1,
+  //       Zcht2: this.state.zIndexDefault,
+  //       Zcht3: this.state.zIndexDefault-1,
+  //     })
+  //   }
+  //   if(clickOnWindow==="clickMail"){
+  //     // console.log('--2')
+  //     this.setState({
+  //       Zcht1: this.state.zIndexDefault-1,
+  //       Zcht2: this.state.zIndexDefault+1,
+  //       Zcht3: this.state.zIndexDefault,
+  //     })
+  //   }
+  //   if(clickOnWindow==="clickChat"){
+  //     // console.log('--3')
+  //     this.setState({
+  //       Zcht1: this.state.zIndexDefault,
+  //       Zcht2: this.state.zIndexDefault-1,
+  //       Zcht3: this.state.zIndexDefault+1,
+  //     })
+  //   }
+  // }
 
 
   render() {
     //размеры окна
     let clientWidth = window.innerWidth;
     let clientHeight = window.innerHeight;
-
+    console.log(this.state.Zcht1,this.state.Zcht2,this.state.Zcht3)
     return (
       <div>
 
         {/* CallBack-заказать звонок */}
         <BlockWindowWrap
           CallBack
-          PositionNumber={this.state.selectedHash.indexOf("CallBack")}
+          // PositionNumber={this.state.selectedHash.indexOf("CallBack")}
           isCallBack={this.state.cht1}
           cbClose={this.cbCloseStatus}
 
@@ -233,7 +235,7 @@ class App extends React.Component {
         {/* Mail-ответить email */}
         <BlockWindowWrap
           Mail
-          PositionNumber={this.state.selectedHash.indexOf("Mail")}
+          // PositionNumber={this.state.selectedHash.indexOf("Mail")}
           isMail={this.state.cht2}
           cbClose={this.cbCloseStatus}
 
@@ -249,7 +251,7 @@ class App extends React.Component {
         {/* Chat-чат с оператором */}
         <BlockWindowWrap
           Chat
-          PositionNumber={this.state.selectedHash.indexOf("Chat")}
+          // PositionNumber={this.state.selectedHash.indexOf("Chat")}
           isChat={this.state.cht3}
           cbClose={this.cbCloseStatus}
 

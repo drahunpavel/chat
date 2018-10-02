@@ -701,7 +701,6 @@ class BlockWindowWrap extends React.Component {
 
     render() {
         let { btn, title, welcome } = this.props;//деструктуризация
-        console.log(this.state.toShowRenderThanksCallBack);
         return (
 
             <div
