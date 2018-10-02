@@ -27,55 +27,54 @@ class BlockWindowWrap extends React.Component {
 
         nameMailIsEmpty: false,
         mailMailIsEmpty: false,
-        textMailIsEmpty:false,
+        textMailIsEmpty: false,
 
         nameCallBackIsEmpty: false,
         numberCallBackIsEmpty: false,
-        textMailIsEmpty:false,
+        textMailIsEmpty: false,
+
+        startButton: true,
 
         sizeY: 450, //начальные размеры окна
         sizeX: 300,
 
-        //zindex: 9000,//z-index выбранного окна
 
-        
         //top,left координаты окна после изменений 
         locationX: this.props.startLeftChat,
         locationY: this.props.startTopChat,
     }
 
+
     WindowButtonStartChat = (EO) => {
         EO.preventDefault();
-        let fieldName = ReactDOM.findDOMNode(this.refs.fieldName).value;
-        let fieldNumber = ReactDOM.findDOMNode(this.refs.fieldNumber).value;
-        //let fieldSelect1 = ReactDOM.findDOMNode(this.refs.fieldSelect1).value;
-        //let fieldSelect2 = ReactDOM.findDOMNode(this.refs.fieldSelect2).value;
+
         console.log("------------Click start Chat------------")
-        console.log("Name: " + fieldName);
-        console.log("Phone: " + fieldNumber);
+        console.log("Name: " + this.state.nameChat);
+        console.log("Phone: " + this.state.numberChat);
+
     }
 
     WindowButtonStartMail = (EO) => {
         EO.preventDefault();
-        let fieldName = ReactDOM.findDOMNode(this.refs.fieldName).value;
-        let fieldNumber = ReactDOM.findDOMNode(this.refs.fieldNumber).value;
-        let fieldTextarea = ReactDOM.findDOMNode(this.refs.fieldTextarea).value;
+        // let fieldName = ReactDOM.findDOMNode(this.refs.fieldName).value;
+        // let fieldNumber = ReactDOM.findDOMNode(this.refs.fieldNumber).value;
+        // let fieldTextarea = ReactDOM.findDOMNode(this.refs.fieldTextarea).value;
         //let fieldSelect2 = ReactDOM.findDOMNode(this.refs.fieldSelect2).value;
         console.log("------------Click start Mail------------")
-        console.log("Name: " + fieldName);
-        console.log("Phone: " + fieldNumber);
-        console.log("Text: " + fieldTextarea);
+        console.log("Name: " + this.state.nameMail);
+        console.log("Mail: " + this.state.mailMail);
+        console.log("Text: " + this.state.textMail);
     }
 
     WindowButtonStartCallBack = (EO) => {
         EO.preventDefault();
-        let fieldName = ReactDOM.findDOMNode(this.refs.fieldName).value;
-        let fieldNumber = ReactDOM.findDOMNode(this.refs.fieldNumber).value;
+        // let fieldName = ReactDOM.findDOMNode(this.refs.fieldName).value;
+        // let fieldNumber = ReactDOM.findDOMNode(this.refs.fieldNumber).value;
         let fieldSelect1 = ReactDOM.findDOMNode(this.refs.fieldSelect1).value;
         let fieldSelect2 = ReactDOM.findDOMNode(this.refs.fieldSelect2).value;
         console.log("------------Click start Call Back------------")
-        console.log("Name: " + fieldName);
-        console.log("Phone: " + fieldNumber);
+        console.log("Name: " + this.state.nameCallBack);
+        console.log("Phone: " + this.state.numberCallBack);
         console.log("Select1: " + fieldSelect1);
         console.log("Select2: " + fieldSelect2);
     }
@@ -83,38 +82,79 @@ class BlockWindowWrap extends React.Component {
     //функция проверки полей воода
     onFieldChange = (fieldInput, EO) => {
         if (fieldInput == "nameChatIsEmpty" && EO.target.value.trim().length > 2 && EO.target.value.trim().length < 20) {
-            this.setState({ ["" + fieldInput]: false });
+            this.setState({
+                ["" + fieldInput]: false,
+                nameChat: EO.target.value,
+                field1: true,
+            });
         }
         else if (fieldInput == "numberChatIsEmpty" && EO.target.value.match(/^(\+375|80)(29|25|44|33)(\d{3})(\d{2})(\d{2})$/)) {
-            this.setState({ ["" + fieldInput]: false });
-        } 
+            this.setState({
+                ["" + fieldInput]: false,
+                numberChat: EO.target.value,
+                field2: true,
+            });
+        }
 
         else if (fieldInput == "nameMailIsEmpty" && EO.target.value.trim().length > 2 && EO.target.value.trim().length < 20) {
-            this.setState({ ["" + fieldInput]: false });
-        } 
+            this.setState({
+                ["" + fieldInput]: false,
+                nameMail: EO.target.value,
+                field3: true,
+            });
+        }
         else if (fieldInput == "mailMailIsEmpty" && EO.target.value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)) {
-            this.setState({ ["" + fieldInput]: false });
-        } 
+            this.setState({
+                ["" + fieldInput]: false,
+                mailMail: EO.target.value,
+                field4: true,
+            });
+        }
         else if (fieldInput == "textMailIsEmpty" && EO.target.value.trim().length > 2 && EO.target.value.trim().length < 180) {
-            this.setState({ ["" + fieldInput]: false });
-        } 
+            this.setState({
+                ["" + fieldInput]: false,
+                textMail: EO.target.value,
+                field5: true,
+            });
+        }
 
         else if (fieldInput == "nameCallBackIsEmpty" && EO.target.value.trim().length > 2 && EO.target.value.trim().length < 20) {
-            this.setState({ ["" + fieldInput]: false });
-        } 
+            this.setState({
+                ["" + fieldInput]: false,
+                nameCallBack: EO.target.value,
+                field6: true,
+            });
+        }
         else if (fieldInput == "numberCallBackIsEmpty" && EO.target.value.match(/^(\+375|80)(29|25|44|33)(\d{3})(\d{2})(\d{2})$/)) {
-            this.setState({ ["" + fieldInput]: false });
-        } 
+            this.setState({
+                ["" + fieldInput]: false,
+                numberCallBack: EO.target.value,
+                field7: true,
+            });
+        }
         // else if (fieldInput == "mailMailIsEmpty" && EO.target.value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)) {
-        //     this.setState({ ["" + fieldInput]: false });
-        // } 
+        //     this.setState({
+        //         ["" + fieldInput]: false,
+        //         mailCallBack: EO.target.value,
+        //         field8: true,
+        //     });
+        // }
         // else if (fieldInput == "textMailIsEmpty" && EO.target.value.trim().length > 2 && EO.target.value.trim().length < 180) {
-        //     this.setState({ ["" + fieldInput]: false });
-        // } 
+        //     this.setState({
+        //         ["" + fieldInput]: false,
+        //         textCallBack: EO.target.value,
+        //         field9: true,
+        //     });
+        // }
 
         else {
-            this.setState({ ["" + fieldInput]: true });
+            this.setState({
+                ["" + fieldInput]: true,
+            });
+
         }
+
+
     }
 
     //Функция отслеживания кликов
@@ -170,17 +210,17 @@ class BlockWindowWrap extends React.Component {
     close = () => {
         //console.log(this.props)
         let closeWindow;
-        if(this.props.CallBack){
+        if (this.props.CallBack) {
             //console.log('close win1 ')
-            closeWindow='1';
+            closeWindow = '1';
         }
-        if(this.props.Mail){
+        if (this.props.Mail) {
             //console.log('close win2 ')
-            closeWindow='2';
+            closeWindow = '2';
         }
-        if(this.props.Chat){
+        if (this.props.Chat) {
             //console.log('close win3 ')
-            closeWindow='3';
+            closeWindow = '3';
         }
         //передаем в родитель номер свернутого окна
         this.props.cbClose(closeWindow);
@@ -376,12 +416,12 @@ class BlockWindowWrap extends React.Component {
     }
 
 
-    
+
     //Отображение содержимого в окошках
     //////////////////////////////////Рендер "Запросить звонок"
     renderCallBackTitle = () => {
         return (
-            
+
             <div className="WindowHead">Заказать звонок</div>
         )
     }
@@ -421,7 +461,7 @@ class BlockWindowWrap extends React.Component {
 
                 <div className="WindowFieldLabel">Тема обращения:
                     <div className="WindowFieldControlFrame">
-  
+
                         <select
                             ref="fieldSelect1"
                             className="WindowFieldEdit">
@@ -457,9 +497,9 @@ class BlockWindowWrap extends React.Component {
             <div className="footer">
                 <button
                     className="button"
-                onClick={this.WindowButtonStartCallBack}
-                // disabled={this.state.nameChatIsEmpty || this.state.numberChatIsEmpty}
-                disabled={this.state.nameCallBackIsEmpty||this.state.numberCallBackIsEmpty}
+                    onClick={this.WindowButtonStartCallBack}
+                    // disabled={this.state.nameChatIsEmpty || this.state.numberChatIsEmpty}
+                    disabled={!this.state.field6 || !this.state.field7|| this.state.nameCallBackIsEmpty || this.state.numberCallBackIsEmpty}
                 >
                     Перезвоните мне
             </button>
@@ -534,7 +574,7 @@ class BlockWindowWrap extends React.Component {
                 <button
                     className="button"
                     onClick={this.WindowButtonStartMail}
-                    disabled={this.state.nameMailIsEmpty || this.state.mailMailIsEmpty}
+                    disabled={!this.state.field3 || !this.state.field4|| !this.state.field5 || this.state.nameMailIsEmpty || this.state.mailMailIsEmpty}
                 >
                     Свяжитесь со мной
             </button>
@@ -593,7 +633,8 @@ class BlockWindowWrap extends React.Component {
                 <button
                     className="button"
                     onClick={this.WindowButtonStartChat}
-                    disabled={this.state.nameChatIsEmpty || this.state.numberChatIsEmpty}
+                    disabled={!this.state.field1 || !this.state.field2 || this.state.nameChatIsEmpty || this.state.numberChatIsEmpty}
+
                 >
                     Начать чат
                 </button>
@@ -602,6 +643,9 @@ class BlockWindowWrap extends React.Component {
     }
     //////////////////////////////////Конец Рендера чата
 
+    renderThanksCallBack = () => {
+        <div>Привет!!!</div>
+    }
 
 
     //Объявляем
@@ -612,7 +656,7 @@ class BlockWindowWrap extends React.Component {
         window.addEventListener('mousedown', this.onMouseDown);
         window.addEventListener('mouseup', this.forceMouseUp);
         window.addEventListener('mousemove', this.mouseMove);
-        
+
     }
     //Удаляем
     componentWillUnmount() {
@@ -622,18 +666,18 @@ class BlockWindowWrap extends React.Component {
 
     }
 
-    static getDerivedStateFromProps(props, state){
-        let isHide=true
+    static getDerivedStateFromProps(props, state) {
+        let isHide = true
         //console.log(props)
-        if(props.CallBack&&props.isCallBack){
-            isHide=false;
+        if (props.CallBack && props.isCallBack) {
+            isHide = false;
 
         }
-        if(props.Mail&&props.isMail){
-            isHide=false;
+        if (props.Mail && props.isMail) {
+            isHide = false;
         }
-        if(props.Chat&&props.isChat){
-            isHide=false;
+        if (props.Chat && props.isChat) {
+            isHide = false;
         }
         return {
             displayWindow: isHide,
@@ -644,11 +688,11 @@ class BlockWindowWrap extends React.Component {
 
     render() {
         let { btn, title, welcome } = this.props;//деструктуризация
-        //console.log(this.props.PositionNumber)
+
         return (
 
             <div
-                onMouseDown={() => this.props.CallBack &&this.changeZIndex('clickCallBack')||this.props.Mail &&this.changeZIndex('clickMail')||this.props.Chat &&this.changeZIndex('clickChat')}
+                onMouseDown={() => this.props.CallBack && this.changeZIndex('clickCallBack') || this.props.Mail && this.changeZIndex('clickMail') || this.props.Chat && this.changeZIndex('clickChat')}
                 // onMouseDown={() => this.props.Mail &&this.changeZIndex('clickMail')}
                 // onMouseDown={() => this.props.Chat &&this.changeZIndex('clickChat')}
                 style={{ position: this.state.position, top: this.state.locationY + "px", left: this.state.locationX + "px", width: this.state.sizeX + "px", height: this.state.sizeY + "px", zIndex: this.props.counterZindex }}
