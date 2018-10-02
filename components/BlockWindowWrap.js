@@ -33,7 +33,6 @@ class BlockWindowWrap extends React.Component {
         numberCallBackIsEmpty: false,
         textMailIsEmpty: false,
 
-        startButton: true,
 
         sizeY: 450, //начальные размеры окна
         sizeX: 300,
@@ -207,14 +206,14 @@ class BlockWindowWrap extends React.Component {
             //console.log('close win1 ')
             closeWindow = '1';
             this.setState({
-                toShowRenderThanksCallBack:!this.state.toShowRenderThanksCallBack,//переключает содержимое окна CallBack
+                toShowRenderThanksCallBack:false,//переключает содержимое окна CallBack
             })
         }
         if (this.props.Mail) {
             //console.log('close win2 ')
             closeWindow = '2';
             this.setState({
-                toShowRenderThanksMail:!this.state.toShowRenderThanksMail,//переключает содержимое окна Mail
+                toShowRenderThanksMail:false,//переключает содержимое окна Mail
             })
         }
         if (this.props.Chat) {
@@ -702,6 +701,7 @@ class BlockWindowWrap extends React.Component {
 
     render() {
         let { btn, title, welcome } = this.props;//деструктуризация
+        console.log(this.state.toShowRenderThanksCallBack);
         return (
 
             <div
