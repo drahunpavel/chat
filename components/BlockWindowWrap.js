@@ -41,6 +41,11 @@ class BlockWindowWrap extends React.Component {
         //top,left координаты окна после изменений 
         locationX: this.props.startLeftChat,
         locationY: this.props.startTopChat,
+
+
+        // zindex: 9000,//z-index выбранного окна
+        // counterZindex:this.props.counterZindex
+        zzzIndex:this.props.counterZindex,
     }
 
 
@@ -192,10 +197,16 @@ class BlockWindowWrap extends React.Component {
         };
     };
 
+    //функция измененения Z-index
     changeZIndex = (index) => {
-        console.log(index)
-
-        this.props.cbchangeZIndex(index);
+        if (index === 'click') {
+            console.log('click')
+            this.props.cbchangeZIndex(index);//отправляем родителю инфу о том, что произошел клик по окну
+            this.setState({
+                //zindex: this.state.zindex + 1,
+                zindex:this.props.counterZindex//перехватываем значение из родителя
+            })
+        };
     };
 
     //функция сворачивания окна
@@ -684,7 +695,6 @@ class BlockWindowWrap extends React.Component {
         //console.log(props)
         if (props.CallBack && props.isCallBack) {
             isHide = false;
-
         }
         if (props.Mail && props.isMail) {
             isHide = false;
@@ -701,11 +711,15 @@ class BlockWindowWrap extends React.Component {
 
     render() {
         let { btn, title, welcome } = this.props;//деструктуризация
+        console.log('zindex',this.state.zindex)
+        console.log("zzzIndex", this.state.zzzIndex)
         return (
 
             <div
-                onMouseDown={() => this.props.CallBack && this.changeZIndex('clickCallBack') || this.props.Mail && this.changeZIndex('clickMail') || this.props.Chat && this.changeZIndex('clickChat')}
-                style={{ position: this.state.position, top: this.state.locationY + "px", left: this.state.locationX + "px", width: this.state.sizeX + "px", height: this.state.sizeY + "px", zIndex: this.props.counterZindex }}
+                //  контроль для Zиндекса для разных окон
+                // onMouseDown={() => this.props.CallBack && this.changeZIndex('clickCallBack') || this.props.Mail && this.changeZIndex('clickMail') || this.props.Chat && this.changeZIndex('clickChat')}
+                onMouseDown={() => this.changeZIndex('click')}
+                style={{ position: this.state.position, top: this.state.locationY + "px", left: this.state.locationX + "px", width: this.state.sizeX + "px", height: this.state.sizeY + "px", zIndex:  this.state.zindex }}
                 className={'BlockWindowWrap-' + this.state.displayWindow}
                 ref={BlockWindowWrap => { this.BlockWindowWrap = BlockWindowWrap }}
             //ref="bla" //второй способ через ref

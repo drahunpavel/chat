@@ -36,7 +36,6 @@ class App extends React.Component {
     // Zcht2: 9000,
     // Zcht3: 9000,
 
-    
   };
 
 
@@ -58,6 +57,7 @@ class App extends React.Component {
 
     if (fieldNumber === 1) {
       console.log("open CallBack")
+      
       // if (!this.state.cht1) {
       //   //console.log("open CallBack")
       //   this.setState({
@@ -78,6 +78,7 @@ class App extends React.Component {
       // }
       this.setState({
         cht1: !this.state.cht1,
+        counterZindex: this.state.counterZindex+1,//добавляем в счетчик+1
       })
     }
     if (fieldNumber === 2) {
@@ -101,6 +102,7 @@ class App extends React.Component {
       // }
       this.setState({
         cht2: !this.state.cht2,
+        counterZindex: this.state.counterZindex+1,//добавляем в счетчик+1
       })
     }
     if (fieldNumber === 3) {
@@ -125,6 +127,7 @@ class App extends React.Component {
 
       this.setState({
         cht3: !this.state.cht3,
+        counterZindex: this.state.counterZindex+1,//добавляем в счетчик+1
       })
     }
 
@@ -142,7 +145,7 @@ class App extends React.Component {
   //3=cht3=Chat
   cbCloseStatus = (closedWindow) => {
     if (closedWindow === '1') {
-      //console.log("close CallBack")
+      console.log("close CallBack")
       //let id_name='CallBack';
       //let position=this.state.selectedHash.indexOf(id_name);
       //if(~position) this.state.selectedHash.splice(position, 1)
@@ -151,7 +154,7 @@ class App extends React.Component {
       })
     }
     if (closedWindow === '2') {
-      //console.log("close Mail")
+      console.log("close Mail")
       //let id_name='Mail';
       //let position=this.state.selectedHash.indexOf(id_name);
       //if(~position) this.state.selectedHash.splice(position, 1)
@@ -161,7 +164,7 @@ class App extends React.Component {
       })
     }
     if (closedWindow === '3') {
-      //console.log("close Chat")
+      console.log("close Chat")
       //let id_name='Chat';
       //let position=this.state.selectedHash.indexOf(id_name);
       //if(~position) this.state.selectedHash.splice(position, 1)
@@ -170,14 +173,19 @@ class App extends React.Component {
       })
     }
   }
+
+
+
   //функция изменения Z-index
-  cbZindex = (clickOnWindow) => {
-    if (clickOnWindow) {
+  cbZindex = (clickOnWindow) => { 
+    if (clickOnWindow) {//через кб узнаем, что был клик по одному из окна
       this.setState({
-        counterZindex: this.state.counterZindex + 1,
+        counterZindex: this.state.counterZindex+1,//добавляем в счетчик+1
       })
     }
   }
+
+
 
   // //функция изменения Z-index
   // cbZindex = (clickOnWindow) => {
@@ -212,7 +220,8 @@ class App extends React.Component {
     //размеры окна
     let clientWidth = window.innerWidth;
     let clientHeight = window.innerHeight;
-    console.log(this.state.Zcht1,this.state.Zcht2,this.state.Zcht3)
+    console.log('counterZindex APP',this.state.counterZindex)
+    console.log("isCallBack",this.state.cht1)
     return (
       <div>
 
@@ -224,8 +233,11 @@ class App extends React.Component {
           cbClose={this.cbCloseStatus}
 
 
-          cbchangeZIndex={this.cbZindex}
-          counterZindex={this.state.Zcht1}
+          cbchangeZIndex={this.cbZindex}//узнаем из дочернего компонента о клике
+          counterZindex={this.state.counterZindex}//передаем в дочерний компонент актуальное значение Zindex
+
+
+
 
           //startLeftChat, startTopChat - координаты стартового расположения полей
           startLeftChat={clientWidth - 420}
@@ -242,7 +254,7 @@ class App extends React.Component {
           changeWindowMail={this.state.changeWindowMail}
 
           cbchangeZIndex={this.cbZindex}
-          counterZindex={this.state.Zcht2}
+          counterZindex={this.state.counterZindex}
 
           startLeftChat={clientWidth - 420}
           startTopChat={clientHeight - 480}
@@ -256,7 +268,7 @@ class App extends React.Component {
           cbClose={this.cbCloseStatus}
 
           cbchangeZIndex={this.cbZindex}
-          counterZindex={this.state.Zcht3}
+          counterZindex={this.state.counterZindex}
 
           startLeftChat={clientWidth - 420}
           startTopChat={clientHeight - 450}
