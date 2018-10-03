@@ -56,7 +56,7 @@ class BlockWindowWrap extends React.Component {
         console.log("Name: " + this.state.nameChat);
         console.log("Phone: " + this.state.numberChat);
         this.setState({
-            toShowRenderActiveChat: true, //переключатель для отображения renderThanksCallMail после нажатия кнопки
+            toShowRenderActiveChat: true, //переключатель для отображения RenderActiveChat после нажатия кнопки
         })
     }
 
@@ -202,7 +202,7 @@ class BlockWindowWrap extends React.Component {
     //функция измененения Z-index
     changeZIndex = (index) => {
         if (index === 'click') {
-            console.log('click')
+            // console.log('click')
             this.props.cbchangeZIndex(index);//отправляем родителю инфу о том, что произошел клик по окну
             this.setState({
                 //zindex: this.state.zindex + 1,
@@ -358,19 +358,6 @@ class BlockWindowWrap extends React.Component {
             //создаем точку для хранения стартовых данных
             if (!this.state.isStartedDrop) {
 
-                let arrElementData=this.BlockWindowWrap.getBoundingClientRect();
-                console.log(arrElementData)
-
-            //Эти две системы координат жёстко связаны: pageY = clientY + текущая вертикальная прокрутка
-            //Получение координат относительно страницы
-            let getCoordsY=arrElementData.top+pageYOffset;
-            let getCoordsX=arrElementData.left+pageXOffset;
-                console.log('Начальные координаты: '+getCoordsX+'/'+getCoordsX)
- //сдвиг курсора относительно верхнего левого угла shiftx/y
-            let shiftx=EO.pageX-getCoordsX;
-            let shifty=EO.pageY-getCoordsY;
-                console.log('относительно верхнего левого угла: '+shiftx+'/'+shifty)
-//console.log(arrElementData.top+pageYOffset)
                 this.setState({
 
                     startDropX: EO.clientX,
@@ -386,6 +373,8 @@ class BlockWindowWrap extends React.Component {
                 })
             }
 
+            let deltaDX = EO.clientX - this.state.startLeft;
+            let deltaDY = EO.clientY - this.state.startTop;
 
             //let arrElementData = this.BlockWindowWrap.getBoundingClientRect();
 
@@ -426,7 +415,12 @@ class BlockWindowWrap extends React.Component {
         })
     }
 
-
+    сhatCompleteDialogue = () => {
+        console.log('---1')
+        this.setState({
+            dialogueCompleted: true, //true при нажатии на "завершить диалог"
+        })
+    }
 
     //Отображение содержимого в окошках
     //////////////////////////////////Рендер "Запросить звонок"
@@ -681,21 +675,46 @@ class BlockWindowWrap extends React.Component {
     }
     renderActiveChatFooter = () => {
         return (
-            <div className="ActiveChat">
-                <a href="0">Завершить диалог</a>
+
+                <div className="ActiveChat">
+                    {/* // <div className={this.state.dialogueCompleted? "null":"ActiveChat"}> */}
+                    <a onClick={this.сhatCompleteDialogue}>Завершить диалог</a>
                     <div className="ActiveChatEntryField">
                         <div className="ActiveChatEntryFieldText">
                             <textarea
                                 className="ActiveChatFooterInput"
                                 type="text"
                                 placeholder="Напишите что-нибудь"
-                                // ref="fieldTextarea"
-                                // onChange={this.onFieldChange.bind(this, "textMailIsEmpty")} 
-                                />
+                            // ref="fieldTextarea"
+                            // onChange={this.onFieldChange.bind(this, "textMailIsEmpty")} 
+                            />
                         </div>
                         <div className="ActiveChatFooterSmile"></div>
                         <div className="ActiveChatFooterButton"></div>
                     </div>
+                </div>
+        )
+    }
+    renderChatCompleteDialogue = () => {
+        return (
+            <div>
+                <h3>Пожалуйста, оцените диалог с оператором</h3>
+                <p>Ваше мнение нужно, чтобы сделать сервис лучше</p>
+            </div>
+        )
+    }
+    renderActiveChatMain=()=>{
+        return(
+            <div>
+                Сообщение 1
+                <br/>
+                Сообщение 2
+                <br/>
+                Сообщение 3
+                <br/>
+                Сообщение 4
+                <br/>
+                Сообщение 5
             </div>
         )
     }
@@ -745,6 +764,7 @@ class BlockWindowWrap extends React.Component {
         let { btn, title, welcome } = this.props;//деструктуризация
         // console.log('zindex',this.state.zindex)
         // console.log("zzzIndex", this.state.zzzIndex)
+        // console.log("dialogueCompleted",this.state.dialogueCompleted)
         return (
 
             <div
@@ -774,13 +794,23 @@ class BlockWindowWrap extends React.Component {
                     {this.state.toShowRenderThanksMail ? null : this.props.Mail && this.renderMailWelcome()}
                     {this.state.toShowRenderThanksMail ? this.props.Mail && this.renderThanksMail() : this.props.Mail && this.renderMailMain()}
 
+
+                    {/* Отображает информацию после Начать диалог */}
                     {this.state.toShowRenderActiveChat ? null : this.props.Chat && this.renderChatWelcome()}
                     {this.state.toShowRenderActiveChat ? null : this.props.Chat && this.renderChatMain()}
+
+                    {/* Отображает информацию после нажатия на Завершить диалог */}
+                    {/* {this.state.dialogueCompleted ? this.props.Chat&&this.renderChatCompleteDialogue() : null} */}
                 </div>
 
                 {this.state.toShowRenderThanksCallBack ? null : this.props.CallBack && this.renderCallBackButtom()}
                 {this.state.toShowRenderThanksMail ? null : this.props.Mail && this.renderMailButtom()}
+                
+                {/* отображает или кнопку начать чат, или же окошко с отправлением сообщения */}
                 {this.state.toShowRenderActiveChat ? this.props.Chat && this.renderActiveChatFooter() : this.props.Chat && this.renderChatButtom()}
+
+                {this.state.dialogueCompleted ? null:null}
+
 
 
                 <div className='close' onClick={this.close}></div>

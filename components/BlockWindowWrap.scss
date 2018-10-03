@@ -175,6 +175,8 @@
   }
   .ActiveChat a{
     color:green;
+    cursor: pointer;
+    text-decoration:underline
   }
   .ActiveChatEntryField{
     left:0;
@@ -200,7 +202,7 @@
     font-weight: 600;
     width: 90%;
     resize: none;
-    border-bottom:1px solid rgb(94, 93, 93); 
+    border-bottom:1px solid rgb(156, 156, 156); 
     border-radius: 5px;
   }
   .ActiveChatFooterSmile{
@@ -216,7 +218,7 @@
   .ActiveChatFooterSmile:hover{
     width: 30px;
     height: 30px;
-    background-image: url("/src/images/openSmile.png");
+    background-image: url("/src/images/openSmile2.png");
     position: absolute;
     bottom: 5px;
     right: 50px;
@@ -241,11 +243,10 @@
   .ActiveChatFooterButton:hover{
     width: 30px;
     height: 30px;
-    background-image: url("/src/images/arrow.png");
+    background-image: url("/src/images/arrow2.png");
     position: absolute;
     bottom: 5px;
     right: 5px;
-    color: green;
     cursor: pointer;
     background-size: 100%;
   }
