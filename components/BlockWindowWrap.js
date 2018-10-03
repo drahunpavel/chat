@@ -29,10 +29,10 @@ class BlockWindowWrap extends React.Component {
         nameIsEmpty: true,
         numberIsEmpty: true,
 
-        sizeY: 372,
-        sizeX: 321,
+        sizeY: 100,
+        sizeX: 100,
 
-        zindex: 1,//z-index выбранного окна
+        zindex: 8000,//z-index выбранного окна
     }
 
     WindowButtonStartChat = (EO) => {
@@ -137,52 +137,52 @@ class BlockWindowWrap extends React.Component {
             //создаем стартовую точку
             if (!this.state.isStartedDrop) {
 
+                let arrElementData=this.BlockWindowWrap.getBoundingClientRect();
+                console.log(arrElementData)
+
+            //Эти две системы координат жёстко связаны: pageY = clientY + текущая вертикальная прокрутка
+            //Получение координат относительно страницы
+            let getCoordsY=arrElementData.top+pageYOffset;
+            let getCoordsX=arrElementData.left+pageXOffset;
+                console.log('Начальные координаты: '+getCoordsX+'/'+getCoordsX)
+ //сдвиг курсора относительно верхнего левого угла shiftx/y
+            let shiftx=EO.pageX-getCoordsX;
+            let shifty=EO.pageY-getCoordsY;
+                console.log('относительно верхнего левого угла: '+shiftx+'/'+shifty)
+//console.log(arrElementData.top+pageYOffset)
                 this.setState({
-                    // startX: EO.clientX,
-                    // startY: EO.clientY,
+                    arrElementData:arrElementData,
 
-                    startWidth: this.BlockWindowWrap.offsetWidth,
-                    startHeight: this.BlockWindowWrap.offsetHeight,
+                    startCoordsY:getCoordsY,
+                    startCoordsX:getCoordsX,
 
-                    
-                    startDropX:EO.clientX,
-                    startDropY:EO.clientY,
-                    startTop : this.BlockWindowWrap.offsetTop,
-                    startLeft : this.BlockWindowWrap.offsetLeft,
-
+                    shiftx:shiftx,
+                    shifty:shifty,
 
                     isStartedResize: true
                 })
             }
 
-            let deltaDX = EO.clientX - this.state.startLeft;
-            let deltaDY = EO.clientY - this.state.startTop;
-
-            // console.log("Начальные ширина/высота: " + this.state.startWidth + ":" + this.state.startHeight);
-            // console.log("---------------");
-
-            // console.log("дельта смещения: " + deltaX + ":" + deltaY);
-            // console.log("---------------");
 
 
-            console.log("координаты относительно начала окна: "+this.state.startTop+"/"+this.state.startLeft);
-            console.log("---------------");
 
-            console.log("дельта сдвига: "+deltaDX+"/"+deltaDY);
-            console.log("---------------");
-            
-            //window sizes
-            let clientWidth=window.innerWidth;
-            let clientHeight=window.innerHeight;
-            console.log("window sizes: "+clientWidth,clientHeight)
+
+
+
+
 
             //new coordinates when moving + limitation
-            let left = this.state.startLeft + deltaDX;
-            (left < 0 && (left = 0)) || (left > clientWidth-321 && (left = clientWidth-321)); //max size width
-            let top = this.state.startTop + deltaDY;
-            (top < 0 && (top = 0)) || (top > clientHeight-372 && (top = clientHeight-372));//max size height
-            console.log("new coordinates when moving: "+left+"/"+top);
+            //let left = this.state.startLeft + deltaDX;
+            let left=EO.pageX-this.state.shiftx;
+            console.log("left"+left)
+            //(left < 0 && (left = 0)) || (left > clientWidth-321 && (left = clientWidth-321)); //max size width
+            let top=EO.pageY-this.state.shifty;
+            console.log("top"+top)
             console.log("---------------");
+            //let top = this.state.startTop + deltaDY;
+            //(top < 0 && (top = 0)) || (top > clientHeight-372 && (top = clientHeight-372));//max size height
+            // console.log("new coordinates when moving: "+left+"/"+top);
+            // console.log("---------------");
 
 
             this.setState({

@@ -1,16 +1,16 @@
 .BlockWindowWrap {
-  top:20px;
-  left: 20px;
-  position: fixed;
+  top:10px;
+  left:10px;
+  position: absolute;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   border-radius: 5px;
   background: rgb(255, 255, 255);
 
-  height: 372px;
-  width: 321px;
+  height: 100px;
+  width: 100px;
 
   .header {
-    position: relative;
+    position: absolute;
     top: 0;
     width: 100%;
     border-radius: 5px 5px 0 0;
