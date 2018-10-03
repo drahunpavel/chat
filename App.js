@@ -220,8 +220,8 @@ class App extends React.Component {
     //размеры окна
     let clientWidth = window.innerWidth;
     let clientHeight = window.innerHeight;
-    console.log('counterZindex APP',this.state.counterZindex)
-    console.log("isCallBack",this.state.cht1)
+    // console.log('counterZindex APP',this.state.counterZindex)
+    // console.log("isCallBack",this.state.cht1)
     return (
       <div>
 

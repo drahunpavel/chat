@@ -45,7 +45,7 @@ class BlockWindowWrap extends React.Component {
 
         // zindex: 9000,//z-index выбранного окна
         // counterZindex:this.props.counterZindex
-        zzzIndex:this.props.counterZindex,
+        zzzIndex: this.props.counterZindex,
     }
 
 
@@ -55,7 +55,9 @@ class BlockWindowWrap extends React.Component {
         console.log("------------Click start Chat------------")
         console.log("Name: " + this.state.nameChat);
         console.log("Phone: " + this.state.numberChat);
-
+        this.setState({
+            toShowRenderActiveChat: true, //переключатель для отображения renderThanksCallMail после нажатия кнопки
+        })
     }
 
     WindowButtonStartMail = (EO) => {
@@ -69,7 +71,7 @@ class BlockWindowWrap extends React.Component {
         console.log("Mail: " + this.state.mailMail);
         console.log("Text: " + this.state.textMail);
         this.setState({
-            toShowRenderThanksMail:true, //переключатель для отображения renderThanksCallMail после нажатия кнопки
+            toShowRenderThanksMail: true, //переключатель для отображения renderThanksCallMail после нажатия кнопки
         })
     }
 
@@ -85,7 +87,7 @@ class BlockWindowWrap extends React.Component {
         console.log("Select1: " + fieldSelect1);
         console.log("Select2: " + fieldSelect2);
         this.setState({
-            toShowRenderThanksCallBack:true, //переключатель для отображения renderThanksCallBack после нажатия кнопки
+            toShowRenderThanksCallBack: true, //переключатель для отображения renderThanksCallBack после нажатия кнопки
         })
     }
 
@@ -204,7 +206,7 @@ class BlockWindowWrap extends React.Component {
             this.props.cbchangeZIndex(index);//отправляем родителю инфу о том, что произошел клик по окну
             this.setState({
                 //zindex: this.state.zindex + 1,
-                zindex:this.props.counterZindex//перехватываем значение из родителя
+                zindex: this.props.counterZindex//перехватываем значение из родителя
             })
         };
     };
@@ -217,14 +219,14 @@ class BlockWindowWrap extends React.Component {
             //console.log('close win1 ')
             closeWindow = '1';
             this.setState({
-                toShowRenderThanksCallBack:false,//переключает содержимое окна CallBack
+                toShowRenderThanksCallBack: false,//переключает содержимое окна CallBack
             })
         }
         if (this.props.Mail) {
             //console.log('close win2 ')
             closeWindow = '2';
             this.setState({
-                toShowRenderThanksMail:false,//переключает содержимое окна Mail
+                toShowRenderThanksMail: false,//переключает содержимое окна Mail
             })
         }
         if (this.props.Chat) {
@@ -497,41 +499,27 @@ class BlockWindowWrap extends React.Component {
                     className="button"
                     onClick={this.WindowButtonStartCallBack}
                     // disabled={this.state.nameChatIsEmpty || this.state.numberChatIsEmpty}
-                    disabled={!this.state.field6 || !this.state.field7|| this.state.nameCallBackIsEmpty || this.state.numberCallBackIsEmpty}
+                    disabled={!this.state.field6 || !this.state.field7 || this.state.nameCallBackIsEmpty || this.state.numberCallBackIsEmpty}
                 >
                     Перезвоните мне
             </button>
             </div>
         )
     }
-
-
     renderThanksCallBack = () => {
-        return(
+        return (
             <div>
                 <div className="ThanksCallBack-img">
-                 {/* <img    src="/src/images/callback.jpg"/> */}
+                    {/* <img    src="/src/images/callback.jpg"/> */}
                 </div>
                 <div className="renderThanks-text">
                     <h4>Спасибо!</h4>
-                    <p>Мы перезвоним Вам в указанное Вами время!</p>             
+                    <p>Мы перезвоним Вам в указанное Вами время!</p>
                 </div>
             </div>
-        )  
+        )
     }
-    renderThanksMail = () => {
-        return(
-            <div>
-                <div className="ThanksMail-img">
-                 {/* <img    src="/src/images/callback.jpg"/> */}
-                </div>
-                <div className="renderThanks-text">
-                    <h4>Спасибо!</h4>
-                    <p>Мы свяжемся с Вами</p>             
-                </div>
-            </div>
-        )  
-    }
+
     //////////////////////////////////Конец Рендера "Запросить звонок"
 
 
@@ -600,10 +588,23 @@ class BlockWindowWrap extends React.Component {
                 <button
                     className="button"
                     onClick={this.WindowButtonStartMail}
-                    disabled={!this.state.field3 || !this.state.field4|| !this.state.field5 || this.state.nameMailIsEmpty || this.state.mailMailIsEmpty}
+                    disabled={!this.state.field3 || !this.state.field4 || !this.state.field5 || this.state.nameMailIsEmpty || this.state.mailMailIsEmpty}
                 >
                     Свяжитесь со мной
             </button>
+            </div>
+        )
+    }
+    renderThanksMail = () => {
+        return (
+            <div>
+                <div className="ThanksMail-img">
+                    {/* <img    src="/src/images/callback.jpg"/> */}
+                </div>
+                <div className="renderThanks-text">
+                    <h4>Спасибо!</h4>
+                    <p>Мы свяжемся с Вами</p>
+                </div>
             </div>
         )
     }
@@ -667,6 +668,26 @@ class BlockWindowWrap extends React.Component {
             </div>
         )
     }
+    renderActiveChatFooter = () => {
+        return (
+            <div className="ActiveChat">
+                <a href="0">Завершить диалог</a>
+                    <div className="ActiveChatEntryField">
+                        <div className="ActiveChatEntryFieldText">
+                            <textarea
+                                className="ActiveChatFooterInput"
+                                type="text"
+                                placeholder="Напишите что-нибудь"
+                                // ref="fieldTextarea"
+                                // onChange={this.onFieldChange.bind(this, "textMailIsEmpty")} 
+                                />
+                        </div>
+                        <div className="ActiveChatFooterSmile"></div>
+                        <div className="ActiveChatFooterButton"></div>
+                    </div>
+            </div>
+        )
+    }
     //////////////////////////////////Конец Рендера чата
 
 
@@ -711,15 +732,15 @@ class BlockWindowWrap extends React.Component {
 
     render() {
         let { btn, title, welcome } = this.props;//деструктуризация
-        console.log('zindex',this.state.zindex)
-        console.log("zzzIndex", this.state.zzzIndex)
+        // console.log('zindex',this.state.zindex)
+        // console.log("zzzIndex", this.state.zzzIndex)
         return (
 
             <div
                 //  контроль для Zиндекса для разных окон
                 // onMouseDown={() => this.props.CallBack && this.changeZIndex('clickCallBack') || this.props.Mail && this.changeZIndex('clickMail') || this.props.Chat && this.changeZIndex('clickChat')}
                 onMouseDown={() => this.changeZIndex('click')}
-                style={{ position: this.state.position, top: this.state.locationY + "px", left: this.state.locationX + "px", width: this.state.sizeX + "px", height: this.state.sizeY + "px", zIndex:  this.state.zindex }}
+                style={{ position: this.state.position, top: this.state.locationY + "px", left: this.state.locationX + "px", width: this.state.sizeX + "px", height: this.state.sizeY + "px", zIndex: this.state.zindex }}
                 className={'BlockWindowWrap-' + this.state.displayWindow}
                 ref={BlockWindowWrap => { this.BlockWindowWrap = BlockWindowWrap }}
             //ref="bla" //второй способ через ref
@@ -732,23 +753,24 @@ class BlockWindowWrap extends React.Component {
                     {this.props.CallBack && this.renderCallBackTitle()}
                     {this.props.Mail && this.renderMailtitle()}
                     {this.props.Chat && this.renderChatTitle()}
-                    
+
                 </div>
 
                 <div className="main">
-                    {this.state.toShowRenderThanksCallBack? null: this.props.CallBack && this.renderCallBackWelcome()}
-                    {this.state.toShowRenderThanksCallBack ? this.props.CallBack && this.renderThanksCallBack(): this.props.CallBack && this.renderCallBackMain()}
+                    {this.state.toShowRenderThanksCallBack ? null : this.props.CallBack && this.renderCallBackWelcome()}
+                    {this.state.toShowRenderThanksCallBack ? this.props.CallBack && this.renderThanksCallBack() : this.props.CallBack && this.renderCallBackMain()}
 
-                    {this.state.toShowRenderThanksMail ? null: this.props.Mail && this.renderMailWelcome()}
-                    {this.state.toShowRenderThanksMail ? this.props.Mail&&this.renderThanksMail(): this.props.Mail && this.renderMailMain()}
+                    {this.state.toShowRenderThanksMail ? null : this.props.Mail && this.renderMailWelcome()}
+                    {this.state.toShowRenderThanksMail ? this.props.Mail && this.renderThanksMail() : this.props.Mail && this.renderMailMain()}
 
-                    {this.props.Chat && this.renderChatWelcome()}
-                    {this.props.Chat && this.renderChatMain()}
+                    {this.state.toShowRenderActiveChat ? null : this.props.Chat && this.renderChatWelcome()}
+                    {this.state.toShowRenderActiveChat ? null : this.props.Chat && this.renderChatMain()}
                 </div>
 
-                {this.state.toShowRenderThanksCallBack ? null: this.props.CallBack && this.renderCallBackButtom()}
-                {this.state.toShowRenderThanksMail ? null: this.props.Mail && this.renderMailButtom()}
-                {this.props.Chat && this.renderChatButtom()}
+                {this.state.toShowRenderThanksCallBack ? null : this.props.CallBack && this.renderCallBackButtom()}
+                {this.state.toShowRenderThanksMail ? null : this.props.Mail && this.renderMailButtom()}
+                {this.state.toShowRenderActiveChat ? this.props.Chat && this.renderActiveChatFooter() : this.props.Chat && this.renderChatButtom()}
+
 
                 <div className='close' onClick={this.close}></div>
                 <div className="resizeBtnBR" onMouseDown={() => this.myResize('click1')} onMouseUp={() => this.myResize('click2')} ></div>
