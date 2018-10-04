@@ -7,6 +7,8 @@ import PropTypes from 'prop-types';
 
 import './BlockWindowWrap.scss';
 
+let chatRatingSmiles = require('../src/chatRatingSmiles.json')
+
 class BlockWindowWrap extends React.Component {
 
     static propTypes = {
@@ -46,6 +48,9 @@ class BlockWindowWrap extends React.Component {
         // zindex: 9000,//z-index выбранного окна
         // counterZindex:this.props.counterZindex
         zzzIndex: this.props.counterZindex,
+
+        //массив со смайликами для оценки чата
+        chatRatingSmilesArr:chatRatingSmiles,
     }
 
 
@@ -520,6 +525,9 @@ class BlockWindowWrap extends React.Component {
                 <div className="renderThanks-text">
                     <h4>Спасибо!</h4>
                     <p>Мы перезвоним Вам в указанное Вами время!</p>
+                    <div className="ChatRatingSmiles">
+
+                    </div>
                 </div>
             </div>
         )
@@ -676,8 +684,8 @@ class BlockWindowWrap extends React.Component {
     renderActiveChatFooter = () => {
         return (
 
-                <div className="ActiveChat">
-                    {/* // <div className={this.state.dialogueCompleted? "null":"ActiveChat"}> */}
+                // <div className="ActiveChat">
+                    <div className={this.state.dialogueCompleted? "ActiveChatNone":"ActiveChat"}>
                     <a onClick={this.сhatCompleteDialogue}>Завершить диалог</a>
                     <div className="ActiveChatEntryField">
                         <div className="ActiveChatEntryFieldText">
@@ -697,15 +705,24 @@ class BlockWindowWrap extends React.Component {
     }
     renderChatCompleteDialogue = () => {
         return (
-            <div>
+            <div className="ChatWindowAppreciateDialogue">
                 <h3>Пожалуйста, оцените диалог с оператором</h3>
                 <p>Ваше мнение нужно, чтобы сделать сервис лучше</p>
+                <div>
+                    {this.state.chatRatingSmilesArr.map(v=>
+                        <div key={v.code} className="ChatWindowAppreciateDialogueImg"
+                        style={{ backgroundImage: v.image}}
+                        >
+                            {/* <p>{v.description}</p> */}
+                        </div>
+                        )}
+                </div>
             </div>
         )
     }
     renderActiveChatMain=()=>{
         return(
-            <div>
+            <div className={this.state.dialogueCompleted? "ChatWindowDisplayMessagesNone":"ChatWindowDisplayMessages"}>
                 Сообщение 1
                 <br/>
                 Сообщение 2
@@ -764,7 +781,7 @@ class BlockWindowWrap extends React.Component {
         let { btn, title, welcome } = this.props;//деструктуризация
         // console.log('zindex',this.state.zindex)
         // console.log("zzzIndex", this.state.zzzIndex)
-        // console.log("dialogueCompleted",this.state.dialogueCompleted)
+        console.log("dialogueCompleted",this.state.dialogueCompleted)
         return (
 
             <div
@@ -797,7 +814,9 @@ class BlockWindowWrap extends React.Component {
 
                     {/* Отображает информацию после Начать диалог */}
                     {this.state.toShowRenderActiveChat ? null : this.props.Chat && this.renderChatWelcome()}
-                    {this.state.toShowRenderActiveChat ? null : this.props.Chat && this.renderChatMain()}
+                    {this.state.toShowRenderActiveChat ?  this.props.Chat &&this.renderActiveChatMain() : this.props.Chat && this.renderChatMain()}
+                    {this.state.dialogueCompleted ? this.props.Chat&&this.renderChatCompleteDialogue(): null}
+
 
                     {/* Отображает информацию после нажатия на Завершить диалог */}
                     {/* {this.state.dialogueCompleted ? this.props.Chat&&this.renderChatCompleteDialogue() : null} */}
