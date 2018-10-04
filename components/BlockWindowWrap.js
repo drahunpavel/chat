@@ -50,7 +50,7 @@ class BlockWindowWrap extends React.Component {
         zzzIndex: this.props.counterZindex,
 
         //массив со смайликами для оценки чата
-        chatRatingSmilesArr:chatRatingSmiles,
+        chatRatingSmilesArr: chatRatingSmiles,
     }
 
 
@@ -684,53 +684,65 @@ class BlockWindowWrap extends React.Component {
     renderActiveChatFooter = () => {
         return (
 
-                // <div className="ActiveChat">
-                    <div className={this.state.dialogueCompleted? "ActiveChatNone":"ActiveChat"}>
-                    <a onClick={this.сhatCompleteDialogue}>Завершить диалог</a>
-                    <div className="ActiveChatEntryField">
-                        <div className="ActiveChatEntryFieldText">
-                            <textarea
-                                className="ActiveChatFooterInput"
-                                type="text"
-                                placeholder="Напишите что-нибудь"
-                            // ref="fieldTextarea"
-                            // onChange={this.onFieldChange.bind(this, "textMailIsEmpty")} 
-                            />
-                        </div>
-                        <div className="ActiveChatFooterSmile"></div>
-                        <div className="ActiveChatFooterButton"></div>
+            // <div className="ActiveChat">
+            <div className={this.state.dialogueCompleted ? "ActiveChatNone" : "ActiveChat"}>
+                <a onClick={this.сhatCompleteDialogue}>Завершить диалог</a>
+                <div className="ActiveChatEntryField">
+                    <div className="ActiveChatEntryFieldText">
+                        <textarea
+                            className="ActiveChatFooterInput"
+                            type="text"
+                            placeholder="Напишите что-нибудь"
+                        // ref="fieldTextarea"
+                        // onChange={this.onFieldChange.bind(this, "textMailIsEmpty")} 
+                        />
                     </div>
+                    <div className="ActiveChatFooterSmile"></div>
+                    <div className="ActiveChatFooterButton"></div>
                 </div>
+            </div>
         )
     }
-    renderChatCompleteDialogue = () => {
+    renderChatRating = () => {
         return (
             <div className="ChatWindowAppreciateDialogue">
                 <h3>Пожалуйста, оцените диалог с оператором</h3>
                 <p>Ваше мнение нужно, чтобы сделать сервис лучше</p>
                 <div>
-                    {this.state.chatRatingSmilesArr.map(v=>
+                    {this.state.chatRatingSmilesArr.map(v =>
                         <div key={v.code} className="ChatWindowAppreciateDialogueImg"
-                        style={{ backgroundImage: v.image}}
+                            style={{ backgroundImage: v.image }}
                         >
-                            {/* <p>{v.description}</p> */}
                         </div>
-                        )}
+                    )}
                 </div>
             </div>
         )
     }
-    renderActiveChatMain=()=>{
-        return(
-            <div className={this.state.dialogueCompleted? "ChatWindowDisplayMessagesNone":"ChatWindowDisplayMessages"}>
+    renderChatRatingFooter = () => {
+        return (
+            <div className="ChatWindowAppreciateDialogueFooter">
+                <div className="AppreciateDialogueButton ">
+                    <a className="ViewButton1">Сохранить</a>
+                    <a className="ViewButton1">Распечатать</a>
+                </div>
+                <div className="AppreciateDialogueButton ViewButton2">
+                    <a>Начать новый диалог</a>
+                </div>
+            </div>
+        )
+    }
+    renderActiveChatMain = () => {
+        return (
+            <div className={this.state.dialogueCompleted ? "ChatWindowDisplayMessagesNone" : "ChatWindowDisplayMessages"}>
                 Сообщение 1
-                <br/>
+                <br />
                 Сообщение 2
-                <br/>
+                <br />
                 Сообщение 3
-                <br/>
+                <br />
                 Сообщение 4
-                <br/>
+                <br />
                 Сообщение 5
             </div>
         )
@@ -781,7 +793,7 @@ class BlockWindowWrap extends React.Component {
         let { btn, title, welcome } = this.props;//деструктуризация
         // console.log('zindex',this.state.zindex)
         // console.log("zzzIndex", this.state.zzzIndex)
-        console.log("dialogueCompleted",this.state.dialogueCompleted)
+        // console.log("dialogueCompleted", this.state.dialogueCompleted)
         return (
 
             <div
@@ -814,21 +826,18 @@ class BlockWindowWrap extends React.Component {
 
                     {/* Отображает информацию после Начать диалог */}
                     {this.state.toShowRenderActiveChat ? null : this.props.Chat && this.renderChatWelcome()}
-                    {this.state.toShowRenderActiveChat ?  this.props.Chat &&this.renderActiveChatMain() : this.props.Chat && this.renderChatMain()}
-                    {this.state.dialogueCompleted ? this.props.Chat&&this.renderChatCompleteDialogue(): null}
-
-
+                    {this.state.toShowRenderActiveChat ? this.props.Chat && this.renderActiveChatMain() : this.props.Chat && this.renderChatMain()}
                     {/* Отображает информацию после нажатия на Завершить диалог */}
-                    {/* {this.state.dialogueCompleted ? this.props.Chat&&this.renderChatCompleteDialogue() : null} */}
+                    {this.state.dialogueCompleted ? this.props.Chat && this.renderChatRating() : null}
+
                 </div>
 
                 {this.state.toShowRenderThanksCallBack ? null : this.props.CallBack && this.renderCallBackButtom()}
                 {this.state.toShowRenderThanksMail ? null : this.props.Mail && this.renderMailButtom()}
-                
+
                 {/* отображает или кнопку начать чат, или же окошко с отправлением сообщения */}
                 {this.state.toShowRenderActiveChat ? this.props.Chat && this.renderActiveChatFooter() : this.props.Chat && this.renderChatButtom()}
-
-                {this.state.dialogueCompleted ? null:null}
+                {this.state.dialogueCompleted ? this.props.Chat&&this.renderChatRatingFooter() : null}
 
 
 

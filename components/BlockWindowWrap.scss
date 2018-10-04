@@ -285,6 +285,37 @@
       transform: scale(1.2);
     }
   }
+  .ChatWindowAppreciateDialogueFooter{
+    width: 100%;
+    position: absolute;
+    bottom: 20px;
+    margin: auto;
+  }
+  .AppreciateDialogueButton{
+    cursor: pointer;
+    text-align: center;
+    margin: 20px;
+  }
+  .ViewButton1{
+    color: #504f4f;
+    font-size: 14px;
+  }
+  .ViewButton1:hover{
+    color: green;
+    font-size: 14px;
+  }
+  .ViewButton2{
+    color: green;
+    font-size: 16px;
+  }
+  .ViewButton2:hover{
+    color: green;
+    text-decoration: underline;
+    font-size: 16px;
+  }
+  .AppreciateDialogueButton a{
+    padding:15px; 
+  }
   .ChatWindowDisplayMessages{
     color:green;
   }
