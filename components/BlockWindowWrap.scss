@@ -258,6 +258,9 @@
     padding: 30px;
     text-align: center;
   }
+  .ChatWindowAppreciateDialogueNone{
+    display: none;
+  }
   .ChatWindowAppreciateDialogueImg{
     width: 25px;
     height: 25px;
@@ -290,6 +293,9 @@
     position: absolute;
     bottom: 20px;
     margin: auto;
+  }
+  .ChatWindowAppreciateDialogueFooterNone{
+    display: none;
   }
   .AppreciateDialogueButton{
     cursor: pointer;

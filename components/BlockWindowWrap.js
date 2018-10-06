@@ -51,6 +51,8 @@ class BlockWindowWrap extends React.Component {
 
         //массив со смайликами для оценки чата
         chatRatingSmilesArr: chatRatingSmiles,
+
+        numberChat:"",
     }
 
 
@@ -98,67 +100,90 @@ class BlockWindowWrap extends React.Component {
 
     //функция проверки полей воода
     onFieldChange = (fieldInput, EO) => {
-        if (fieldInput == "nameChatIsEmpty" && EO.target.value.trim().length > 2 && EO.target.value.trim().length < 20) {
-            this.setState({
-                ["" + fieldInput]: false,
-                nameChat: EO.target.value,
-                field1: true,
-            });
-        }
-        else if (fieldInput == "numberChatIsEmpty" && EO.target.value.match(/^(\+375|80)(29|25|44|33)(\d{3})(\d{2})(\d{2})$/)) {
-            this.setState({
-                ["" + fieldInput]: false,
-                numberChat: EO.target.value,
-                field2: true,
-            });
-        }
-
-        else if (fieldInput == "nameMailIsEmpty" && EO.target.value.trim().length > 2 && EO.target.value.trim().length < 20) {
-            this.setState({
-                ["" + fieldInput]: false,
-                nameMail: EO.target.value,
-                field3: true,
-            });
-        }
-        else if (fieldInput == "mailMailIsEmpty" && EO.target.value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)) {
-            this.setState({
-                ["" + fieldInput]: false,
-                mailMail: EO.target.value,
-                field4: true,
-            });
-        }
-        else if (fieldInput == "textMailIsEmpty" && EO.target.value.trim().length > 2 && EO.target.value.trim().length < 180) {
-            this.setState({
-                ["" + fieldInput]: false,
-                textMail: EO.target.value,
-                field5: true,
-            });
-        }
-
-        else if (fieldInput == "nameCallBackIsEmpty" && EO.target.value.trim().length > 2 && EO.target.value.trim().length < 20) {
-            this.setState({
-                ["" + fieldInput]: false,
-                nameCallBack: EO.target.value,
-                field6: true,
-            });
-        }
-        else if (fieldInput == "numberCallBackIsEmpty" && EO.target.value.match(/^(\+375|80)(29|25|44|33)(\d{3})(\d{2})(\d{2})$/)) {
-            this.setState({
-                ["" + fieldInput]: false,
-                numberCallBack: EO.target.value,
-                field7: true,
-            });
-        }
+        //console.log(fieldInput, EO)
+        console.log("--0",EO.target.value)
+        let reg1=(/^(\+375|80)(29|25|44|33)(\d{3})(\d{2})(\d{2})$/);
+        console.log("--1",reg1.test(EO.target.value))
 
 
-        else {
-            this.setState({
-                ["" + fieldInput]: true,
-            });
-
+        if(fieldInput == "numberChatIsEmpty"){
+            
+            this.setState({numberChat: EO.target.value})
         }
+                
+        
+        /////////////////////old code
+        // if (fieldInput == "nameChatIsEmpty" && EO.target.value.trim().length > 2 && EO.target.value.trim().length < 20) {
+        //     //console.log(EO.target.value)
+            
+        //     this.setState({
+        //         ["" + fieldInput]: false,
+        //         nameChat: EO.target.value,
+        //         field1: true,
+        //     });
+        // }
+        // else if (fieldInput == "numberChatIsEmpty" && this.state.numberChat.match(/^(\+375|80)(29|25|44|33)(\d{3})(\d{2})(\d{2})$/)) {
+        //     console.log("--1",EO.target.value)
+        //     this.setState({
+        //         ["" + fieldInput]: false,
+        //         numberChat: EO.target.value,
+        //         field2: true,
+        //     });
+        // }
+
+        // else if (fieldInput == "nameMailIsEmpty" && EO.target.value.trim().length > 2 && EO.target.value.trim().length < 20) {
+        //     this.setState({
+        //         ["" + fieldInput]: false,
+        //         nameMail: EO.target.value,
+        //         field3: true,
+        //     });
+        // }
+        // else if (fieldInput == "mailMailIsEmpty" && EO.target.value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)) {
+        //     this.setState({
+        //         ["" + fieldInput]: false,
+        //         mailMail: EO.target.value,
+        //         field4: true,
+        //     });
+        // }
+        // else if (fieldInput == "textMailIsEmpty" && EO.target.value.trim().length > 2 && EO.target.value.trim().length < 180) {
+        //     this.setState({
+        //         ["" + fieldInput]: false,
+        //         textMail: EO.target.value,
+        //         field5: true,
+        //     });
+        // }
+
+        // else if (fieldInput == "nameCallBackIsEmpty" && EO.target.value.trim().length > 2 && EO.target.value.trim().length < 20) {
+        //     this.setState({
+        //         ["" + fieldInput]: false,
+        //         nameCallBack: EO.target.value,
+        //         field6: true,
+        //     });
+        // }
+        // else if (fieldInput == "numberCallBackIsEmpty" && EO.target.value.match(/^(\+375|80)(29|25|44|33)(\d{3})(\d{2})(\d{2})$/)) {
+        //     this.setState({
+        //         ["" + fieldInput]: false,
+        //         numberCallBack: EO.target.value,
+        //         field7: true,
+        //     });
+        // }
 
 
+        // else {
+        //     this.setState({
+        //         ["" + fieldInput]: true,
+        //     });
+
+        // }
+
+
+    }
+
+    changeNumber=(EO)=>{
+        console.log(EO.target.value)
+        this.setState({
+            numberChat:EO.target.value,
+        })
     }
 
     //Функция отслеживания кликов
@@ -421,12 +446,34 @@ class BlockWindowWrap extends React.Component {
     }
 
     сhatCompleteDialogue = () => {
-        console.log('---1')
+        console.log('CompleteDialogue')
         this.setState({
             dialogueCompleted: true, //true при нажатии на "завершить диалог"
+            startNewDialogue:false, 
+            // nameChat:'',
+            // numberChat:'',
         })
     }
 
+    startNewDialog=()=>{
+        console.log('startNewDialog')
+        this.setState({
+            startNewDialogue:true,
+            toShowRenderActiveChat:false,
+            dialogueCompleted: false,
+
+        })
+    }
+
+    keepDialog=()=>{
+        console.log('keepDialog')
+    }
+    printDialog=()=>{
+        console.log('printDialog')
+    }
+    rateChat=(evaluation)=>{
+        console.log(evaluation)
+    }
     //Отображение содержимого в окошках
     //////////////////////////////////Рендер "Запросить звонок"
     renderCallBackTitle = () => {
@@ -448,8 +495,9 @@ class BlockWindowWrap extends React.Component {
                         <input
                             className="WindowFieldEdit"
                             type="text"
-                            ref="fieldName"
-                            onChange={this.onFieldChange.bind(this, "nameCallBackIsEmpty")} />
+                            //ref="fieldName"
+                            //onChange={this.onFieldChange.bind(this, "nameCallBackIsEmpty")} 
+                            />
                     </div>
                     <div className={this.state.nameCallBackIsEmpty ? "WindowFieldError" : "WindowFieldError-display-none"}>Заполните поле</div>
                 </div>
@@ -460,8 +508,9 @@ class BlockWindowWrap extends React.Component {
                             className="WindowFieldEdit"
                             type="text"
                             placeholder="+37529"
-                            ref="fieldNumber"
-                            onChange={this.onFieldChange.bind(this, "numberCallBackIsEmpty")} />
+                            //ref="fieldNumber"
+                            //onChange={this.onFieldChange.bind(this, "numberCallBackIsEmpty")} 
+                            />
                     </div>
                     <div
                         className={this.state.numberCallBackIsEmpty ? "WindowFieldError" : "WindowFieldError-display-none"}>
@@ -473,7 +522,7 @@ class BlockWindowWrap extends React.Component {
                     <div className="WindowFieldControlFrame">
 
                         <select
-                            ref="fieldSelect1"
+                            //ref="fieldSelect1"
                             className="WindowFieldEdit">
                             <option value="Депозиты">Депозиты</option>
                             <option value="Кредитование юридических лиц">Кредитование юридических лиц</option>
@@ -487,7 +536,7 @@ class BlockWindowWrap extends React.Component {
                     <div className="WindowFieldControlFrame">
 
                         <select
-                            ref="fieldSelect2"
+                            //ref="fieldSelect2"
                             className="WindowFieldEdit">
                             <option value="С 9:00 до 10:00">С 9:00 до 10:00</option>
                             <option value="С 11:00 до 12:00">С 11:00 до 12:00</option>
@@ -525,9 +574,7 @@ class BlockWindowWrap extends React.Component {
                 <div className="renderThanks-text">
                     <h4>Спасибо!</h4>
                     <p>Мы перезвоним Вам в указанное Вами время!</p>
-                    <div className="ChatRatingSmiles">
 
-                    </div>
                 </div>
             </div>
         )
@@ -555,8 +602,9 @@ class BlockWindowWrap extends React.Component {
                         <input
                             className="WindowFieldEdit"
                             type="text"
-                            ref="fieldName"
-                            onChange={this.onFieldChange.bind(this, "nameMailIsEmpty")} />
+                            //ref="fieldName"
+                            //onChange={this.onFieldChange.bind(this, "nameMailIsEmpty")} 
+                            />
                     </div>
                     <div className={this.state.nameMailIsEmpty ? "WindowFieldError" : "WindowFieldError-display-none"}>
                         Заполните поле
@@ -569,8 +617,9 @@ class BlockWindowWrap extends React.Component {
                             className="WindowFieldEdit"
                             type="text"
 
-                            ref="fieldNumber"
-                            onChange={this.onFieldChange.bind(this, "mailMailIsEmpty")} />
+                            //ref="fieldNumber"
+                            //onChange={this.onFieldChange.bind(this, "mailMailIsEmpty")}
+                             />
                     </div>
                     <div
                         className={this.state.mailMailIsEmpty ? "WindowFieldError" : "WindowFieldError-display-none"}>
@@ -583,8 +632,9 @@ class BlockWindowWrap extends React.Component {
                         <textarea
                             className="WindowFieldTextareaEdit"
                             type="text"
-                            ref="fieldTextarea"
-                            onChange={this.onFieldChange.bind(this, "textMailIsEmpty")} />
+                            //ref="fieldTextarea"
+                            //onChange={this.onFieldChange.bind(this, "textMailIsEmpty")}
+                             />
                     </div>
                     <div
                         className={this.state.textMailIsEmpty ? "WindowFieldError" : "WindowFieldError-display-none"}>
@@ -644,8 +694,10 @@ class BlockWindowWrap extends React.Component {
                         <input
                             className="WindowFieldEdit"
                             type="text"
-                            ref="fieldName"
-                            onChange={this.onFieldChange.bind(this, "nameChatIsEmpty")} />
+                            //ref="fieldName"
+                            //onChange={this.onFieldChange.bind(this, "nameChatIsEmpty")} 
+                            value={this.state.nameChat}
+                            />
                     </div>
                     <div className={this.state.nameChatIsEmpty ? "WindowFieldError" : "WindowFieldError-display-none"}>Заполните поле</div>
                 </div>
@@ -655,9 +707,12 @@ class BlockWindowWrap extends React.Component {
                         <input
                             className="WindowFieldEdit"
                             type="text"
-                            ref="fieldNumber"
+                            //ref="fieldNumber"
                             placeholder="+37529"
-                            onChange={this.onFieldChange.bind(this, "numberChatIsEmpty")} />
+                            // onChange={this.onFieldChange.bind(this, "numberChatIsEmpty")}
+                            onChange={(e)=>this.onFieldChange("numberChatIsEmpty",e)} 
+                            value={this.state.numberChat}
+                            />
                     </div>
                     <div
                         className={this.state.numberChatIsEmpty ? "WindowFieldError" : "WindowFieldError-display-none"}>
@@ -705,13 +760,16 @@ class BlockWindowWrap extends React.Component {
     }
     renderChatRating = () => {
         return (
-            <div className="ChatWindowAppreciateDialogue">
+            <div className={this.state.startNewDialogue? "ChatWindowAppreciateDialogueNone":"ChatWindowAppreciateDialogue"}>
+            {/* <div className="ChatWindowAppreciateDialogue"> */}
                 <h3>Пожалуйста, оцените диалог с оператором</h3>
                 <p>Ваше мнение нужно, чтобы сделать сервис лучше</p>
                 <div>
                     {this.state.chatRatingSmilesArr.map(v =>
-                        <div key={v.code} className="ChatWindowAppreciateDialogueImg"
+                        <div key={v.code} 
+                            className="ChatWindowAppreciateDialogueImg"
                             style={{ backgroundImage: v.image }}
+                            onClick={() => this.rateChat(v.description)} 
                         >
                         </div>
                     )}
@@ -721,13 +779,14 @@ class BlockWindowWrap extends React.Component {
     }
     renderChatRatingFooter = () => {
         return (
-            <div className="ChatWindowAppreciateDialogueFooter">
+            <div className={this.state.startNewDialogue? "ChatWindowAppreciateDialogueFooterNone":"ChatWindowAppreciateDialogueFooter"}>
+            {/* </div><div className="ChatWindowAppreciateDialogueFooter"> */}
                 <div className="AppreciateDialogueButton ">
-                    <a className="ViewButton1">Сохранить</a>
-                    <a className="ViewButton1">Распечатать</a>
+                    <a onClick={this.keepDialog} className="ViewButton1">Сохранить</a>
+                    <a onClick={this.printDialog}className="ViewButton1">Распечатать</a>
                 </div>
                 <div className="AppreciateDialogueButton ViewButton2">
-                    <a>Начать новый диалог</a>
+                    <a onClick={this.startNewDialog}>Начать новый диалог</a>
                 </div>
             </div>
         )
@@ -791,9 +850,10 @@ class BlockWindowWrap extends React.Component {
 
     render() {
         let { btn, title, welcome } = this.props;//деструктуризация
-        // console.log('zindex',this.state.zindex)
-        // console.log("zzzIndex", this.state.zzzIndex)
-        // console.log("dialogueCompleted", this.state.dialogueCompleted)
+        // console.log("toShowRenderActiveChat",this.state.toShowRenderActiveChat)
+        // console.log("dialogueCompleted",this.state.dialogueCompleted)
+        // console.log("startNewDialogue", this.state.startNewDialogue)
+        console.log(this.state.field1, this.state.field2)
         return (
 
             <div
@@ -825,10 +885,13 @@ class BlockWindowWrap extends React.Component {
 
 
                     {/* Отображает информацию после Начать диалог */}
-                    {this.state.toShowRenderActiveChat ? null : this.props.Chat && this.renderChatWelcome()}
+                    {this.state.toShowRenderActiveChat ?  null : this.props.Chat && this.renderChatWelcome()}
                     {this.state.toShowRenderActiveChat ? this.props.Chat && this.renderActiveChatMain() : this.props.Chat && this.renderChatMain()}
                     {/* Отображает информацию после нажатия на Завершить диалог */}
                     {this.state.dialogueCompleted ? this.props.Chat && this.renderChatRating() : null}
+                    {/*  */}
+                    {/* {this.state.startNewDialogue ? this.props.Chat && this.renderChatWelcome():null}
+                    {this.state.startNewDialogue ? this.props.Chat && this.renderChatMain():null} */}
 
                 </div>
 
@@ -837,8 +900,9 @@ class BlockWindowWrap extends React.Component {
 
                 {/* отображает или кнопку начать чат, или же окошко с отправлением сообщения */}
                 {this.state.toShowRenderActiveChat ? this.props.Chat && this.renderActiveChatFooter() : this.props.Chat && this.renderChatButtom()}
+                
                 {this.state.dialogueCompleted ? this.props.Chat&&this.renderChatRatingFooter() : null}
-
+                {/* {this.state.startNewDialogue ? this.props.Chat && this.renderChatButtom():null} */}
 
 
                 <div className='close' onClick={this.close}></div>
