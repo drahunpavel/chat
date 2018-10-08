@@ -333,17 +333,10 @@
   //вид сообщений
   .message {
     margin: 20px 0 0 0;
-    
+    border: 1px solid yellow;
   }
 
-  // .message div:nth-child(1) {
-  //   //border: 1px solid black;
-  //   font-size: 17px;
-  //   font-weight: bold;
-  //   color: #1f4229;
-  //   opacity: 0.9;
-  //   margin-bottom: 6px;
-  // }
+
   .message div:nth-child(1) {
     //border: 1px solid black;
     font-size: 15px;
@@ -354,9 +347,17 @@
     padding: 4px 8px;
     border-radius: 8px;
   }
+  // .message div:nth-child(1) {
+  //   //border: 1px solid black;
+  //   font-size: 17px;
+  //   font-weight: bold;
+  //   color: #1f4229;
+  //   opacity: 0.9;
+  //   margin-bottom: 6px;
+  // }
 
   .message-list {
-    
+    border: 1px solid rgb(48, 34, 173);
     //box-sizing: border-box;
     //padding: 0 0 0 6px;
     margin: 0 auto;
@@ -365,7 +366,12 @@
     list-style-type: none;
   }
   .message-author{
-    
+    width: 25px;
+    height: 25px;
+    //position: absolute;
+    //right: 0;
+
+    background-size: 100%;
   }
   .message-text{
     //float:right;
