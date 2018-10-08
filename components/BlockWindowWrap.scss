@@ -328,38 +328,51 @@
     display: none;
   }
 
+
+/////////////////////////////////////////////////////
   //вид сообщений
   .message {
-    margin: 5px 0 0 0;
+    margin: 20px 0 0 0;
+    
   }
 
+  // .message div:nth-child(1) {
+  //   //border: 1px solid black;
+  //   font-size: 17px;
+  //   font-weight: bold;
+  //   color: #1f4229;
+  //   opacity: 0.9;
+  //   margin-bottom: 6px;
+  // }
   .message div:nth-child(1) {
-    border: 1px solid black;
-    font-size: 17px;
-    font-weight: bold;
-    color: #1f4229;
-    opacity: 0.9;
-    margin-bottom: 6px;
-  }
-  .message div:nth-child(2) {
-    border: 1px solid black;
+    //border: 1px solid black;
     font-size: 15px;
     font-weight: normal;
-    background: rgb(195, 239, 179);
+    //background: rgb(195, 239, 179);
     color: rgb(80, 74, 42);
-    display: inline;
+    //display: inline;
     padding: 4px 8px;
     border-radius: 8px;
   }
 
   .message-list {
-    box-sizing: border-box;
-    padding: 0 0 0 6px;
-    margin: 0;
-    width: 100%;
+    
+    //box-sizing: border-box;
+    //padding: 0 0 0 6px;
+    margin: 0 auto;
+    width: 80%;
     height: 100%;
     list-style-type: none;
   }
+  .message-author{
+    
+  }
+  .message-text{
+    //float:right;
+    //margin: 10px;
+    //text-align: right;
+  }
+
   ///////////////////////////////////////
   //scroll
   ::-webkit-scrollbar {
@@ -384,7 +397,7 @@
   }
   //////////////////////////////////////
   .ChatRatingSmiles {
-    border: 1px solid black;
+    //border: 1px solid black;
   }
 }
 
