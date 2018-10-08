@@ -9,6 +9,8 @@ import './BlockWindowWrap.scss';
 
 let chatRatingSmiles = require('../src/chatRatingSmiles.json')
 
+let messageList=require("../src/messageList.json");
+
 class BlockWindowWrap extends React.Component {
 
     static propTypes = {
@@ -51,6 +53,8 @@ class BlockWindowWrap extends React.Component {
 
         //массив со смайликами для оценки чата
         chatRatingSmilesArr: chatRatingSmiles,
+        messageList:messageList,
+
 
         nameChat:"",
         numberChat:"",
@@ -799,7 +803,15 @@ class BlockWindowWrap extends React.Component {
     renderActiveChatMain = () => {
         return (
             <div className={this.state.dialogueCompleted ? "ChatWindowDisplayMessagesNone" : "ChatWindowDisplayMessages"}>
-                Сообщение 1
+                
+                    {this.state.messageList.map(v=>
+                        <div key={v.code}
+                        >
+                            <p>{v.message}</p>
+                        </div>
+                        )}
+                
+                {/* Сообщение 1
                 <br />
                 Сообщение 2
                 <br />
@@ -807,7 +819,7 @@ class BlockWindowWrap extends React.Component {
                 <br />
                 Сообщение 4
                 <br />
-                Сообщение 5
+                Сообщение 5 */}
             </div>
         )
     }
@@ -858,7 +870,7 @@ class BlockWindowWrap extends React.Component {
         // console.log("toShowRenderActiveChat",this.state.toShowRenderActiveChat)
         // console.log("dialogueCompleted",this.state.dialogueCompleted)
         // console.log("startNewDialogue", this.state.startNewDialogue)
-       console.log(this.state.nameChat, this.state.numberChat)
+       //console.log(this.state.nameChat, this.state.numberChat)
         return (
 
             <div
