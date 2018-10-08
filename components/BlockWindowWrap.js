@@ -1,15 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Fragment from 'render-fragment';
 import PropTypes from 'prop-types';
 
 
+//import MessageList from "./MessageList"
 
 import './BlockWindowWrap.scss';
 
 let chatRatingSmiles = require('../src/chatRatingSmiles.json')
 
-let messageList=require("../src/messageList.json");
+let messageList = require("../src/messageList.json");
 
 class BlockWindowWrap extends React.Component {
 
@@ -53,11 +53,13 @@ class BlockWindowWrap extends React.Component {
 
         //массив со смайликами для оценки чата
         chatRatingSmilesArr: chatRatingSmiles,
-        messageList:messageList,
+
+        //загатовочный текст
+        messageList: messageList,
 
 
-        nameChat:"",
-        numberChat:"",
+        nameChat: "",
+        numberChat: "",
     }
 
 
@@ -110,15 +112,15 @@ class BlockWindowWrap extends React.Component {
         // let reg1=(/^(\+375|80)(29|25|44|33)(\d{3})(\d{2})(\d{2})$/);
         // //console.log("--1",reg1.test(EO.target.value)
         // if(fieldInput == "numberChatIsEmpty"){
-            
+
         //     this.setState({numberChat: EO.target.value})
         // }
-                
-        
+
+
         ///////////////////old code
         if (fieldInput == "nameChatIsEmpty" && EO.target.value.trim().length > 2 && EO.target.value.trim().length < 20) {
             //console.log(EO.target.value)
-            
+
             this.setState({
                 ["" + fieldInput]: false,
                 nameChat: EO.target.value,
@@ -181,10 +183,10 @@ class BlockWindowWrap extends React.Component {
 
     }
 
-    changeNumber=(EO)=>{
+    changeNumber = (EO) => {
         console.log(EO.target.value)
         this.setState({
-            numberChat:EO.target.value,
+            numberChat: EO.target.value,
         })
     }
 
@@ -451,36 +453,36 @@ class BlockWindowWrap extends React.Component {
         console.log('CompleteDialogue')
         this.setState({
             dialogueCompleted: true, //true при нажатии на "завершить диалог"
-            startNewDialogue:false, 
-            nameChat:'',
-            numberChat:'',
+            startNewDialogue: false,
+            nameChat: '',
+            numberChat: '',
             // nameChatIsEmpty: true,
             // numberChatIsEmpty: true,
         })
     }
 
-    startNewDialog=()=>{
+    startNewDialog = () => {
         console.log('startNewDialog')
         this.setState({
-            startNewDialogue:true,
-            toShowRenderActiveChat:false,
+            startNewDialogue: true,
+            toShowRenderActiveChat: false,
             dialogueCompleted: false,
 
             // nameChatIsEmpty: true,
             // numberChatIsEmpty: true,
 
-            field1:false,
-            field2:false,
+            field1: false,
+            field2: false,
         })
     }
 
-    keepDialog=()=>{
+    keepDialog = () => {
         console.log('keepDialog')
     }
-    printDialog=()=>{
+    printDialog = () => {
         console.log('printDialog')
     }
-    rateChat=(evaluation)=>{
+    rateChat = (evaluation) => {
         console.log(evaluation)
     }
     //Отображение содержимого в окошках
@@ -505,8 +507,8 @@ class BlockWindowWrap extends React.Component {
                             className="WindowFieldEdit"
                             type="text"
                             ref="fieldName"
-                            onChange={this.onFieldChange.bind(this, "nameCallBackIsEmpty")} 
-                            />
+                            onChange={this.onFieldChange.bind(this, "nameCallBackIsEmpty")}
+                        />
                     </div>
                     <div className={this.state.nameCallBackIsEmpty ? "WindowFieldError" : "WindowFieldError-display-none"}>Заполните поле</div>
                 </div>
@@ -518,8 +520,8 @@ class BlockWindowWrap extends React.Component {
                             type="text"
                             placeholder="+37529"
                             ref="fieldNumber"
-                            onChange={this.onFieldChange.bind(this, "numberCallBackIsEmpty")} 
-                            />
+                            onChange={this.onFieldChange.bind(this, "numberCallBackIsEmpty")}
+                        />
                     </div>
                     <div
                         className={this.state.numberCallBackIsEmpty ? "WindowFieldError" : "WindowFieldError-display-none"}>
@@ -531,7 +533,7 @@ class BlockWindowWrap extends React.Component {
                     <div className="WindowFieldControlFrame">
 
                         <select
-                            //ref="fieldSelect1"
+                            ref="fieldSelect1"
                             className="WindowFieldEdit">
                             <option value="Депозиты">Депозиты</option>
                             <option value="Кредитование юридических лиц">Кредитование юридических лиц</option>
@@ -545,7 +547,7 @@ class BlockWindowWrap extends React.Component {
                     <div className="WindowFieldControlFrame">
 
                         <select
-                            //ref="fieldSelect2"
+                            ref="fieldSelect2"
                             className="WindowFieldEdit">
                             <option value="С 9:00 до 10:00">С 9:00 до 10:00</option>
                             <option value="С 11:00 до 12:00">С 11:00 до 12:00</option>
@@ -612,8 +614,8 @@ class BlockWindowWrap extends React.Component {
                             className="WindowFieldEdit"
                             type="text"
                             ref="fieldName"
-                            onChange={this.onFieldChange.bind(this, "nameMailIsEmpty")} 
-                            />
+                            onChange={this.onFieldChange.bind(this, "nameMailIsEmpty")}
+                        />
                     </div>
                     <div className={this.state.nameMailIsEmpty ? "WindowFieldError" : "WindowFieldError-display-none"}>
                         Заполните поле
@@ -628,7 +630,7 @@ class BlockWindowWrap extends React.Component {
 
                             ref="fieldNumber"
                             onChange={this.onFieldChange.bind(this, "mailMailIsEmpty")}
-                             />
+                        />
                     </div>
                     <div
                         className={this.state.mailMailIsEmpty ? "WindowFieldError" : "WindowFieldError-display-none"}>
@@ -643,7 +645,7 @@ class BlockWindowWrap extends React.Component {
                             type="text"
                             ref="fieldTextarea"
                             onChange={this.onFieldChange.bind(this, "textMailIsEmpty")}
-                             />
+                        />
                     </div>
                     <div
                         className={this.state.textMailIsEmpty ? "WindowFieldError" : "WindowFieldError-display-none"}>
@@ -704,9 +706,9 @@ class BlockWindowWrap extends React.Component {
                             className="WindowFieldEdit"
                             type="text"
                             ref="fieldName"
-                            onChange={this.onFieldChange.bind(this, "nameChatIsEmpty")} 
-                            //value={this.state.nameChat}
-                            />
+                            onChange={this.onFieldChange.bind(this, "nameChatIsEmpty")}
+                        //value={this.state.nameChat}
+                        />
                     </div>
                     <div className={this.state.nameChatIsEmpty ? "WindowFieldError" : "WindowFieldError-display-none"}>Заполните поле</div>
                 </div>
@@ -719,9 +721,9 @@ class BlockWindowWrap extends React.Component {
                             ref="fieldNumber"
                             placeholder="+37529"
                             onChange={this.onFieldChange.bind(this, "numberChatIsEmpty")}
-                            //onChange={(e)=>this.onFieldChange("numberChatIsEmpty",e)} 
-                            //value={this.state.numberChat}
-                            />
+                        //onChange={(e)=>this.onFieldChange("numberChatIsEmpty",e)} 
+                        //value={this.state.numberChat}
+                        />
                     </div>
                     <div
                         className={this.state.numberChatIsEmpty ? "WindowFieldError" : "WindowFieldError-display-none"}>
@@ -758,7 +760,7 @@ class BlockWindowWrap extends React.Component {
                             type="text"
                             placeholder="Напишите что-нибудь"
                             ref="fieldTextarea"
-                            onChange={this.onFieldChange.bind(this, "textMailIsEmpty")} 
+                            onChange={this.onFieldChange.bind(this, "textMailIsEmpty")}
                         />
                     </div>
                     <div className="ActiveChatFooterSmile"></div>
@@ -769,16 +771,16 @@ class BlockWindowWrap extends React.Component {
     }
     renderChatRating = () => {
         return (
-            <div className={this.state.startNewDialogue? "ChatWindowAppreciateDialogueNone":"ChatWindowAppreciateDialogue"}>
-            {/* <div className="ChatWindowAppreciateDialogue"> */}
+            <div className={this.state.startNewDialogue ? "ChatWindowAppreciateDialogueNone" : "ChatWindowAppreciateDialogue"}>
+                {/* <div className="ChatWindowAppreciateDialogue"> */}
                 <h3>Пожалуйста, оцените диалог с оператором</h3>
                 <p>Ваше мнение нужно, чтобы сделать сервис лучше</p>
                 <div>
                     {this.state.chatRatingSmilesArr.map(v =>
-                        <div key={v.code} 
+                        <div key={v.code}
                             className="ChatWindowAppreciateDialogueImg"
                             style={{ backgroundImage: v.image }}
-                            onClick={() => this.rateChat(v.description)} 
+                            onClick={() => this.rateChat(v.description)}
                         >
                         </div>
                     )}
@@ -788,11 +790,11 @@ class BlockWindowWrap extends React.Component {
     }
     renderChatRatingFooter = () => {
         return (
-            <div className={this.state.startNewDialogue? "ChatWindowAppreciateDialogueFooterNone":"ChatWindowAppreciateDialogueFooter"}>
-            {/* </div><div className="ChatWindowAppreciateDialogueFooter"> */}
+            <div className={this.state.startNewDialogue ? "ChatWindowAppreciateDialogueFooterNone" : "ChatWindowAppreciateDialogueFooter"}>
+                {/* </div><div className="ChatWindowAppreciateDialogueFooter"> */}
                 <div className="AppreciateDialogueButton ">
                     <a onClick={this.keepDialog} className="ViewButton1">Сохранить</a>
-                    <a onClick={this.printDialog}className="ViewButton1">Распечатать</a>
+                    <a onClick={this.printDialog} className="ViewButton1">Распечатать</a>
                 </div>
                 <div className="AppreciateDialogueButton ViewButton2">
                     <a onClick={this.startNewDialog}>Начать новый диалог</a>
@@ -802,24 +804,21 @@ class BlockWindowWrap extends React.Component {
     }
     renderActiveChatMain = () => {
         return (
+            //<MessageList/>
             <div className={this.state.dialogueCompleted ? "ChatWindowDisplayMessagesNone" : "ChatWindowDisplayMessages"}>
-                
-                    {this.state.messageList.map(v=>
-                        <div key={v.code}
-                        >
-                            <p>{v.message}</p>
-                        </div>
+                <div>
+                    <ul className="message-list">
+                        {this.state.messageList.map(v =>
+                            <li key={v.code}
+                                className="message"
+                            >
+                                <div className="message-author">{v.id}</div>
+                                <div className="message-text">{v.message}</div>
+                            </li>
                         )}
-                
-                {/* Сообщение 1
-                <br />
-                Сообщение 2
-                <br />
-                Сообщение 3
-                <br />
-                Сообщение 4
-                <br />
-                Сообщение 5 */}
+                    </ul>
+                </div>
+
             </div>
         )
     }
@@ -932,7 +931,6 @@ class BlockWindowWrap extends React.Component {
 
 
     }
-
 }
 
 export default BlockWindowWrap;
