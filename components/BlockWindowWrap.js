@@ -813,19 +813,22 @@ class BlockWindowWrap extends React.Component {
                                 className="message"
                             >
                             {v.id==="operator"&&
-                            <div>
-                                {/* <div className="message-author" style={{backgroundImage: v.image}}></div> */}
-                            
-                                <div 
+                            <div className="messageContent">
+                               
+                               
+                                {/* <div 
                                     style={{backgroundColor:"#eeeff2",textAlign:"left" }}
                                     className="message-text">
                                     {v.message}
-                                </div>
+                                </div> */}
+                                 <div className="message-author" style={{backgroundImage: v.image}}></div>
+                                 <div className="message-text" style={{backgroundColor:"#eeeff2",textAlign:"left" }}>{v.message}</div>
+                                
                             </div>
                             }
                             {v.id==="user"&&
-                            <div>
-                                {/* <div className="message-author">{v.id}</div> */}
+                            <div className="messageContent">
+                                <div className=""></div>
                                 <div 
                                     style={{backgroundColor:"#c3efb3",textAlign:"right" }}
                                     className="message-text">

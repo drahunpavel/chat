@@ -3,7 +3,7 @@
         "code":1,
         "id":"operator",
         "message":"Добрый день! Меня зовут оператор Алеся, я являюсь Вашим электронным ассистентом. Моя задача – понять Ваш вопрос, решить его либо соединить Вас с необходимым специалистом.",
-        "image": "url(/src/images/smile_normal.png)"
+        "image": "url(/src/images/TN_Alesya_bot.jpg)"
     },
     { 
         "code":2,
@@ -15,13 +15,13 @@
         "code":3,
         "id":"operator",
         "message":"Добрый день, аваав ! Спасибо, что вновь обратились к нам. Подскажите, какой у Вас вопрос?",
-        "image": "url(/src/images/smile_normal.png)"
+        "image": "url(/src/images/TN_Alesya_bot.jpg)"
     },
     { 
         "code":4,
         "id":"operator",
         "message":"Добрый день, аваав ! Спасибо, что вновь обратились к нам. Подскажите, какой у Вас вопрос?",
-        "image": "url(/src/images/smile_normal.png)"
+        "image": "url(/src/images/TN_Alesya_bot.jpg)"
     },
     { 
         "code":5,
@@ -32,19 +32,19 @@
         "code":6,
         "id":"operator",
         "message":"Добрый день, аваав ! Спасибо, что вновь обратились к нам. Подскажите, какой у Вас вопрос?",
-        "image": "url(/src/images/smile_normal.png)"
+        "image": "url(/src/images/TN_Alesya_bot.jpg)"
     },
     { 
         "code":7,
         "id":"operator",
-        "message":"Добрый день, аваав ! Спасибо, что вновь обратились к нам. Подскажите, какой у Вас вопрос?",
-        "image": "url(/src/images/smile_normal.png)"
+        "message":"Добрый",
+        "image": "url(/src/images/TN_Alesya_bot.jpg)"
     },
     { 
         "code":8,
         "id":"operator",
-        "message":"Добрый день, аваав ! Спасибо, что вновь обратились к нам. Подскажите, какой у Вас вопрос?",
-        "image": "url(/src/images/smile_normal.png)"
+        "message":"Добрый день, аваав ! Спасибос вопрос?",
+        "image": "url(/src/images/TN_Alesya_bot.jpg)"
     }
 
 ]
