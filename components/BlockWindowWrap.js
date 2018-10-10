@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 
 //import MessageList from "./MessageList";
 //import ChooseSmiley from "./ChooseSmiley";
+//import SendMessageForm from "./SendMessageForm";
 
 import './BlockWindowWrap.scss';
 
@@ -59,10 +60,15 @@ class BlockWindowWrap extends React.Component {
         messageList: messageList,
 
         //переключатель окна выбора смайлов
-        selectionWindowSmile:false,
+        selectionWindowSmile: false,
 
         nameChat: "",
         numberChat: "",
+
+
+        textMessage:"",
+        newMessage:{},
+        //lengthArr:this.state.messageList.length,
     }
 
 
@@ -174,7 +180,6 @@ class BlockWindowWrap extends React.Component {
                 field7: true,
             });
         }
-
 
         else {
             this.setState({
@@ -489,11 +494,11 @@ class BlockWindowWrap extends React.Component {
         console.log(evaluation)
     }
 
-//функция выбора смайликов
-    chooseSmile=()=>{
+    //функция выбора смайликов
+    chooseSmile = () => {
         console.log("chooseSmile")
         this.setState({
-            selectionWindowSmile:!this.state.selectionWindowSmile,
+            selectionWindowSmile: !this.state.selectionWindowSmile,
         })
     }
 
@@ -758,6 +763,38 @@ class BlockWindowWrap extends React.Component {
             </div>
         )
     }
+
+
+
+
+
+
+onNewMessage=()=>{
+    let newMessage={};
+    let lengthArr=this.state.messageList.length;
+    newMessage[code]=lengthArr+1;
+    newMessage[message]=this.state.textMessage;
+    console.log(newMessage)
+}
+
+
+
+sendMessage=()=>{
+    
+    this.setState({
+        newMessage
+        //textMessage:' ',
+        
+    })
+}
+
+onChange = (EO) => {
+    //console.log(EO.target.value)
+    this.setState({
+        textMessage: EO.target.value
+    })
+  }
+
     renderActiveChatFooter = () => {
         return (
 
@@ -765,34 +802,41 @@ class BlockWindowWrap extends React.Component {
             <div className={this.state.dialogueCompleted ? "ActiveChatNone" : "ActiveChat"}>
                 <a onClick={this.сhatCompleteDialogue}>Завершить диалог</a>
                 <div className="ActiveChatEntryField">
-                    <div className="ActiveChatEntryFieldText">
+                    <form onClick={this.sendMessage}  className="ActiveChatEntryFieldText">
                         <textarea
                             className="ActiveChatFooterInput"
                             type="text"
                             placeholder="Напишите что-нибудь"
-                            ref="fieldTextarea"
-                            onChange={this.onFieldChange.bind(this, "textMailIsEmpty")}
+                            onChange={this.onChange}
+                            value={this.state.textMessage}
                         />
-                    </div>
-                   
+                    </form>
+                    {/* <SendMessageForm
+                        onSubmit={this.sendMessage}
+                    /> */}
+
                     {/* <ChooseSmiley
                         selectionWindowSmile={this.state.selectionWindowSmile}
                     /> */}
 
-            <div
-                className={this.state.selectionWindowSmile ? "WindowSmilies" : "WindowSmiliesNone"}
-                style={{ backgroundColor: "white" }}>
-            </div>
-
+                    <div
+                        className={this.state.selectionWindowSmile ? "WindowSmilies" : "WindowSmiliesNone"}
+                        style={{ backgroundColor: "white" }}>
+                    </div>
+                    {/*кнопка Открыть\закрыть окно со смайлами */}
                     <div className={this.state.selectionWindowSmile ? "ActiveChatFooterSmileActive" : "ActiveChatFooterSmile"} onClick={this.chooseSmile}></div>
-                    <div className="ActiveChatFooterButton"></div>
+                    {/* кнопка Отправки сообщения */}
+                    <div 
+                        className="ActiveChatFooterButton"
+                        onClick={this.sendMessage}>
+                    </div>
                 </div>
             </div>
         )
     }
 
-    renderWindowSmilies=()=>{
-        <div style={{backgroundColor:"red", position:"absolute", zIndex:"4000"}}>dfdfd</div>
+    renderWindowSmilies = () => {
+        <div style={{ backgroundColor: "red", position: "absolute", zIndex: "4000" }}>dfdfd</div>
     }
 
     renderChatRating = () => {
@@ -838,30 +882,30 @@ class BlockWindowWrap extends React.Component {
                             <li key={v.code}
                                 className="message"
                             >
-                            {v.id==="operator"&&
-                            <div className="messageContent">
-                               
-                               
-                                {/* <div 
+                                {v.id === "operator" &&
+                                    <div className="messageContent">
+
+
+                                        {/* <div 
                                     style={{backgroundColor:"#eeeff2",textAlign:"left" }}
                                     className="message-text">
                                     {v.message}
                                 </div> */}
-                                 <div className="message-author" style={{backgroundImage: v.image}}></div>
-                                 <div className="message-text" style={{backgroundColor:"#eeeff2",textAlign:"left" }}>{v.message}</div>
-                                
-                            </div>
-                            }
-                            {v.id==="user"&&
-                            <div className="messageContent">
-                                <div className=""></div>
-                                <div 
-                                    style={{backgroundColor:"#c3efb3",textAlign:"right" }}
-                                    className="message-text">
-                                    {v.message}
-                                </div>
-                            </div>
-                            }
+                                        <div className="message-author" style={{ backgroundImage: v.image }}></div>
+                                        <div className="message-text" style={{ backgroundColor: "#eeeff2", textAlign: "left" }}>{v.message}</div>
+
+                                    </div>
+                                }
+                                {v.id === "user" &&
+                                    <div className="messageContent">
+                                        <div className=""></div>
+                                        <div
+                                            style={{ backgroundColor: "#c3efb3", textAlign: "right" }}
+                                            className="message-text">
+                                            {v.message}
+                                        </div>
+                                    </div>
+                                }
                             </li>
                         )}
                     </ul>
@@ -914,10 +958,8 @@ class BlockWindowWrap extends React.Component {
 
     render() {
         let { btn, title, welcome } = this.props;//деструктуризация
-        // console.log("toShowRenderActiveChat",this.state.toShowRenderActiveChat)
-        // console.log("dialogueCompleted",this.state.dialogueCompleted)
-        // console.log("startNewDialogue", this.state.startNewDialogue)
-       //console.log(this.state.nameChat, this.state.numberChat)
+        let {textMessage,newMessage,lengthArr}=this.state;
+        console.log(newMessage)
         return (
 
             <div
@@ -949,7 +991,7 @@ class BlockWindowWrap extends React.Component {
 
 
                     {/* Отображает информацию после Начать диалог */}
-                    {this.state.toShowRenderActiveChat ?  null : this.props.Chat && this.renderChatWelcome()}
+                    {this.state.toShowRenderActiveChat ? null : this.props.Chat && this.renderChatWelcome()}
                     {this.state.toShowRenderActiveChat ? this.props.Chat && this.renderActiveChatMain() : this.props.Chat && this.renderChatMain()}
                     {/* Отображает информацию после нажатия на Завершить диалог */}
                     {this.state.dialogueCompleted ? this.props.Chat && this.renderChatRating() : null}
@@ -965,7 +1007,7 @@ class BlockWindowWrap extends React.Component {
                 {/* отображает или кнопку начать чат, или же окошко с отправлением сообщения, выбором смайликов */}
                 {this.state.toShowRenderActiveChat ? this.props.Chat && this.renderActiveChatFooter() : this.props.Chat && this.renderChatButtom()}
                 {/* {this.state.selectionWindowSmile? console.log('окно открыто'):console.log('окно закрыто')} */}
-                {this.state.dialogueCompleted ? this.props.Chat&&this.renderChatRatingFooter() : null}
+                {this.state.dialogueCompleted ? this.props.Chat && this.renderChatRatingFooter() : null}
                 {/* {this.state.startNewDialogue ? this.props.Chat && this.renderChatButtom():null} */}
 
 
