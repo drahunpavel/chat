@@ -225,6 +225,29 @@
     cursor: pointer;
     background-size: 100%;
   }
+  .ActiveChatFooterSmileActive {
+    width: 30px;
+    height: 30px;
+    background-image: url("/src/images/openSmile2.png");
+    position: absolute;
+    bottom: 5px;
+    right: 50px;
+    cursor: pointer;
+    background-size: 100%;
+  }
+  .WindowSmilies{
+    width: 250px;
+    height: 107px;
+    position: absolute;
+    background-image: url("/src/images/all-min.png");
+    background-size: 100%;
+    border: 1px solid green;
+    bottom:45px;
+    right:22px;
+  }
+  .WindowSmiliesNone{
+    display: none,
+  }
   .ActiveChatFooterSelectionSmile {
     position: absolute;
     width: 100px;
@@ -361,12 +384,12 @@
   }
   .messageContent div:nth-child(2){
     margin-left: 10px;
-    width: 80%;
+    width: 77%;
     display: inline-block;
     font-size: 15px;
     font-weight: normal;
     color: rgb(80, 74, 42);
-    padding: 4px 8px;
+    padding: 4px;
     border-radius: 8px;
     // border: 1px solid black;
   }

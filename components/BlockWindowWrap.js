@@ -57,6 +57,8 @@ class BlockWindowWrap extends React.Component {
         //загатовочный текст
         messageList: messageList,
 
+        //переключатель окна выбора смайлов
+        selectionWindowSmile:false,
 
         nameChat: "",
         numberChat: "",
@@ -485,6 +487,15 @@ class BlockWindowWrap extends React.Component {
     rateChat = (evaluation) => {
         console.log(evaluation)
     }
+
+//функция выбора смайликов
+    chooseSmile=()=>{
+        console.log("chooseSmile")
+        this.setState({
+            selectionWindowSmile:!this.state.selectionWindowSmile,
+        })
+    }
+
     //Отображение содержимого в окошках
     //////////////////////////////////Рендер "Запросить звонок"
     renderCallBackTitle = () => {
@@ -740,7 +751,6 @@ class BlockWindowWrap extends React.Component {
                     className="button"
                     onClick={this.WindowButtonStartChat}
                     disabled={!this.state.field1 || !this.state.field2 || this.state.nameChatIsEmpty || this.state.numberChatIsEmpty}
-
                 >
                     Начать чат
                 </button>
@@ -763,12 +773,23 @@ class BlockWindowWrap extends React.Component {
                             onChange={this.onFieldChange.bind(this, "textMailIsEmpty")}
                         />
                     </div>
-                    <div className="ActiveChatFooterSmile"></div>
+                   
+                        
+                    <div 
+                        className={this.state.selectionWindowSmile ? "WindowSmilies" : "WindowSmiliesNone"}    
+                        style={{backgroundColor:"white"}}>
+                    </div>
+                    <div className={this.state.selectionWindowSmile ? "ActiveChatFooterSmileActive" : "ActiveChatFooterSmile"} onClick={this.chooseSmile}></div>
                     <div className="ActiveChatFooterButton"></div>
                 </div>
             </div>
         )
     }
+
+    renderWindowSmilies=()=>{
+        <div style={{backgroundColor:"red", position:"absolute", zIndex:"4000"}}>dfdfd</div>
+    }
+
     renderChatRating = () => {
         return (
             <div className={this.state.startNewDialogue ? "ChatWindowAppreciateDialogueNone" : "ChatWindowAppreciateDialogue"}>
@@ -936,9 +957,9 @@ class BlockWindowWrap extends React.Component {
                 {this.state.toShowRenderThanksCallBack ? null : this.props.CallBack && this.renderCallBackButtom()}
                 {this.state.toShowRenderThanksMail ? null : this.props.Mail && this.renderMailButtom()}
 
-                {/* отображает или кнопку начать чат, или же окошко с отправлением сообщения */}
+                {/* отображает или кнопку начать чат, или же окошко с отправлением сообщения, выбором смайликов */}
                 {this.state.toShowRenderActiveChat ? this.props.Chat && this.renderActiveChatFooter() : this.props.Chat && this.renderChatButtom()}
-                
+                {/* {this.state.selectionWindowSmile? console.log('окно открыто'):console.log('окно закрыто')} */}
                 {this.state.dialogueCompleted ? this.props.Chat&&this.renderChatRatingFooter() : null}
                 {/* {this.state.startNewDialogue ? this.props.Chat && this.renderChatButtom():null} */}
 
