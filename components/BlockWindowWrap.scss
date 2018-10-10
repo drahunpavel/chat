@@ -303,6 +303,15 @@
     background-size: 100%;
     animation: ChatRating 0.2s 1 forwards;
   }
+  .ChatWindowAppreciateDialogueImg2 {
+    width: 25px;
+    height: 25px;
+    padding: 10px;
+    margin: 10px;
+    display: inline-block;
+    background-size: 100%;
+    opacity: 0.3; /* Значение прозрачности */
+  }
   @keyframes ChatRating {
     from {
       transform: scale(1);

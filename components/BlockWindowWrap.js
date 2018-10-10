@@ -59,15 +59,20 @@ class BlockWindowWrap extends React.Component {
         //загатовочный текст
         messageList: messageList,
 
+        //переключатель для выбора оценки чата
+        chatRatingSelected: false,
+
         //переключатель окна выбора смайлов
         selectionWindowSmile: false,
+        //название выбранного смайла при оценке чата
+        selectedSmile: '',
 
         nameChat: "",
         numberChat: "",
 
 
-        textMessage:"",
-        newMessage:{},
+        textMessage: "",
+        newMessage: {},
         //lengthArr:this.state.messageList.length,
     }
 
@@ -475,7 +480,7 @@ class BlockWindowWrap extends React.Component {
             startNewDialogue: true,
             toShowRenderActiveChat: false,
             dialogueCompleted: false,
-
+            chatRatingSelected: false,
             // nameChatIsEmpty: true,
             // numberChatIsEmpty: true,
 
@@ -491,7 +496,13 @@ class BlockWindowWrap extends React.Component {
         console.log('printDialog')
     }
     rateChat = (evaluation) => {
-        console.log(evaluation)
+
+        //console.log(evaluation)
+        this.setState({
+            selectedSmile: evaluation,
+            chatRatingSelected: true,
+        })
+
     }
 
     //функция выбора смайликов
@@ -769,31 +780,31 @@ class BlockWindowWrap extends React.Component {
 
 
 
-onNewMessage=()=>{
-    let newMessage={};
-    let lengthArr=this.state.messageList.length;
-    newMessage[code]=lengthArr+1;
-    newMessage[message]=this.state.textMessage;
-    console.log(newMessage)
-}
+    onNewMessage = () => {
+        let newMessage = {};
+        let lengthArr = this.state.messageList.length;
+        newMessage[code] = lengthArr + 1;
+        newMessage[message] = this.state.textMessage;
+        console.log(newMessage)
+    }
 
 
 
-sendMessage=()=>{
-    
-    this.setState({
-        newMessage
-        //textMessage:' ',
-        
-    })
-}
+    sendMessage = () => {
 
-onChange = (EO) => {
-    //console.log(EO.target.value)
-    this.setState({
-        textMessage: EO.target.value
-    })
-  }
+        this.setState({
+            newMessage
+            //textMessage:' ',
+
+        })
+    }
+
+    onChange = (EO) => {
+        //console.log(EO.target.value)
+        this.setState({
+            textMessage: EO.target.value
+        })
+    }
 
     renderActiveChatFooter = () => {
         return (
@@ -802,7 +813,7 @@ onChange = (EO) => {
             <div className={this.state.dialogueCompleted ? "ActiveChatNone" : "ActiveChat"}>
                 <a onClick={this.сhatCompleteDialogue}>Завершить диалог</a>
                 <div className="ActiveChatEntryField">
-                    <form onClick={this.sendMessage}  className="ActiveChatEntryFieldText">
+                    <form onClick={this.sendMessage} className="ActiveChatEntryFieldText">
                         <textarea
                             className="ActiveChatFooterInput"
                             type="text"
@@ -826,7 +837,7 @@ onChange = (EO) => {
                     {/*кнопка Открыть\закрыть окно со смайлами */}
                     <div className={this.state.selectionWindowSmile ? "ActiveChatFooterSmileActive" : "ActiveChatFooterSmile"} onClick={this.chooseSmile}></div>
                     {/* кнопка Отправки сообщения */}
-                    <div 
+                    <div
                         className="ActiveChatFooterButton"
                         onClick={this.sendMessage}>
                     </div>
@@ -843,18 +854,46 @@ onChange = (EO) => {
         return (
             <div className={this.state.startNewDialogue ? "ChatWindowAppreciateDialogueNone" : "ChatWindowAppreciateDialogue"}>
                 {/* <div className="ChatWindowAppreciateDialogue"> */}
-                <h3>Пожалуйста, оцените диалог с оператором</h3>
-                <p>Ваше мнение нужно, чтобы сделать сервис лучше</p>
-                <div>
-                    {this.state.chatRatingSmilesArr.map(v =>
-                        <div key={v.code}
-                            className="ChatWindowAppreciateDialogueImg"
-                            style={{ backgroundImage: v.image }}
-                            onClick={() => this.rateChat(v.description)}
-                        >
+                {this.state.chatRatingSelected ?
+                    <div>
+                        <h3>Спасибо!</h3>
+                        <p>Мы ценим Ваше мнение</p>
+                        <div>
+                            {this.state.chatRatingSmilesArr.map(v =>
+                                    {v.description === this.state.selectedSmile ?//проверка входящего JSON    
+                                        <div key={v.code}
+                                            className="ChatWindowAppreciateDialogueImg2"
+                                            style={{ backgroundImage: v.image, opacity: "1" }}
+                                            onClick={() => this.rateChat(v.description)}
+                                        >
+                                        </div> :
+                                        <div
+                                            className="ChatWindowAppreciateDialogueImg2"
+                                            // style={{ backgroundImage: v.image,opacity:"1" }}
+                                            style={{ backgroundImage: v.image }}
+                                            // onClick={() => this.rateChat(v.description)}
+                                        >
+                                        </div>
+                                    }
+                            )}
                         </div>
-                    )}
-                </div>
+                    </div> :
+                    <div>
+                        <h3>Пожалуйста, оцените диалог с оператором</h3>
+                        <p>Ваше мнение нужно, чтобы сделать сервис лучше</p>
+                        <div>
+                            {this.state.chatRatingSmilesArr.map(v =>
+                                <div key={v.code}
+                                    className="ChatWindowAppreciateDialogueImg"
+                                    style={{ backgroundImage: v.image }}
+                                    onClick={() => this.rateChat(v.description)}
+                                >
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                }
+
             </div>
         )
     }
@@ -958,8 +997,8 @@ onChange = (EO) => {
 
     render() {
         let { btn, title, welcome } = this.props;//деструктуризация
-        let {textMessage,newMessage,lengthArr}=this.state;
-        console.log(newMessage)
+        let { textMessage, newMessage, lengthArr, selectedSmile } = this.state;
+        console.log(selectedSmile)
         return (
 
             <div
