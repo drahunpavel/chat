@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
 
-//import MessageList from "./MessageList"
+//import MessageList from "./MessageList";
+//import ChooseSmiley from "./ChooseSmiley";
 
 import './BlockWindowWrap.scss';
 
@@ -774,11 +775,15 @@ class BlockWindowWrap extends React.Component {
                         />
                     </div>
                    
-                        
-                    <div 
-                        className={this.state.selectionWindowSmile ? "WindowSmilies" : "WindowSmiliesNone"}    
-                        style={{backgroundColor:"white"}}>
-                    </div>
+                    {/* <ChooseSmiley
+                        selectionWindowSmile={this.state.selectionWindowSmile}
+                    /> */}
+
+            <div
+                className={this.state.selectionWindowSmile ? "WindowSmilies" : "WindowSmiliesNone"}
+                style={{ backgroundColor: "white" }}>
+            </div>
+
                     <div className={this.state.selectionWindowSmile ? "ActiveChatFooterSmileActive" : "ActiveChatFooterSmile"} onClick={this.chooseSmile}></div>
                     <div className="ActiveChatFooterButton"></div>
                 </div>

@@ -1,0 +1,13 @@
+.WindowSmilies{
+    width: 250px;
+    height: 107px;
+    position: absolute;
+    background-image: url("/src/images/all-min.png");
+    background-size: 100%;
+    border: 1px solid green;
+    bottom:45px;
+    right:22px;
+  }
+  .WindowSmiliesNone{
+    display: none,
+  }
