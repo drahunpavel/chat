@@ -132,8 +132,9 @@ class BlockWindowWrap extends React.Component {
 
 
         ///////////////////old code
-        if (fieldInput == "nameChatIsEmpty" && EO.target.value.trim().length > 2 && EO.target.value.trim().length < 20) {
-            //console.log(EO.target.value)
+        // if (fieldInput == "nameChatIsEmpty" && EO.target.value.trim().length > 2 && EO.target.value.trim().length < 20) {
+            if (fieldInput == "nameChatIsEmpty") {    
+        //console.log(EO.target.value)
 
             this.setState({
                 ["" + fieldInput]: false,
@@ -141,8 +142,9 @@ class BlockWindowWrap extends React.Component {
                 field1: true,
             });
         }
-        else if (fieldInput == "numberChatIsEmpty" && EO.target.value.match(/^(\+375|80)(29|25|44|33)(\d{3})(\d{2})(\d{2})$/)) {
-            this.setState({
+        // else if (fieldInput == "numberChatIsEmpty" && EO.target.value.match(/^(\+375|80)(29|25|44|33)(\d{3})(\d{2})(\d{2})$/)) {
+            else if (fieldInput == "numberChatIsEmpty") {
+        this.setState({
                 ["" + fieldInput]: false,
                 numberChat: EO.target.value,
                 field2: true,
@@ -791,11 +793,9 @@ class BlockWindowWrap extends React.Component {
 
 
     sendMessage = () => {
-
+        console.log("Send Message")
         this.setState({
-            newMessage
-            //textMessage:' ',
-
+            textMessage:'',
         })
     }
 
@@ -1001,7 +1001,7 @@ class BlockWindowWrap extends React.Component {
     render() {
         let { btn, title, welcome } = this.props;//деструктуризация
         let { textMessage, newMessage, lengthArr, selectedSmile } = this.state;
-        console.log(selectedSmile)
+        console.log(textMessage)
         return (
 
             <div
