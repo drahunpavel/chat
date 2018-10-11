@@ -855,33 +855,36 @@ class BlockWindowWrap extends React.Component {
             <div className={this.state.startNewDialogue ? "ChatWindowAppreciateDialogueNone" : "ChatWindowAppreciateDialogue"}>
                 {/* <div className="ChatWindowAppreciateDialogue"> */}
                 {this.state.chatRatingSelected ?
-                    <div>
-                        <h3>Спасибо!</h3>
-                        <p>Мы ценим Ваше мнение</p>
-                        <div>
+                    <div className="">
+                        <div className="DialogueRating1">
+                            <h3>Спасибо!</h3>
+                            <p>Мы ценим Ваше мнение</p>
+                        </div>
+                        <div className="DialogueRating2"> 
                             {this.state.chatRatingSmilesArr.map(v =>
-                                    {v.description === this.state.selectedSmile ?//проверка входящего JSON    
-                                        <div key={v.code}
-                                            className="ChatWindowAppreciateDialogueImg2"
-                                            style={{ backgroundImage: v.image, opacity: "1" }}
-                                            onClick={() => this.rateChat(v.description)}
-                                        >
-                                        </div> :
-                                        <div
-                                            className="ChatWindowAppreciateDialogueImg2"
-                                            // style={{ backgroundImage: v.image,opacity:"1" }}
-                                            style={{ backgroundImage: v.image }}
-                                            // onClick={() => this.rateChat(v.description)}
-                                        >
-                                        </div>
-                                    }
+
+                                v.description === this.state.selectedSmile ?//проверка входящего JSON    
+                                    <div key={v.code}
+                                        className="ChatWindowAppreciateDialogueImg2"
+                                        style={{ backgroundImage: v.image, opacity: "1" }}
+                                        onClick={() => this.rateChat(v.description)}
+                                    >
+                                    </div>
+                                    :
+                                    <div key={v.code}
+                                        className="ChatWindowAppreciateDialogueImg2"
+                                        style={{ backgroundImage: v.image, opacity: "0.3" }}
+                                    >
+                                    </div>
                             )}
                         </div>
                     </div> :
-                    <div>
-                        <h3>Пожалуйста, оцените диалог с оператором</h3>
-                        <p>Ваше мнение нужно, чтобы сделать сервис лучше</p>
-                        <div>
+                    <div className="">
+                        <div className="DialogueRating1">
+                            <h3>Пожалуйста, оцените диалог с оператором</h3>
+                            <p>Ваше мнение нужно, чтобы сделать сервис лучше</p>
+                        </div>
+                        <div className="DialogueRating2">
                             {this.state.chatRatingSmilesArr.map(v =>
                                 <div key={v.code}
                                     className="ChatWindowAppreciateDialogueImg"
