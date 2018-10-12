@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 
 import MessageList from "./MessageList";
+//import renderThanksCallBack from "./RenderBlocks";
 //import ChooseSmiley from "./ChooseSmiley";
 //import SendMessageForm from "./SendMessageForm";
 
@@ -86,7 +87,7 @@ class BlockWindowWrap extends React.Component {
         console.log("Phone: " + this.state.numberChat);
         this.setState({
             toShowRenderActiveChat: true, //переключатель для отображения RenderActiveChat после нажатия кнопки
-            isOpenChatWindow:true,
+            isOpenChatWindow: true,
         })
     }
 
@@ -135,8 +136,8 @@ class BlockWindowWrap extends React.Component {
 
         ///////////////////old code
         // if (fieldInput == "nameChatIsEmpty" && EO.target.value.trim().length > 2 && EO.target.value.trim().length < 20) {
-            if (fieldInput == "nameChatIsEmpty") {    
-        //console.log(EO.target.value)
+        if (fieldInput == "nameChatIsEmpty") {
+            //console.log(EO.target.value)
 
             this.setState({
                 ["" + fieldInput]: false,
@@ -145,8 +146,8 @@ class BlockWindowWrap extends React.Component {
             });
         }
         // else if (fieldInput == "numberChatIsEmpty" && EO.target.value.match(/^(\+375|80)(29|25|44|33)(\d{3})(\d{2})(\d{2})$/)) {
-            else if (fieldInput == "numberChatIsEmpty") {
-        this.setState({
+        else if (fieldInput == "numberChatIsEmpty") {
+            this.setState({
                 ["" + fieldInput]: false,
                 numberChat: EO.target.value,
                 field2: true,
@@ -292,8 +293,6 @@ class BlockWindowWrap extends React.Component {
             locationY: this.BlockWindowWrap.offsetTop
         })
     }
-
-
 
     mouseMove = (EO) => {
         //стартовая точка для resize
@@ -450,8 +449,6 @@ class BlockWindowWrap extends React.Component {
 
         }
     }
-
-
 
     forceMouseUp = () => {
         //  console.log('force mouseUp')
@@ -780,74 +777,51 @@ class BlockWindowWrap extends React.Component {
     }
 
 
-
-
-
-
-    onNewMessage = () => {
-        let newMessage = {};
-        let lengthArr = this.state.messageList.length;
-        newMessage[code] = lengthArr + 1;
-        newMessage[message] = this.state.textMessage;
-        console.log(newMessage)
+    cbPressEnter=()=>{
+        //console.log("work!")
+        this.sendMessage();
     }
 
-
-
     sendMessage = () => {
-        console.log("Send Message")
-        console.log(this.state.messageList)
         
-        let newMessage={}
+        console.log("Send Message")
+        //console.log(this.state.messageList)
 
-        let messageListCounter=this.state.messageListLenght2+1;
-        newMessage["code"]=messageListCounter;
-        newMessage["id"]='user';
-        newMessage["message"]=this.state.textMessage;
+        let newMessage = {}
 
-        console.log("newMessage",newMessage)
+        let messageListCounter = this.state.messageListLenght2 + 1;
+        newMessage["code"] = messageListCounter;
+        newMessage["id"] = 'user';
+        newMessage["message"] = this.state.textMessage;
 
-        let addNewMessage=this.state.messageList.concat(newMessage);
-        console.log(addNewMessage)
-
-
+        let addNewMessage = this.state.messageList.concat(newMessage);
 
         //this.state.messageList2++;
         this.setState({
             // newMessage:this.state.newMessage,
-            messageList:addNewMessage,
-            messageListLenght2:messageListCounter,
-            textMessage:'',
+            messageList: addNewMessage,
+            messageListLenght2: messageListCounter,
+            textMessage: '',
+
+            sendMessageUpdate: true,
         })
     }
 
     onChange = (EO) => {
-        //console.log(EO.target.value)
-        //let messageListLenght=this.state.messageList.length;
-        //console.log(messageListLenght)
-        let obj={};
-        // this.state.newMessage["code"]=this.state.messageListLenght2++;
-        // this.state.newMessage["id"]='user';
-        // this.state.newMessage["message"]=EO.target.value;
-        
-
         this.setState({
             //newMessage:this.state.newMessage,
             textMessage: EO.target.value,
-        })
-        
-    }
+        });
+    };
 
     renderActiveChatFooter = () => {
         return (
 
-            // <div className="ActiveChat">
             <div className={this.state.dialogueCompleted ? "ActiveChatNone" : "ActiveChat"}>
                 <a onClick={this.сhatCompleteDialogue}>Завершить диалог</a>
                 <div className="ActiveChatEntryField">
                     <form 
-                    //onClick={this.sendMessage} 
-                    className="ActiveChatEntryFieldText">
+                        className="ActiveChatEntryFieldText">
                         <textarea
                             className="ActiveChatFooterInput"
                             type="text"
@@ -856,14 +830,6 @@ class BlockWindowWrap extends React.Component {
                             value={this.state.textMessage}
                         />
                     </form>
-                    {/* <SendMessageForm
-                        onSubmit={this.sendMessage}
-                    /> */}
-
-                    {/* <ChooseSmiley
-                        selectionWindowSmile={this.state.selectionWindowSmile}
-                    /> */}
-
                     <div
                         className={this.state.selectionWindowSmile ? "WindowSmilies" : "WindowSmiliesNone"}
                         style={{ backgroundColor: "white" }}>
@@ -884,14 +850,13 @@ class BlockWindowWrap extends React.Component {
     renderChatRating = () => {
         return (
             <div className={this.state.startNewDialogue ? "ChatWindowAppreciateDialogueNone" : "ChatWindowAppreciateDialogue"}>
-                {/* <div className="ChatWindowAppreciateDialogue"> */}
                 {this.state.chatRatingSelected ?
                     <div className="">
                         <div className="DialogueRating1">
                             <h3>Спасибо!</h3>
                             <p>Мы ценим Ваше мнение</p>
                         </div>
-                        <div className="DialogueRating2"> 
+                        <div className="DialogueRating2">
                             {this.state.chatRatingSmilesArr.map(v =>
 
                                 v.description === this.state.selectedSmile ?//проверка входящего JSON    
@@ -934,7 +899,6 @@ class BlockWindowWrap extends React.Component {
     renderChatRatingFooter = () => {
         return (
             <div className={this.state.startNewDialogue ? "ChatWindowAppreciateDialogueFooterNone" : "ChatWindowAppreciateDialogueFooter"}>
-                {/* </div><div className="ChatWindowAppreciateDialogueFooter"> */}
                 <div className="AppreciateDialogueButton ">
                     <a onClick={this.keepDialog} className="ViewButton1">Сохранить</a>
                     <a onClick={this.printDialog} className="ViewButton1">Распечатать</a>
@@ -947,74 +911,30 @@ class BlockWindowWrap extends React.Component {
     }
     renderActiveChatMain = () => {
         return (
-            <MessageList/>
-            // <div className={this.state.dialogueCompleted ? "ChatWindowDisplayMessagesNone" : "ChatWindowDisplayMessages"} 
-            // ref="mesList"
-            // >
-            //     <div  >
-            //         <ul className="message-list">
-            //             {this.state.messageList.map(v =>
-            //                 <li key={v.code}
-            //                     className="message"
-            //                 >
-            //                     {v.id === "operator" &&
-            //                         <div className="messageContent" >
-
-
-            //                             {/* <div 
-            //                         style={{backgroundColor:"#eeeff2",textAlign:"left" }}
-            //                         className="message-text">
-            //                         {v.message}
-            //                     </div> */}
-            //                             <div className="message-author" style={{ backgroundImage: v.image }}></div>
-            //                             <div className="message-text" style={{ backgroundColor: "#eeeff2", textAlign: "left" }}>{v.message}</div>
-
-            //                         </div>
-            //                     }
-            //                     {v.id === "user" &&
-            //                         <div className="messageContent">
-            //                             <div className=""></div>
-            //                             <div
-            //                                 style={{ backgroundColor: "#c3efb3", textAlign: "right" }}
-            //                                 className="message-text">
-            //                                 {v.message}
-            //                             </div>
-            //                         </div>
-            //                     }
-            //                 </li>
-            //             )}
-            //         </ul>
-            //     </div>
-
-            // </div>
+            <MessageList
+                messageList={this.state.messageList}
+                dialogueCompleted={this.state.dialogueCompleted}
+                sendMessageUpdate={this.state.sendMessageUpdate}
+                cbkeyPressEnter={this.cbPressEnter}
+                //cbScroll={this.sendMessage}
+            />
         )
     }
     //////////////////////////////////Конец Рендера чата
 
-
-
-
     //Объявляем
     componentDidMount() {
-        //console.log("componentDidMount")
-        //let { myMouse } = this;
-        //this.refs.ChatWindowDisplayMessages.scrollTop=90000;  
-        //console.log(this.refs.bla.offsetWidth) // второй способ через ref
-        //this.refs.mesList.scrollTo(999999,999999);
-        //{this.state.isOpenChatWindow &&this.refs.mesList.scrollTo(999999,999999)}
-
+        // document.addEventListener('keydown',this.keyPressEnter)
         window.addEventListener('mousedown', this.onMouseDown);
         window.addEventListener('mouseup', this.forceMouseUp);
         window.addEventListener('mousemove', this.mouseMove);
-
     }
     //Удаляем
     componentWillUnmount() {
-        
+        //document.removeEventListener('keydown',this.keyPressEnter)
         window.removeEventListener('mousedown', this.onMouseDown);
         window.removeEventListener('onmouseup', this.forceMouseUp);
         window.removeEventListener('mousemove', this.mouseMove);
-
     }
 
     static getDerivedStateFromProps(props, state) {
@@ -1035,16 +955,10 @@ class BlockWindowWrap extends React.Component {
     }
 
 
-
     render() {
         let { btn, title, welcome } = this.props;//деструктуризация
-        let { textMessage, newMessage, lengthArr, selectedSmile,obj,messageListLenght2 } = this.state;
-        // console.log("messageListLenght2",this.state.messageListLenght2)
-        // console.log("textMessage",textMessage)
-        // console.log("newMessage",this.state.newMessage)
-        // console.log(this.state.isOpenChatWindow)
-        // console.log(this.refs.mesList)
-        
+        let { textMessage, newMessage, lengthArr, selectedSmile, obj, messageListLenght2 } = this.state;
+
         return (
 
             <div
@@ -1056,7 +970,6 @@ class BlockWindowWrap extends React.Component {
                 ref={BlockWindowWrap => { this.BlockWindowWrap = BlockWindowWrap }}
             //ref="bla" //второй способ через ref
             >
-
 
                 <div
                     onMouseDown={() => this.myResize('click3')} onMouseUp={() => this.myResize('click4')}
@@ -1074,9 +987,8 @@ class BlockWindowWrap extends React.Component {
                     {this.state.toShowRenderThanksMail ? null : this.props.Mail && this.renderMailWelcome()}
                     {this.state.toShowRenderThanksMail ? this.props.Mail && this.renderThanksMail() : this.props.Mail && this.renderMailMain()}
 
-
                     {/* Отображает информацию после Начать диалог */}
-                    {this.state.toShowRenderActiveChat ? null : this.props.Chat && this.renderChatWelcome() }
+                    {this.state.toShowRenderActiveChat ? null : this.props.Chat && this.renderChatWelcome()}
                     {this.state.toShowRenderActiveChat ? this.props.Chat && this.renderActiveChatMain() : this.props.Chat && this.renderChatMain()}
                     {/* Отображает информацию после нажатия на Завершить диалог */}
                     {this.state.dialogueCompleted ? this.props.Chat && this.renderChatRating() : null}
@@ -1094,7 +1006,6 @@ class BlockWindowWrap extends React.Component {
                 {/* {this.state.selectionWindowSmile? console.log('окно открыто'):console.log('окно закрыто')} */}
                 {this.state.dialogueCompleted ? this.props.Chat && this.renderChatRatingFooter() : null}
                 {/* {this.state.startNewDialogue ? this.props.Chat && this.renderChatButtom():null} */}
-
 
                 <div className='close' onClick={this.close}></div>
                 <div className="resizeBtnBR" onMouseDown={() => this.myResize('click1')} onMouseUp={() => this.myResize('click2')} ></div>
