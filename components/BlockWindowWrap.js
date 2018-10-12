@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
 
-//import MessageList from "./MessageList";
+import MessageList from "./MessageList";
 //import ChooseSmiley from "./ChooseSmiley";
 //import SendMessageForm from "./SendMessageForm";
 
@@ -58,6 +58,7 @@ class BlockWindowWrap extends React.Component {
 
         //загатовочный текст
         messageList: messageList,
+        messageListLenght2: messageList.length,
 
         //переключатель для выбора оценки чата
         chatRatingSelected: false,
@@ -85,6 +86,7 @@ class BlockWindowWrap extends React.Component {
         console.log("Phone: " + this.state.numberChat);
         this.setState({
             toShowRenderActiveChat: true, //переключатель для отображения RenderActiveChat после нажатия кнопки
+            isOpenChatWindow:true,
         })
     }
 
@@ -794,16 +796,46 @@ class BlockWindowWrap extends React.Component {
 
     sendMessage = () => {
         console.log("Send Message")
+        console.log(this.state.messageList)
+        
+        let newMessage={}
+
+        let messageListCounter=this.state.messageListLenght2+1;
+        newMessage["code"]=messageListCounter;
+        newMessage["id"]='user';
+        newMessage["message"]=this.state.textMessage;
+
+        console.log("newMessage",newMessage)
+
+        let addNewMessage=this.state.messageList.concat(newMessage);
+        console.log(addNewMessage)
+
+
+
+        //this.state.messageList2++;
         this.setState({
+            // newMessage:this.state.newMessage,
+            messageList:addNewMessage,
+            messageListLenght2:messageListCounter,
             textMessage:'',
         })
     }
 
     onChange = (EO) => {
         //console.log(EO.target.value)
+        //let messageListLenght=this.state.messageList.length;
+        //console.log(messageListLenght)
+        let obj={};
+        // this.state.newMessage["code"]=this.state.messageListLenght2++;
+        // this.state.newMessage["id"]='user';
+        // this.state.newMessage["message"]=EO.target.value;
+        
+
         this.setState({
-            textMessage: EO.target.value
+            //newMessage:this.state.newMessage,
+            textMessage: EO.target.value,
         })
+        
     }
 
     renderActiveChatFooter = () => {
@@ -813,7 +845,9 @@ class BlockWindowWrap extends React.Component {
             <div className={this.state.dialogueCompleted ? "ActiveChatNone" : "ActiveChat"}>
                 <a onClick={this.сhatCompleteDialogue}>Завершить диалог</a>
                 <div className="ActiveChatEntryField">
-                    <form onClick={this.sendMessage} className="ActiveChatEntryFieldText">
+                    <form 
+                    //onClick={this.sendMessage} 
+                    className="ActiveChatEntryFieldText">
                         <textarea
                             className="ActiveChatFooterInput"
                             type="text"
@@ -846,9 +880,6 @@ class BlockWindowWrap extends React.Component {
         )
     }
 
-    renderWindowSmilies = () => {
-        <div style={{ backgroundColor: "red", position: "absolute", zIndex: "4000" }}>dfdfd</div>
-    }
 
     renderChatRating = () => {
         return (
@@ -916,44 +947,46 @@ class BlockWindowWrap extends React.Component {
     }
     renderActiveChatMain = () => {
         return (
-            //<MessageList/>
-            <div className={this.state.dialogueCompleted ? "ChatWindowDisplayMessagesNone" : "ChatWindowDisplayMessages"}>
-                <div>
-                    <ul className="message-list">
-                        {this.state.messageList.map(v =>
-                            <li key={v.code}
-                                className="message"
-                            >
-                                {v.id === "operator" &&
-                                    <div className="messageContent">
+            <MessageList/>
+            // <div className={this.state.dialogueCompleted ? "ChatWindowDisplayMessagesNone" : "ChatWindowDisplayMessages"} 
+            // ref="mesList"
+            // >
+            //     <div  >
+            //         <ul className="message-list">
+            //             {this.state.messageList.map(v =>
+            //                 <li key={v.code}
+            //                     className="message"
+            //                 >
+            //                     {v.id === "operator" &&
+            //                         <div className="messageContent" >
 
 
-                                        {/* <div 
-                                    style={{backgroundColor:"#eeeff2",textAlign:"left" }}
-                                    className="message-text">
-                                    {v.message}
-                                </div> */}
-                                        <div className="message-author" style={{ backgroundImage: v.image }}></div>
-                                        <div className="message-text" style={{ backgroundColor: "#eeeff2", textAlign: "left" }}>{v.message}</div>
+            //                             {/* <div 
+            //                         style={{backgroundColor:"#eeeff2",textAlign:"left" }}
+            //                         className="message-text">
+            //                         {v.message}
+            //                     </div> */}
+            //                             <div className="message-author" style={{ backgroundImage: v.image }}></div>
+            //                             <div className="message-text" style={{ backgroundColor: "#eeeff2", textAlign: "left" }}>{v.message}</div>
 
-                                    </div>
-                                }
-                                {v.id === "user" &&
-                                    <div className="messageContent">
-                                        <div className=""></div>
-                                        <div
-                                            style={{ backgroundColor: "#c3efb3", textAlign: "right" }}
-                                            className="message-text">
-                                            {v.message}
-                                        </div>
-                                    </div>
-                                }
-                            </li>
-                        )}
-                    </ul>
-                </div>
+            //                         </div>
+            //                     }
+            //                     {v.id === "user" &&
+            //                         <div className="messageContent">
+            //                             <div className=""></div>
+            //                             <div
+            //                                 style={{ backgroundColor: "#c3efb3", textAlign: "right" }}
+            //                                 className="message-text">
+            //                                 {v.message}
+            //                             </div>
+            //                         </div>
+            //                     }
+            //                 </li>
+            //             )}
+            //         </ul>
+            //     </div>
 
-            </div>
+            // </div>
         )
     }
     //////////////////////////////////Конец Рендера чата
@@ -963,9 +996,13 @@ class BlockWindowWrap extends React.Component {
 
     //Объявляем
     componentDidMount() {
+        //console.log("componentDidMount")
         //let { myMouse } = this;
-
+        //this.refs.ChatWindowDisplayMessages.scrollTop=90000;  
         //console.log(this.refs.bla.offsetWidth) // второй способ через ref
+        //this.refs.mesList.scrollTo(999999,999999);
+        //{this.state.isOpenChatWindow &&this.refs.mesList.scrollTo(999999,999999)}
+
         window.addEventListener('mousedown', this.onMouseDown);
         window.addEventListener('mouseup', this.forceMouseUp);
         window.addEventListener('mousemove', this.mouseMove);
@@ -973,6 +1010,7 @@ class BlockWindowWrap extends React.Component {
     }
     //Удаляем
     componentWillUnmount() {
+        
         window.removeEventListener('mousedown', this.onMouseDown);
         window.removeEventListener('onmouseup', this.forceMouseUp);
         window.removeEventListener('mousemove', this.mouseMove);
@@ -1000,8 +1038,13 @@ class BlockWindowWrap extends React.Component {
 
     render() {
         let { btn, title, welcome } = this.props;//деструктуризация
-        let { textMessage, newMessage, lengthArr, selectedSmile } = this.state;
-        console.log(textMessage)
+        let { textMessage, newMessage, lengthArr, selectedSmile,obj,messageListLenght2 } = this.state;
+        // console.log("messageListLenght2",this.state.messageListLenght2)
+        // console.log("textMessage",textMessage)
+        // console.log("newMessage",this.state.newMessage)
+        // console.log(this.state.isOpenChatWindow)
+        // console.log(this.refs.mesList)
+        
         return (
 
             <div
@@ -1024,7 +1067,7 @@ class BlockWindowWrap extends React.Component {
 
                 </div>
 
-                <div className="main">
+                <div className="main" >
                     {this.state.toShowRenderThanksCallBack ? null : this.props.CallBack && this.renderCallBackWelcome()}
                     {this.state.toShowRenderThanksCallBack ? this.props.CallBack && this.renderThanksCallBack() : this.props.CallBack && this.renderCallBackMain()}
 
@@ -1033,7 +1076,7 @@ class BlockWindowWrap extends React.Component {
 
 
                     {/* Отображает информацию после Начать диалог */}
-                    {this.state.toShowRenderActiveChat ? null : this.props.Chat && this.renderChatWelcome()}
+                    {this.state.toShowRenderActiveChat ? null : this.props.Chat && this.renderChatWelcome() }
                     {this.state.toShowRenderActiveChat ? this.props.Chat && this.renderActiveChatMain() : this.props.Chat && this.renderChatMain()}
                     {/* Отображает информацию после нажатия на Завершить диалог */}
                     {this.state.dialogueCompleted ? this.props.Chat && this.renderChatRating() : null}
