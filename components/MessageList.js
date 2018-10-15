@@ -2,9 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
+let allSmilies = require("../src/allSmilies.json");
 
-//import './MessageList.scss';
-import './BlockWindowWrap.scss';
+import './MessageList.scss';
+//import './BlockWindowWrap.scss';
+//import './ChooseSmiley.scss'
 
 //let messageList=require("../src/messageList.json");
 
@@ -15,6 +17,9 @@ class MessageList extends React.Component {
         //dialogueCompleted
         //sendMessageUpdate
     };
+    state = {
+        allSmiliesArr: allSmilies,
+    }
 
 
     cbkeyPressEnter=(EO)=>{
@@ -35,6 +40,37 @@ class MessageList extends React.Component {
             console.log("Обновление!")
             // this.props.cbClose(this.refs.mesList.scrollTo(999999, 999999));
         }
+    }
+
+    transformationMessage=(textMessage)=>{
+
+
+
+
+        //console.log(textMessage.length)
+        
+        let out=[];
+        for(let i=0; i<textMessage.length; i++ ){
+
+            if(textMessage[i]===":"&&textMessage[i+5]===":"){
+                    let smileyСode= textMessage[i]+textMessage[i+1]+textMessage[i+2]+textMessage[i+3]+textMessage[i+4]+textMessage[i+5]
+                    console.log(smileyСode)
+                    this.state.allSmiliesArr.map((v) =>
+
+                
+                   
+                        {if(smileyСode===v.title){
+                            out.push(<img key={v.code} className={v.className2}></img>)
+                            i+=5;
+                    }}
+                        )
+                }  else{
+                    out.push(textMessage[i])
+                }
+        }
+        // let reg=textMessage.replace( /[:]{1}[0-9]{2}[a-z]{2}[:]{1}/g )
+
+        return out
     }
 
     componentDidMount() {
@@ -60,7 +96,7 @@ class MessageList extends React.Component {
                                 {v.id === "operator" &&
                                     <div className="messageContent" >
                                         <div className="message-author" style={{ backgroundImage: v.image }}></div>
-                                        <div className="message-text" style={{ backgroundColor: "#eeeff2", textAlign: "left" }}>{v.message}</div>
+                                        <div className="message-text" style={{ backgroundColor: "#eeeff2", textAlign: "left" }}>{this.transformationMessage(v.message)}</div>
                                     </div>
                                 }
                                 {v.id === "user" &&
@@ -69,7 +105,7 @@ class MessageList extends React.Component {
                                         <div
                                             style={{ backgroundColor: "#c3efb3", textAlign: "right" }}
                                             className="message-text">
-                                            {v.message}
+                                            {this.transformationMessage(v.message)}
                                         </div>
                                     </div>
                                 }

@@ -76,6 +76,8 @@ class BlockWindowWrap extends React.Component {
         textMessage: "",
         newMessage: {},
         //lengthArr:this.state.messageList.length,
+
+        sendMessageUpdate:false
     }
 
 
@@ -506,14 +508,25 @@ class BlockWindowWrap extends React.Component {
 
     }
 
+
+
     //функция выбора смайликов
     openWindowSmiles = () => {
         console.log("Open the window with smiles")
         this.setState({
             selectionWindowSmile: !this.state.selectionWindowSmile,
+            //sendMessageUpdate:false,
         })
     }
+    cbсonvertSmile=(newSmile)=>{
+        console.log(newSmile)
 
+
+        this.setState({
+            textMessage:this.state.textMessage+newSmile,
+            
+        })
+    }
     //Отображение содержимого в окошках
     //////////////////////////////////Рендер "Запросить звонок"
     renderCallBackTitle = () => {
@@ -802,8 +815,9 @@ class BlockWindowWrap extends React.Component {
             messageList: addNewMessage,
             messageListLenght2: messageListCounter,
             textMessage: '',
-
-            sendMessageUpdate: true,
+            sendMessageUpdate: true,//при отправки сообщения состояние true
+            selectionWindowSmile:false,
+            //sendMessageUpdate:
         })
     }
 
@@ -811,7 +825,9 @@ class BlockWindowWrap extends React.Component {
         this.setState({
             //newMessage:this.state.newMessage,
             textMessage: EO.target.value,
+            //sendMessageUpdate:false,
         });
+       
     };
 
     renderActiveChatFooter = () => {
@@ -837,6 +853,8 @@ class BlockWindowWrap extends React.Component {
                     </div> */}
                     <ChooseSmiley
                         selectionWindowSmile={this.state.selectionWindowSmile}
+                        cbсonvertSmile={this.cbсonvertSmile}
+                        sendMessageUpdate={this.state.sendMessageUpdate}
                     />
                     {/*кнопка Открыть\закрыть окно со смайлами */}
                     <div className={this.state.selectionWindowSmile ? "ActiveChatFooterSmileActive" : "ActiveChatFooterSmile"} onClick={this.openWindowSmiles}></div>
@@ -962,7 +980,8 @@ class BlockWindowWrap extends React.Component {
     render() {
         let { btn, title, welcome } = this.props;//деструктуризация
         let { textMessage, newMessage, lengthArr, selectedSmile, obj, messageListLenght2 } = this.state;
-
+        //console.log(this.state.smileDescription)
+        //console.log(this.state.sendMessageUpdate)
         return (
 
             <div
