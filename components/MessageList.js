@@ -20,7 +20,7 @@ class MessageList extends React.Component {
     cbkeyPressEnter=(EO)=>{
         
         if(EO.keyCode===13){
-            console.log(EO.keyCode)
+            //console.log(EO.keyCode)
 
             EO.preventDefault();
             this.props.cbkeyPressEnter()

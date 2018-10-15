@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import MessageList from "./MessageList";
 //import renderThanksCallBack from "./RenderBlocks";
-//import ChooseSmiley from "./ChooseSmiley";
+import ChooseSmiley from "./ChooseSmiley";
 //import SendMessageForm from "./SendMessageForm";
 
 import './BlockWindowWrap.scss';
@@ -64,7 +64,7 @@ class BlockWindowWrap extends React.Component {
         //переключатель для выбора оценки чата
         chatRatingSelected: false,
 
-        //переключатель окна выбора смайлов
+        //переключатель окна выбора смайлов, по умолчанию выключено=false
         selectionWindowSmile: false,
         //название выбранного смайла при оценке чата
         selectedSmile: '',
@@ -507,8 +507,8 @@ class BlockWindowWrap extends React.Component {
     }
 
     //функция выбора смайликов
-    chooseSmile = () => {
-        console.log("chooseSmile")
+    openWindowSmiles = () => {
+        console.log("Open the window with smiles")
         this.setState({
             selectionWindowSmile: !this.state.selectionWindowSmile,
         })
@@ -830,12 +830,16 @@ class BlockWindowWrap extends React.Component {
                             value={this.state.textMessage}
                         />
                     </form>
-                    <div
+                     {/*окно со смайлами */}
+                    {/* <div
                         className={this.state.selectionWindowSmile ? "WindowSmilies" : "WindowSmiliesNone"}
                         style={{ backgroundColor: "white" }}>
-                    </div>
+                    </div> */}
+                    <ChooseSmiley
+                        selectionWindowSmile={this.state.selectionWindowSmile}
+                    />
                     {/*кнопка Открыть\закрыть окно со смайлами */}
-                    <div className={this.state.selectionWindowSmile ? "ActiveChatFooterSmileActive" : "ActiveChatFooterSmile"} onClick={this.chooseSmile}></div>
+                    <div className={this.state.selectionWindowSmile ? "ActiveChatFooterSmileActive" : "ActiveChatFooterSmile"} onClick={this.openWindowSmiles}></div>
                     {/* кнопка Отправки сообщения */}
                     <div
                         className="ActiveChatFooterButton"

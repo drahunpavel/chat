@@ -1,9 +1,10 @@
 .WindowSmilies{
-    width: 250px;
-    height: 107px;
+    width: 253px;
+    height: 118px;
     position: absolute;
-    background-image: url("/src/images/all-min.png");
-    background-size: 100%;
+    padding: 3px;
+    // background-image: url("/src/images/all-min.png");
+    // background-size: 100%;
     border: 1px solid green;
     bottom:45px;
     right:22px;
@@ -11,3 +12,245 @@
   .WindowSmiliesNone{
     display: none,
   }
+
+  .all-smile {
+    width: 21px;
+    height: 21px;
+    margin: 1px;
+    display: inline-block;
+    vertical-align: bottom;
+    background-image: url("/src/images/all-min.png");
+    cursor: pointer;
+  }
+  .all-smile:hover {
+    width: 21px;
+    height: 21px;
+    display: inline-block;
+    vertical-align: bottom;
+    background-image: url("/src/images/all-min.png");
+     background-color: green;
+     cursor: pointer;
+  }
+  
+  
+  
+  .grin {
+    background-position: -104px 42px;
+  }
+  
+  .joy {
+    background-position: -63px 84px;
+  }
+  
+  .smiley {
+    background-position: -125px -86px;
+  }
+  
+  .smile {
+    background-position: -104px -130px;
+  }
+  
+  .sweat_smile {
+    background-position: -146px 0px;
+  }
+  
+  .laughing {
+    background-position: -208px -44px;
+  }
+  
+  .wink {
+    background-position: -42px 0;
+  }
+  
+  .blush {
+    background-position: -63px 21px;
+  }
+  
+  .yum {
+    background-position: 0 0;
+  }
+  
+  .relieved {
+    background-position: 63px -24px;
+  }
+  
+  .heart_eyes {
+    background-position: 167px -65px;
+  }
+  
+  .smirk {
+    background-position: -21px -23px;
+  }
+  
+  .unamused {
+    background-position: -83px 0;
+  }
+  
+  .sweat {
+    background-position: -166px -1px;
+  }
+  
+  .pensive {
+    background-position: -166px -45px;
+  }
+  
+  .confounded {
+    background-position: -21px 21px;
+  }
+  
+  .kissing_heart {
+    background-position: 21px -45px;
+  }
+  
+  .kissing_closed_eyes {
+    background-position: 0px 42px;
+  }
+  
+  .stuck_out_tongue_winking_eye {
+    background-position: 63px -1px;
+  }
+  
+  .stuck_out_tongue_closed_eyes {
+    background-position: 42px -1px;
+  }
+  
+  .disappointed {
+    background-position: 42px -65px;
+  }
+  
+  .angry {
+    background-position: 146px -85px;
+  }
+  
+  .rage {
+    background-position: 21px -23px;
+  }
+  
+  .cry {
+    background-position: 0 21px;
+  }
+  
+  .persevere {
+    background-position: 104px 62px;
+  }
+  
+  .triumph {
+    background-position: -104px 0;
+  }
+  
+  .disappointed_relieved {
+    background-position: 63px 42px;
+  }
+  
+  .fearful {
+    background-position: 104px 42px;
+  }
+  
+  .weary {
+    background-position: -62px 0;
+  }
+  
+  .sleepy {
+    background-position: -125px -23px;
+  }
+  
+  .tired_face {
+    background-position: -125px 0;
+  }
+  
+  .sob {
+    background-position: 21px -2px;
+  }
+  
+  .cold_sweat {
+    background-position: -42px 21px;
+  }
+  
+  .scream {
+    background-position: -167px -23px;
+  }
+  
+  .astonished {
+    background-position: -84px 21px;
+  }
+  
+  .flushed {
+    background-position: -125px 41px;
+  }
+  
+  .dizzy_face {
+    background-position: -166px 41px;
+  }
+  
+  .mask {
+    background-position: -187px 62px;
+  }
+  
+  .smile_cat {
+    background-position: -84px -22px;
+  }
+  
+  .joy_cat {
+    background-position: -41px -65px;
+  }
+  
+  .smiley_cat {
+    background-position: -41px -65px;
+  }
+  
+  .heart_eyes_cat {
+    background-position: -62px -65px;
+  }
+  
+  .smirk_cat {
+    background-position: 0 -22px;
+  }
+  
+  .kissing_cat {
+    background-position: -21px -66px;
+  }
+  
+  .pouting_cat {
+    background-position: -21px -44px;
+  }
+  
+  .crying_cat_face {
+    background-position: 21px -65px;
+  }
+  
+  .scream_cat {
+    background-position: 104px -24px;
+  }
+  
+  .person_gesturing_no {
+    background-position: -105px -44px;
+  }
+  
+  .person_gesturing_ok {
+    background-position: -84px -44px;
+  }
+  
+  .woman_bowing {
+    background-position: -21px 0;
+  }
+  
+  .person_raising_hand {
+    background-position: -44px -45px;
+  }
+  
+  .raised_hands {
+    background-position: 42px -23px;
+  }
+  
+  .person_frowning {
+    background-position: 125px -44px;
+  }
+  
+  .person_pouting {
+    background-position: -63px -44px;
+  }
+  
+  .pray {
+    background-position: 0px -44px;
+  }
+  

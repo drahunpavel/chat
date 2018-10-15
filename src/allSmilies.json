@@ -1,0 +1,332 @@
+[
+    { 
+        "code":1,
+        "title": ":joy:", 
+        "className":"all-smile joy"
+
+    },
+    { 
+        "code":2,
+        "title": ":grin:", 
+        "className":"all-smile grin"
+
+    },
+    { 
+        "code":3,
+        "title": ":smiley:", 
+        "className":"all-smile smiley"
+
+    },
+    { 
+        "code":4,
+        "title": ":smile:", 
+        "className":"all-smile smile"
+
+    },
+    { 
+        "code":5,
+        "title": ":sweat_smile:", 
+        "className":"all-smile sweat_smile"
+
+    },
+    { 
+        "code":6,
+        "title": ":laughing:", 
+        "className":"all-smile laughing"
+
+    },
+    { 
+        "code":7,
+        "title": ":wink:", 
+        "className":"all-smile wink"
+
+    },
+    { 
+        "code":8,
+        "title": ":blush:", 
+        "className":"all-smile blush"
+
+    },
+    { 
+        "code":9,
+        "title": ":yum:", 
+        "className":"all-smile yum"
+
+    },
+    { 
+        "code":10,
+        "title": ":relieved:", 
+        "className":"all-smile relieved"
+
+    },
+    { 
+        "code":11,
+        "title": ":heart_eyes:", 
+        "className":"all-smile heart_eyes"
+
+    },
+    { 
+        "code":12,
+        "title": ":smirk:", 
+        "className":"all-smile smirk"
+
+    },
+    { 
+        "code":13,
+        "title": ":unamused:", 
+        "className":"all-smile unamused"
+
+    },
+    { 
+        "code":14,
+        "title": ":sweat:", 
+        "className":"all-smile sweat"
+
+    },
+    { 
+        "code":15,
+        "title": ":pensive:", 
+        "className":"all-smile pensive"
+
+    },
+    { 
+        "code":16,
+        "title": ":confounded:", 
+        "className":"all-smile confounded"
+
+    },
+    { 
+        "code":17,
+        "title": ":kissing_heart:", 
+        "className":"all-smile kissing_heart"
+
+    },
+    { 
+        "code":18,
+        "title": ":kissing_closed_eyes:", 
+        "className":"all-smile kissing_closed_eyes"
+
+    },
+    { 
+        "code":19,
+        "title": ":stuck_out_tongue_winking_eye:", 
+        "className":"all-smile stuck_out_tongue_winking_eye"
+
+    },
+    { 
+        "code":20,
+        "title": ":stuck_out_tongue_closed_eyes:", 
+        "className":"all-smile stuck_out_tongue_closed_eyes"
+
+    },
+    { 
+        "code":21,
+        "title": ":disappointed:", 
+        "className":"all-smile disappointed"
+
+    },
+    { 
+        "code":22,
+        "title": ":angry:", 
+        "className":"all-smile angry"
+
+    },
+    { 
+        "code":23,
+        "title": ":rage:", 
+        "className":"all-smile rage"
+
+    },
+    { 
+        "code":24,
+        "title": ":cry:", 
+        "className":"all-smile cry"
+
+    },
+    { 
+        "code":25,
+        "title": ":persevere:", 
+        "className":"all-smile persevere"
+
+    },
+    { 
+        "code":26,
+        "title": ":triumph:", 
+        "className":"all-smile triumph"
+
+    },
+    { 
+        "code":27,
+        "title": ":disappointed_relieved:", 
+        "className":"all-smile disappointed_relieved"
+
+    },
+    { 
+        "code":28,
+        "title": ":fearful:", 
+        "className":"all-smile fearful"
+
+    },
+    { 
+        "code":29,
+        "title": ":weary:", 
+        "className":"all-smile weary"
+
+    },
+    { 
+        "code":30,
+        "title": ":sleepy:", 
+        "className":"all-smile sleepy"
+
+    },
+    { 
+        "code":31,
+        "title": ":tired_face:", 
+        "className":"all-smile tired_face"
+
+    },
+    { 
+        "code":32,
+        "title": ":sob:", 
+        "className":"all-smile sob"
+
+    },
+    { 
+        "code":33,
+        "title": ":cold_sweat:", 
+        "className":"all-smile cold_sweat"
+
+    },
+    { 
+        "code":34,
+        "title": ":scream:", 
+        "className":"all-smile scream"
+
+    },
+    { 
+        "code":35,
+        "title": ":astonished:", 
+        "className":"all-smile astonished"
+
+    },
+    { 
+        "code":36,
+        "title": ":flushed:", 
+        "className":"all-smile flushed"
+
+    },
+    { 
+        "code":37,
+        "title": ":dizzy_face:", 
+        "className":"all-smile dizzy_face"
+
+    },
+    { 
+        "code":38,
+        "title": ":mask:", 
+        "className":"all-smile mask"
+
+    },
+    { 
+        "code":39,
+        "title": ":smile_cat:", 
+        "className":"all-smile smile_cat"
+
+    },
+    { 
+        "code":40,
+        "title": ":joy_cat:", 
+        "className":"all-smile joy_cat"
+
+    },
+    { 
+        "code":41,
+        "title": ":smiley_cat:", 
+        "className":"all-smile smiley_cat"
+
+    },
+    { 
+        "code":42,
+        "title": ":heart_eyes_cat:", 
+        "className":"all-smile heart_eyes_cat"
+
+    },
+    { 
+        "code":43,
+        "title": ":smirk_cat:", 
+        "className":"all-smile smirk_cat"
+
+    },
+    { 
+        "code":44,
+        "title": ":kissing_cat:", 
+        "className":"all-smile kissing_cat"
+
+    },
+    { 
+        "code":45,
+        "title": ":pouting_cat:", 
+        "className":"all-smile pouting_cat"
+
+    },
+    { 
+        "code":46,
+        "title": ":crying_cat_face:", 
+        "className":"all-smile crying_cat_face"
+
+    },
+    { 
+        "code":47,
+        "title": ":scream_cat:", 
+        "className":"all-smile scream_cat"
+
+    },
+    { 
+        "code":48,
+        "title": ":person_gesturing_no:", 
+        "className":"all-smile person_gesturing_no"
+
+    },
+    { 
+        "code":49,
+        "title": ":person_gesturing_ok:", 
+        "className":"all-smile person_gesturing_ok"
+
+    },
+    { 
+        "code":50,
+        "title": ":woman_bowing:", 
+        "className":"all-smile woman_bowing"
+
+    },
+    { 
+        "code":51,
+        "title": ":person_raising_hand:", 
+        "className":"all-smile person_raising_hand"
+
+    },
+    { 
+        "code":52,
+        "title": ":raised_hands:", 
+        "className":"all-smile raised_hands"
+
+    },
+    { 
+        "code":53,
+        "title": ":person_frowning:", 
+        "className":"all-smile person_frowning"
+
+    },
+    { 
+        "code":54,
+        "title": ":person_pouting:", 
+        "className":"all-smile person_pouting"
+
+    },
+    { 
+        "code":55,
+        "title": ":pray:", 
+        "className":"all-smile pray"
+
+    }
+]
