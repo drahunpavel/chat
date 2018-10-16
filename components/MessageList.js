@@ -68,6 +68,21 @@ class MessageList extends React.Component {
         return out
     }
 
+//автоскролл сообщений
+    scrollToBottom() {
+        const scrollHeight = this.refs.mesList.scrollHeight;
+        const height = this.refs.mesList.clientHeight;
+        const maxScrollTop = scrollHeight - height;
+        this.refs.mesList.scrollTop = maxScrollTop > 0 ? maxScrollTop : 0;
+        // const height = this.messageList.clientHeight;
+        // const maxScrollTop = scrollHeight - height;
+        // this.messageList.scrollTop = maxScrollTop > 0 ? maxScrollTop : 0;
+      }
+
+    componentDidUpdate() {//автоскролл сообщений
+        this.scrollToBottom();
+      }
+
     componentDidMount() {
         this.refs.mesList.scrollTo(999999, 999999)
         document.addEventListener('keydown', this.cbkeyPressEnter)
@@ -77,7 +92,7 @@ class MessageList extends React.Component {
     }
 
     render() {
-        //console.log(this.refs.mesList)
+        
         return (
             <div className={this.props.dialogueCompleted ? "ChatWindowDisplayMessagesNone" : "ChatWindowDisplayMessages"}
                  ref="mesList"
@@ -91,13 +106,13 @@ class MessageList extends React.Component {
                                 {v.id === "operator" &&
                                     <div className="messageContent" >
                                         <div className="message-author" style={{ backgroundImage: v.image }}></div>
-                                        <div className="message-text" style={{ backgroundColor: "#eeeff2", textAlign: "left" }}>{this.transformationMessage(v.message)}</div>
+                                        <div  className="message-text" style={{ backgroundColor: "#eeeff2", textAlign: "left" }}>{this.transformationMessage(v.message)}</div>
                                     </div>
                                 }
                                 {v.id === "user" &&
                                     <div className="messageContent">
                                         <div className=""></div>
-                                        <div
+                                        <div 
                                             style={{ backgroundColor: "#c3efb3", textAlign: "right" }}
                                             className="message-text">
                                             {this.transformationMessage(v.message)}
