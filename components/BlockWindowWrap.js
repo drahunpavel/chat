@@ -811,23 +811,51 @@ class BlockWindowWrap extends React.Component {
 
         let newMessage = {}
 
-        let messageListCounter = this.state.messageListLenght2 + 1;
-        newMessage["code"] = messageListCounter;
-        newMessage["id"] = 'user';
-        newMessage["message"] = this.state.textMessage;
+        //console.log(this.state.textMessage.length)
+        if(this.state.textMessage.length>1){
+            let messageListCounter = this.state.messageListLenght2 + 1;
+            newMessage["code"] = messageListCounter;
+            newMessage["id"] = 'user';
+            newMessage["message"] = this.state.textMessage;
+    
+            let addNewMessage = this.state.messageList.concat(newMessage);
 
-        let addNewMessage = this.state.messageList.concat(newMessage);
 
-        //this.state.messageList2++;
-        this.setState({
-            // newMessage:this.state.newMessage,
-            messageList: addNewMessage,
-            messageListLenght2: messageListCounter,
-            textMessage: '',
-            sendMessageUpdate: true,//при отправки сообщения состояние true
-            selectionWindowSmile:false,
-            //sendMessageUpdate:
-        })
+            //this.state.messageList2++;
+            this.setState({
+                // newMessage:this.state.newMessage,
+                messageList: addNewMessage,
+                messageListLenght2: messageListCounter,
+                textMessage: '',
+                sendMessageUpdate: true,//при отправки сообщения состояние true
+                selectionWindowSmile:false,
+                //sendMessageUpdate:
+            })
+        }
+
+    }
+
+    transformationMessage=(textMessage)=>{
+        let out = [];
+        for (let i = 0; i < textMessage.length; i++) {
+
+            if (textMessage[i] === ":" && textMessage[i + 5] === ":") {
+                let smileyСode = textMessage[i] + textMessage[i + 1] + textMessage[i + 2] + textMessage[i + 3] + textMessage[i + 4] + textMessage[i + 5]
+                //console.log(smileyСode)
+                this.state.allSmiliesArr.map((v) => {
+                    if (smileyСode === v.title) {
+                        out.push(<img key={i} className={v.className2}></img>)
+                        i += 5;
+                    }
+                }
+                )
+            } else {
+                out.push(textMessage[i])
+            }
+        }
+        // let reg=textMessage.replace( /[:]{1}[0-9]{2}[a-z]{2}[:]{1}/g )
+
+        return out
     }
 
     onChange = (EO) => {

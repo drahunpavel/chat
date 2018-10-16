@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 
 let allSmilies = require("../src/allSmilies.json");
 
+
+
 import './MessageList.scss';
 //import './BlockWindowWrap.scss';
 //import './ChooseSmiley.scss'
@@ -36,18 +38,13 @@ class MessageList extends React.Component {
     messageUpdate = () => {
         if (this.props.sendMessageUpdate) {
 
-            this.refs.mesList.scrollTo(999999, 999999)
+            //this.refs.mesList.scrollTo(999999, 999999)
             console.log("Обновление!")
             // this.props.cbClose(this.refs.mesList.scrollTo(999999, 999999));
         }
     }
 
     transformationMessage = (textMessage) => {
-
-
-
-
-        //console.log(textMessage.length)
 
         let out = [];
         for (let i = 0; i < textMessage.length; i++) {
@@ -83,13 +80,13 @@ class MessageList extends React.Component {
         //console.log(this.refs.mesList)
         return (
             <div className={this.props.dialogueCompleted ? "ChatWindowDisplayMessagesNone" : "ChatWindowDisplayMessages"}
-                ref="mesList"
+                 ref="mesList"
             >
-                <div  >
                     <ul className="message-list">
                         {this.props.messageList.map(v =>
                             <li key={v.code}
                                 className="message"
+                                
                             >
                                 {v.id === "operator" &&
                                     <div className="messageContent" >
@@ -110,7 +107,6 @@ class MessageList extends React.Component {
                             </li>
                         )}
                     </ul>
-                </div>
             </div>
         )
     }
