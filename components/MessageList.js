@@ -22,9 +22,9 @@ class MessageList extends React.Component {
     }
 
 
-    cbkeyPressEnter=(EO)=>{
-        
-        if(EO.keyCode===13){
+    cbkeyPressEnter = (EO) => {
+
+        if (EO.keyCode === 13) {
             //console.log(EO.keyCode)
 
             EO.preventDefault();
@@ -33,40 +33,38 @@ class MessageList extends React.Component {
     }
 
 
-    messageUpdate=()=>{
-        if(this.props.sendMessageUpdate){
-            
+    messageUpdate = () => {
+        if (this.props.sendMessageUpdate) {
+
             this.refs.mesList.scrollTo(999999, 999999)
             console.log("Обновление!")
             // this.props.cbClose(this.refs.mesList.scrollTo(999999, 999999));
         }
     }
 
-    transformationMessage=(textMessage)=>{
+    transformationMessage = (textMessage) => {
 
 
 
 
         //console.log(textMessage.length)
-        
-        let out=[];
-        for(let i=0; i<textMessage.length; i++ ){
 
-            if(textMessage[i]===":"&&textMessage[i+5]===":"){
-                    let smileyСode= textMessage[i]+textMessage[i+1]+textMessage[i+2]+textMessage[i+3]+textMessage[i+4]+textMessage[i+5]
-                    console.log(smileyСode)
-                    this.state.allSmiliesArr.map((v) =>
+        let out = [];
+        for (let i = 0; i < textMessage.length; i++) {
 
-                
-                   
-                        {if(smileyСode===v.title){
-                            out.push(<img key={v.code} className={v.className2}></img>)
-                            i+=5;
-                    }}
-                        )
-                }  else{
-                    out.push(textMessage[i])
+            if (textMessage[i] === ":" && textMessage[i + 5] === ":") {
+                let smileyСode = textMessage[i] + textMessage[i + 1] + textMessage[i + 2] + textMessage[i + 3] + textMessage[i + 4] + textMessage[i + 5]
+                //console.log(smileyСode)
+                this.state.allSmiliesArr.map((v) => {
+                    if (smileyСode === v.title) {
+                        out.push(<img key={i} className={v.className2}></img>)
+                        i += 5;
+                    }
                 }
+                )
+            } else {
+                out.push(textMessage[i])
+            }
         }
         // let reg=textMessage.replace( /[:]{1}[0-9]{2}[a-z]{2}[:]{1}/g )
 
@@ -74,17 +72,17 @@ class MessageList extends React.Component {
     }
 
     componentDidMount() {
-        this.refs.mesList.scrollTo(999999, 999999) 
-        document.addEventListener('keydown',this.cbkeyPressEnter)
+        this.refs.mesList.scrollTo(999999, 999999)
+        document.addEventListener('keydown', this.cbkeyPressEnter)
     }
     componentWillUnmount() {
-        document.removeEventListener('keydown',this.cbkeyPressEnter)
+        document.removeEventListener('keydown', this.cbkeyPressEnter)
     }
 
     render() {
-       //console.log(this.refs.mesList)
+        //console.log(this.refs.mesList)
         return (
-            <div  className={this.props.dialogueCompleted ? "ChatWindowDisplayMessagesNone" : "ChatWindowDisplayMessages"}
+            <div className={this.props.dialogueCompleted ? "ChatWindowDisplayMessagesNone" : "ChatWindowDisplayMessages"}
                 ref="mesList"
             >
                 <div  >

@@ -10,6 +10,8 @@ import ChooseSmiley from "./ChooseSmiley";
 
 import './BlockWindowWrap.scss';
 
+let allSmilies = require("../src/allSmilies.json");
+
 let chatRatingSmiles = require('../src/chatRatingSmiles.json')
 
 let messageList = require("../src/messageList.json");
@@ -77,7 +79,9 @@ class BlockWindowWrap extends React.Component {
         newMessage: {},
         //lengthArr:this.state.messageList.length,
 
-        sendMessageUpdate:false
+        sendMessageUpdate:false,
+
+        allSmiliesArr: allSmilies
     }
 
 
@@ -519,10 +523,15 @@ class BlockWindowWrap extends React.Component {
         })
     }
     cbсonvertSmile=(newSmile)=>{
-        console.log(newSmile)
+        //console.log(newSmile)
+        // let out = [];
 
+        //         this.state.allSmiliesArr.map(v=> {
+        //             console.log(v.ma)
+        //         })
 
         this.setState({
+            //Добавление описание смайлов к тексту
             textMessage:this.state.textMessage+newSmile,
             
         })
