@@ -190,7 +190,11 @@
     box-shadow: 0 0 10px rgba(65, 64, 64, 0.5);
   }
   .ActiveChatEntryFieldText {
-    width: 75%;
+    width: 72%;
+    overflow-y: scroll;
+    text-align: left;
+    height: 35px;
+    padding-left: 2px;
   }
   .ActiveChatFooterInput {
     font-size: 14px;

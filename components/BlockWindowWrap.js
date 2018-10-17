@@ -571,15 +571,7 @@ class BlockWindowWrap extends React.Component {
         return textMessage;
     };
 
-    onChange = (EO) => {
-        let newText=this.transformationMessage(EO.target.value);
-        console.log(newText)
-        this.setState({
-            //newMessage:this.state.newMessage,
-            textMessage: newText,
-            //sendMessageUpdate:false,
-        });
-    };
+
     //Отображение содержимого в окошках
     //////////////////////////////////Рендер "Запросить звонок"
     renderCallBackTitle = () => {
@@ -709,8 +701,7 @@ class BlockWindowWrap extends React.Component {
             </div>
         );
     };
-
-    //////////////////////////////////Конец Рендера "Запросить звонок"
+//////////////////////////////Конец Рендера "Запросить звонок"
 
     //////////////////////////////////Рендер "Отправить вопрос"
     renderMailtitle = () => {
@@ -918,7 +909,57 @@ class BlockWindowWrap extends React.Component {
             </div>
         );
     };
+    
+    
+
+
+    entryFieldonChange = (e) => {
+        e.preventDefault();
+
+     console.log(this.textInput.value)
+
+        // let text123 = EO.target.value;
+        // console.log(text123)
+
+        // this.setState({textMessage:text123})
+
+        // if(this.state.textMessage===""){
+        //     this.setState({textMessage:EO.target.innerHTML=""})
+        // }
+        //let newText=this.transformationMessage(EO.target.value);
+        //console.log(newText)
+        // this.setState({
+        //     //newMessage:this.state.newMessage,
+        //     textMessage: EO.target.value,
+        //     //sendMessageUpdate:false,
+        // });
+    };
+
+      getText=(el)=> {
+        
+        return el.innerText || this.getTextForFirefox(el);
+      }
+
+
+      onTextChange=(ev)=> {
+        var text = this.getText(ev.target);
+        console.log(text)
+        this.setState({ textMessage: text });
+        // this.props.onChange({
+        //   target: {
+        //     value: text
+        //   }
+        // });
+      }
+      onPaste=(ev)=> {
+        ev.preventDefault();
+        var text = ev.clipboardData.getData("text");
+        document.execCommand('insertText', false, text);
+      }
+
     renderActiveChatFooter = () => {
+
+
         return (
             <div
                 className={
@@ -928,13 +969,25 @@ class BlockWindowWrap extends React.Component {
                 <a onClick={this.сhatCompleteDialogue}>Завершить диалог</a>
                 <div className="ActiveChatEntryField">
                     <form className="ActiveChatEntryFieldText">
-                        <textarea
+                        {/* <textarea
                             className="ActiveChatFooterInput"
                             type="text"
                             placeholder="Напишите что-нибудь"
-                            onChange={this.onChange}
+                            onChange={this.entryFieldonChange}
                             value={this.state.textMessage}
-                        />
+                        /> */}
+                        <div
+                            className="ActiveChatFooterInput"
+                            data-type="input"
+                            placeholder="Напишите что-нибудь"
+                            contentEditable="true"
+                            suppressContentEditableWarning={true}//Что бы убрать предупреждение "A component is `contentEditable` and contains `children` managed by React" 
+                            //value={ this.state.textValue }
+                            onPaste={ this.onPaste }
+                            onInput={ this.onTextChange }
+                        >
+                            { this.state.textMessage }
+                        </div>
                     </form>
                     {/*окно со смайлами */}
                     {/* <div
@@ -1095,8 +1148,10 @@ class BlockWindowWrap extends React.Component {
             obj,
             messageListLenght2
         } = this.state;
+       
         //console.log(this.state.smileDescription)
-        //console.log(this.state.sendMessageUpdate)
+        //console.log("textMessage",this.state.textMessage)
+        
         return (
             <div
                 //  контроль для Zиндекса для разных окон
