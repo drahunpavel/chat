@@ -507,7 +507,9 @@ class BlockWindowWrap extends React.Component {
     };
     //функция добавляет к набранному тексту выбранные смайлики
     cbсonvertSmile = (newSmile) => {
-        console.log(newSmile)
+
+      
+        //console.log(newSmile)
 
         // this.state.allSmiliesArr.map((v)=>{
         //     if(newSmile===v.title){
@@ -554,22 +556,7 @@ class BlockWindowWrap extends React.Component {
         }
     };
 
-    transformationMessage = (textMessage) => {
-        let out = [];
 
-        for (let i = 0; i < textMessage.length; i++) {
-
-            if (textMessage[i] === ":" && textMessage[i + 5] === ":") {
-                console.log('This is smile')
-                let smileyСode = textMessage[i] + textMessage[i + 1] + textMessage[i + 2] + textMessage[i + 3] + textMessage[i + 4] + textMessage[i + 5]
-                //console.log(smileyСode)
-            }
-
-   
-        }       
-        console.log(out)
-        return textMessage;
-    };
 
 
     //Отображение содержимого в окошках
@@ -911,7 +898,29 @@ class BlockWindowWrap extends React.Component {
     };
     
     
+    transformationMessage = (textMessage) => {
 
+        let out = [];
+        for (let i = 0; i < textMessage.length; i++) {
+
+            if (textMessage[i] === ":" && textMessage[i + 5] === ":") {
+                let smileyСode = textMessage[i] + textMessage[i + 1] + textMessage[i + 2] + textMessage[i + 3] + textMessage[i + 4] + textMessage[i + 5]
+                //console.log(smileyСode)
+                this.state.allSmiliesArr.map((v) => {
+                    if (smileyСode === v.title) {
+                        out.push(<img key={i} className={v.className2}></img>)
+                        i += 5;
+                    }
+                }
+                )
+            } else {
+                out.push(textMessage[i])
+            }
+        }
+        // let reg=textMessage.replace( /[:]{1}[0-9]{2}[a-z]{2}[:]{1}/g )
+
+        return out
+    }
 
     entryFieldonChange = (e) => {
         e.preventDefault();
@@ -936,36 +945,65 @@ class BlockWindowWrap extends React.Component {
     };
 
       getText=(el)=> {
-        
-        return el.innerText || this.getTextForFirefox(el);
+          console.log("el",el)
+          
+        let out = [];
+
+        for (let i = 0; i < el.length; i++) {
+           //console.log(el[i])
+           out.push(el[i])
+        }
+        out.reverse();
+  
+        let output= out.join('');
+        console.log("output",output);
+        return output
       }
 
+    //   getTextForFirefox=(el)=> {
 
+    //     var text = "";
+    //     if (typeof window.getSelection != "undefined") {
+    //       var sel = window.getSelection();
+    //       var tempRange = sel.getRangeAt(0);
+    //       sel.removeAllRanges();
+    //       var range = document.createRange();
+    //       range.selectNodeContents(el);
+    //       sel.addRange(range);
+    //       text = sel.toString();
+    //       sel.removeAllRanges();
+    //       sel.addRange(tempRange);
+    //     }
+    
+    //     return text;
+    //   }
       onTextChange=(ev)=> {
-        var text = this.getText(ev.target);
-        console.log(text)
-        this.setState({ textMessage: text });
-        // this.props.onChange({
-        //   target: {
-        //     value: text
-        //   }
-        // });
+        
+        var text =ev.target.innerText;
+
+        console.log("text",text)
+        this.setState({ textMessage: text,sendMessageUpdate:false });
+        if(this.statesendMessageUpdate){
+            ev.target=""
+        }
       }
+
       onPaste=(ev)=> {
         ev.preventDefault();
         var text = ev.clipboardData.getData("text");
         document.execCommand('insertText', false, text);
       }
 
+ 
+
+
     renderActiveChatFooter = () => {
-
-
         return (
             <div
                 className={
                     this.state.dialogueCompleted ? "ActiveChatNone" : "ActiveChat"
                 }
-            >
+            >{this.state.textMessage}
                 <a onClick={this.сhatCompleteDialogue}>Завершить диалог</a>
                 <div className="ActiveChatEntryField">
                     <form className="ActiveChatEntryFieldText">
@@ -976,18 +1014,25 @@ class BlockWindowWrap extends React.Component {
                             onChange={this.entryFieldonChange}
                             value={this.state.textMessage}
                         /> */}
+
+
                         <div
                             className="ActiveChatFooterInput"
                             data-type="input"
                             placeholder="Напишите что-нибудь"
                             contentEditable="true"
                             suppressContentEditableWarning={true}//Что бы убрать предупреждение "A component is `contentEditable` and contains `children` managed by React" 
-                            //value={ this.state.textValue }
-                            onPaste={ this.onPaste }
+                            value={ this.state.textMessage }
+                            //onPaste={ this.onPaste }
                             onInput={ this.onTextChange }
+                            // onMouseOver={this.setSelectionRange(this.value.length,this.value.length)}
                         >
-                            { this.state.textMessage }
+                            {/* {this.state.textMessage} */}
+                            {/* {this.transformationMessage(this.state.textMessage)} */}
                         </div>
+
+
+
                     </form>
                     {/*окно со смайлами */}
                     {/* <div
@@ -1150,8 +1195,8 @@ class BlockWindowWrap extends React.Component {
         } = this.state;
        
         //console.log(this.state.smileDescription)
-        //console.log("textMessage",this.state.textMessage)
-        
+        console.log("state.textMessage",this.state.textMessage)
+        console.log("sendMessageUpdate",this.state.sendMessageUpdate)
         return (
             <div
                 //  контроль для Zиндекса для разных окон
