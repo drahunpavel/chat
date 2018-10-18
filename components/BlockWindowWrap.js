@@ -925,7 +925,7 @@ class BlockWindowWrap extends React.Component {
     entryFieldonChange = (e) => {
         e.preventDefault();
 
-     console.log(this.textInput.value)
+     //console.log(this.textInput.value)
 
         // let text123 = EO.target.value;
         // console.log(text123)
@@ -977,33 +977,31 @@ class BlockWindowWrap extends React.Component {
     
     //     return text;
     //   }
-      onTextChange=(ev)=> {
-        
-        var text =ev.target.innerText;
 
-        console.log("text",text)
-        this.setState({ textMessage: text,sendMessageUpdate:false });
-        if(this.statesendMessageUpdate){
-            ev.target=""
-        }
+
+    onTextChange=(e)=> {
+        //let text = ev.target.value;
+        //console.log(this.refs.textInput)
+        e.preventDefault();
+        console.log(this.textInput.value)
+        //console.log(text)
+        //this.setState({ text: text });
+
       }
 
-      onPaste=(ev)=> {
-        ev.preventDefault();
-        var text = ev.clipboardData.getData("text");
-        document.execCommand('insertText', false, text);
+      handleInput=(e)=>{ 
+          console.log(e.target.value)
+        //this.setState({ textValue: e.target.value })
       }
 
- 
-
-
+      
     renderActiveChatFooter = () => {
         return (
             <div
                 className={
                     this.state.dialogueCompleted ? "ActiveChatNone" : "ActiveChat"
                 }
-            >{this.state.textMessage}
+            >
                 <a onClick={this.сhatCompleteDialogue}>Завершить диалог</a>
                 <div className="ActiveChatEntryField">
                     <form className="ActiveChatEntryFieldText">
@@ -1022,16 +1020,29 @@ class BlockWindowWrap extends React.Component {
                             placeholder="Напишите что-нибудь"
                             contentEditable="true"
                             suppressContentEditableWarning={true}//Что бы убрать предупреждение "A component is `contentEditable` and contains `children` managed by React" 
-                            value={ this.state.textMessage }
+                            //value={ this.state.textMessage }
                             //onPaste={ this.onPaste }
-                            onInput={ this.onTextChange }
+                            // ref={this.textInput}
+                            //ref="textInput"
+                            //ref={e => this.textInput = e} 
+                            // ref="login"
+                            //onInput={ this.onTextChange }
+                            //onInput={ this.handleInput.bind(this) }
+                            ref="textInput"
+                            //ref={element => this.textInput = element}
+                            //onInput={this.handleNoteChange.bind(this)}
+                            //onInput={ this.onTextChange }
                             // onMouseOver={this.setSelectionRange(this.value.length,this.value.length)}
                         >
                             {/* {this.state.textMessage} */}
                             {/* {this.transformationMessage(this.state.textMessage)} */}
                         </div>
 
-
+                        <input
+                        onInput={ this.handleInput.bind(this) }
+                        >
+                        
+                        </input>
 
                     </form>
                     {/*окно со смайлами */}
@@ -1194,9 +1205,7 @@ class BlockWindowWrap extends React.Component {
             messageListLenght2
         } = this.state;
        
-        //console.log(this.state.smileDescription)
-        console.log("state.textMessage",this.state.textMessage)
-        console.log("sendMessageUpdate",this.state.sendMessageUpdate)
+       
         return (
             <div
                 //  контроль для Zиндекса для разных окон
