@@ -84,7 +84,7 @@ class MessageList extends React.Component {
       }
 
     componentDidMount() {
-        this.refs.mesList.scrollTo(999999, 999999)
+        //this.refs.mesList.scrollTo(999999, 999999) // из-за этого условия не работает IE
         document.addEventListener('keydown', this.cbkeyPressEnter)
     }
     componentWillUnmount() {

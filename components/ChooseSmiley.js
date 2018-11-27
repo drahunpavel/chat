@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
 import './ChooseSmiley.scss';
-//import './BlockWindowWrap.scss';
+
 
 let allSmilies = require("../src/allSmilies.json");
 
@@ -18,36 +18,27 @@ class ChooseSmiley extends React.Component {
         allSmiliesArr: allSmilies,
         smileArr:[]
     }
-
-    chooseSmile=(smileTitle)=>{
-        //console.log(smileTitle)
-        //let newSmile=smileTitle;
-        //let addSmile=this.state.smileArr.concat(newSmile)
-        this.setState({
-            //smileArr: addSmile,
-        },()=>this.props.cbсonvertSmile(smileTitle))//в родительский компонент попадет уже обновленный setState
-
-        // if(this.props.sendMessageUpdate){
-        //     this.setState({
-        //         smileArr:[]
-        //     })
-        // }
+    //получает ID смайла и передает его родителю
+    chooseSmile=(EO)=>{
+        if(EO.target.title){
+            console.log(EO.target.title)
+            let smileID=EO.target.title;
+            this.setState({
+            },()=>this.props.cbсonvertSmile(smileID))//в родительский компонент попадет уже обновленный setState
+        }
     }
 
-
-
     render() {
-        // console.log(this.props.sendMessageUpdate)
         return (
             <div
                 className={this.props.selectionWindowSmile ? "WindowSmilies" : "WindowSmiliesNone"}
-                style={{ backgroundColor: "white" }}>
+                style={{ backgroundColor: "white" }}
+                onClick={(EO)=>{this.chooseSmile(EO)}}>
                 {this.state.allSmiliesArr.map(v =>
-                    <div key={v.code}
-                        className={v.className}
-                        title={v.title}
-                        onClick={()=>this.chooseSmile(v.title)}
-                    >
+                    <div className="Emoji_Smile" emoji={v.title} key={v.code}>
+                        <div>
+                            <i className={v.className} title={v.title}></i>
+                        </div>
                     </div>
                 )}
             </div>
