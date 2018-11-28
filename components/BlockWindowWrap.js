@@ -2,14 +2,14 @@ import React from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 
-import MessageList from "./MessageList";
-//import renderThanksCallBack from "./RenderBlocks";
-import ChooseSmiley from "./ChooseSmiley";
-import MessageField from "./MessageField";
-//import SendMessageForm from "./SendMessageForm";
-import ActiveChatEntryField from "./ActiveChatEntryField";
 
+
+import MessageList from "./MessageList";
+import ActiveChatEntryField from "./ActiveChatEntryField";
 import "./BlockWindowWrap.scss";
+
+
+
 
 let allSmilies = require("../src/allSmilies.json");
 
@@ -880,80 +880,6 @@ class BlockWindowWrap extends React.Component {
 
         return out
     }
-
-    //функция нигде не вызывается
-    entryFieldonChange = (e) => {
-        e.preventDefault();
-
-     //console.log(this.textInput.value)
-
-        // let text123 = EO.target.value;
-        // console.log(text123)
-
-        // this.setState({textMessage:text123})
-
-        // if(this.state.textMessage===""){
-        //     this.setState({textMessage:EO.target.innerHTML=""})
-        // }
-        //let newText=this.transformationMessage(EO.target.value);
-        //console.log(newText)
-        // this.setState({
-        //     //newMessage:this.state.newMessage,
-        //     textMessage: EO.target.value,
-        //     //sendMessageUpdate:false,
-        // });
-    };
-//Не вызывается функция
-      getText=(el)=> {
-          console.log("el",el)
-          
-        let out = [];
-
-        for (let i = 0; i < el.length; i++) {
-           //console.log(el[i])
-           out.push(el[i])
-        }
-        out.reverse();
-  
-        let output= out.join('');
-        console.log("output",output);
-        return output
-      }
-
-    //   getTextForFirefox=(el)=> {
-
-    //     var text = "";
-    //     if (typeof window.getSelection != "undefined") {
-    //       var sel = window.getSelection();
-    //       var tempRange = sel.getRangeAt(0);
-    //       sel.removeAllRanges();
-    //       var range = document.createRange();
-    //       range.selectNodeContents(el);
-    //       sel.addRange(range);
-    //       text = sel.toString();
-    //       sel.removeAllRanges();
-    //       sel.addRange(tempRange);
-    //     }
-    
-    //     return text;
-    //   }
-
-      //не вызывается функция
-    onTextChange=(e)=> {
-        //let text = ev.target.value;
-        //console.log(this.refs.textInput)
-        e.preventDefault();
-        console.log(this.textInput.value)
-        //console.log(text)
-        //this.setState({ text: text });
-
-      }
-      //не вызыввается
-      handleInput=(e)=>{ 
-          console.log(e.target.value)
-        //this.setState({ textValue: e.target.value })
-      }
-
       
     renderActiveChatFooter = () => {
         return (

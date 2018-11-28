@@ -164,6 +164,7 @@ class MessageField extends React.Component {
                 textMessage=this.replacingEmotionDescription(textMessage,allTagImgArr[i],allSmileDeskArr[i][0]);
             }
         }
+        console.log("Sent Message:",textMessage);
         this.setState({
             textMessage:textMessage,
         })
