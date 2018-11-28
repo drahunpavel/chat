@@ -159,23 +159,30 @@ div[contenteditable=true] {
 
       ///////////////////////////////////////
   //scroll
-  ::-webkit-scrollbar {
-    width: 7px;
+  .ActiveChatEntryFieldText::-webkit-scrollbar-button{
+    color:red
   }
-  ::-webkit-scrollbar-thumb {
-    border-width: 1px 1px 1px 2px;
-    border-color: #777;
-    background-color: #aaa;
+
+  .ActiveChatEntryFieldText::-webkit-scrollbar {
+    // width: 7px;
+    display: none;
   }
-  ::-webkit-scrollbar-thumb:hover {
+  .ActiveChatEntryFieldText::-webkit-scrollbar-thumb {
+    // border-width: 1px 1px 1px 2px;
+    // border-color: #777;
+    // background-color: #aaa;
+    display: none;
+  }
+  .ActiveChatEntryFieldText::-webkit-scrollbar-thumb:hover {
     border-width: 1px 1px 1px 2px;
     border-color: rgb(216,216,216);
     background-color: #777;
   }
-  ::-webkit-scrollbar-track {
-    border-width: 0;
+  .ActiveChatEntryFieldText::-webkit-scrollbar-track {
+    //border-width: 0;
+    display: none;
   }
-  ::-webkit-scrollbar-track:hover {
+  .ActiveChatEntryFieldText::-webkit-scrollbar-track:hover {
     border-left: solid 1px #aaa;
     background-color: #eee;
   }

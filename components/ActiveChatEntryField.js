@@ -126,37 +126,24 @@ class MessageField extends React.Component {
 
         //console.log(this.state.messageList)
 
-        // let newMessage = {};
 
-        //console.log(this.state.textMessage.length)
-        // if (this.state.textMessage.length > 1) {
-        //     //если нет символов, пустое поле не будет отправляться в чат
-        //     let messageListCounter = this.state.messageListLenght2 + 1;
-        //     newMessage["code"] = messageListCounter;
-        //     newMessage["id"] = "user";
-        //     newMessage["message"] = this.state.textMessage;
-
-        //     let addNewMessage = this.state.messageList.concat(newMessage);
-
-        //     //this.state.messageList2++;
-        //     this.setState({
-        //         // newMessage:this.state.newMessage,
-        //         messageList: addNewMessage,
-        //         messageListLenght2: messageListCounter,
-        //         textMessage: "",
-        //         sendMessageUpdate: true, //при отправки сообщения состояние true
-        //         selectionWindowSmile: false
-        //         //sendMessageUpdate:
-        //     });
-        // }
     };
-
+    //замены символов
     conversionText=(text)=>{
         let textMessage=text;
         let allTagImgArr = text.match(/\<img([^>]*)>/gi);
         let allTextDesc;
         let allSmileDeskArr=[];
         
+        let spaces=text.match(/&nbsp;/gi);
+        
+        if(spaces){
+            for(let j=0;j<spaces.length;j++){
+                //console.log(spaces[j])
+                textMessage=textMessage.replace(spaces[j]," ");
+            }
+        }
+        //replace img to id
         if(allTagImgArr!=null){            
             for(let i=0;i<allTagImgArr.length;i++){
                 allTextDesc=allTagImgArr[i].match(/emoji descD83D[\w]{4}/gi);//вырезает значение класса
@@ -164,10 +151,10 @@ class MessageField extends React.Component {
                 textMessage=this.replacingEmotionDescription(textMessage,allTagImgArr[i],allSmileDeskArr[i][0]);
             }
         }
-        console.log("Sent Message:",textMessage);
+        //console.log("Sent Message:",textMessage);
         this.setState({
             textMessage:textMessage,
-        })
+        },()=>this.props.cbSendMessage(textMessage))
     };
 
     replacingEmotionDescription=(text,imgSmile,nameSmile)=>{
@@ -188,6 +175,24 @@ class MessageField extends React.Component {
         let inputElement=ReactDOM.findDOMNode(this.inputElement);
         inputElement.scrollIntoView(false);
     }
+
+    keyPressEnter = (EO) => {
+        if (EO.keyCode === 13) {
+            //console.log(EO.keyCode)
+            EO.preventDefault();
+            //this.props.cbkeyPressEnter()
+            this.sendMessage();
+        }
+    }
+
+    componentDidMount() {
+        //this.refs.mesList.scrollTo(999999, 999999) // из-за этого условия не работает IE
+        document.addEventListener('keydown', this.keyPressEnter)
+    }
+    componentWillUnmount() {
+        document.removeEventListener('keydown', this.keyPressEnter)
+    }
+
 
     render() {
         let { smileID } = this.props; //деструктуризация

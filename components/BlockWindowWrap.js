@@ -499,7 +499,7 @@ class BlockWindowWrap extends React.Component {
     };
 
 
-
+/////////////////////////////////////////////////////////////////////////////////
 
     //принимает ID smile
     cbсonvertSmile = (smileID) => {
@@ -508,15 +508,49 @@ class BlockWindowWrap extends React.Component {
         })
     };
 
-    cbPressEnter = () => {
-        //console.log("work!")
-        this.sendMessage();
-    };
+
+////////////////////////////////////////////////////////////////////////////////////////////
+    // cbPressEnter = () => {
+    //     //console.log("work!")
+    //     //this.sendMessage();
+    // };
 
 
 
 
+    cbSendMessage=(receivedMessage)=>{
+        console.log("Get Message: ",receivedMessage);
 
+
+
+
+        let newMessage = {};
+
+        //console.log(this.state.textMessage.length)
+        if (receivedMessage.length >= 1) {
+
+            //если нет символов, пустое поле не будет отправляться в чат
+            let messageListCounter = this.state.messageListLenght2 + 1;
+            newMessage["code"] = messageListCounter;
+            newMessage["id"] = "user";
+            newMessage["message"] = receivedMessage;
+
+             let addNewMessage = this.state.messageList.concat(newMessage);
+
+             //console.log("---1",addNewMessage)
+        //     //this.state.messageList2++;
+            this.setState({
+                // newMessage:this.state.newMessage,
+                messageList: addNewMessage,
+                messageListLenght2: messageListCounter,
+                //textMessage: "",
+                sendMessageUpdate: true, //при отправки сообщения состояние true
+                //selectionWindowSmile: false
+                //sendMessageUpdate:
+            });
+        }
+
+    }
 
     //Отображение содержимого в окошках
     //////////////////////////////////Рендер "Запросить звонок"
@@ -883,41 +917,11 @@ class BlockWindowWrap extends React.Component {
       
     renderActiveChatFooter = () => {
         return (
-            <div
-                className={
-                    this.state.dialogueCompleted ? "ActiveChatNone" : "ActiveChat"
-                }
-            >
+            <div className={this.state.dialogueCompleted ? "ActiveChatNone" : "ActiveChat"}>
                 <a onClick={this.сhatCompleteDialogue}>Завершить диалог</a>
-
-
-                {/* <div className="ActiveChatEntryField"> */}
-
-                    {/* <MessageField
-                        smileID={this.state.smileID}
-                    /> */}
-
-                    {/* <ChooseSmiley
-                        selectionWindowSmile={this.state.selectionWindowSmile}
-                        cbсonvertSmile={this.cbсonvertSmile}
-                        sendMessageUpdate={this.state.sendMessageUpdate}
-                    /> */}
-                    {/*кнопка Открыть\закрыть окно со смайлами */}
-                    {/* <div
-                        className={
-                            this.state.selectionWindowSmile
-                                ? "ActiveChatFooterSmileActive"
-                                : "ActiveChatFooterSmile"
-                        }
-                        onClick={this.openWindowSmiles}
-                    /> */}
-                    {/* кнопка Отправки сообщения */}
-                    {/* <div className="ActiveChatFooterButton" onClick={this.sendMessage} /> */}
-                {/* </div> */}
-                    <ActiveChatEntryField
-                        
-                    />
-
+                <ActiveChatEntryField 
+                    cbSendMessage={this.cbSendMessage}
+                />
             </div>
         );
     };
@@ -1006,7 +1010,7 @@ class BlockWindowWrap extends React.Component {
                 messageList={this.state.messageList}
                 dialogueCompleted={this.state.dialogueCompleted}
                 sendMessageUpdate={this.state.sendMessageUpdate}
-                cbkeyPressEnter={this.cbPressEnter}
+                //cbkeyPressEnter={this.cbPressEnter}
             //cbScroll={this.sendMessage}
             />
         );

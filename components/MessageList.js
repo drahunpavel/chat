@@ -16,23 +16,24 @@ class MessageList extends React.Component {
 
     static propTypes = {
         //messageList
-        //dialogueCompleted
+        //dialogueCompleted - workimg
         //sendMessageUpdate
+        //cbkeyPressEnter
     };
     state = {
         allSmiliesArr: allSmilies,
     }
 
 
-    cbkeyPressEnter = (EO) => {
+    // cbkeyPressEnter = (EO) => {
 
-        if (EO.keyCode === 13) {
-            //console.log(EO.keyCode)
+    //     if (EO.keyCode === 13) {
+    //         //console.log(EO.keyCode)
 
-            EO.preventDefault();
-            this.props.cbkeyPressEnter()
-        }
-    }
+    //         EO.preventDefault();
+    //         this.props.cbkeyPressEnter()
+    //     }
+    // }
 
 
     messageUpdate = () => {
@@ -48,14 +49,20 @@ class MessageList extends React.Component {
 
         let out = [];
         for (let i = 0; i < textMessage.length; i++) {
+           
 
-            if (textMessage[i] === ":" && textMessage[i + 5] === ":") {
-                let smileyСode = textMessage[i] + textMessage[i + 1] + textMessage[i + 2] + textMessage[i + 3] + textMessage[i + 4] + textMessage[i + 5]
-                //console.log(smileyСode)
+            if (textMessage[i] === ":" && textMessage[i + 19] === ":") {
+                
+                let smileyСode = textMessage[i + 1] + textMessage[i + 2] + textMessage[i + 3] + textMessage[i + 4] + textMessage[i + 5]+textMessage[i + 6]+textMessage[i + 7]
+                +textMessage[i + 8]+textMessage[i + 9]+textMessage[i + 10]+textMessage[i + 11]+textMessage[i + 12]+textMessage[i + 13]+textMessage[i + 14]+textMessage[i + 15]+textMessage[i + 16]
+                +textMessage[i + 17]+textMessage[i + 18];
+
                 this.state.allSmiliesArr.map((v) => {
-                    if (smileyСode === v.title) {
-                        out.push(<img key={i} className={v.className2}></img>)
-                        i += 5;
+
+                    if (smileyСode === v.className) {
+                        
+                        out.push(<img key={i} className={v.className}></img>)
+                        i += 19;
                     }
                 }
                 )
@@ -83,16 +90,16 @@ class MessageList extends React.Component {
         this.scrollToBottom();
       }
 
-    componentDidMount() {
-        //this.refs.mesList.scrollTo(999999, 999999) // из-за этого условия не работает IE
-        document.addEventListener('keydown', this.cbkeyPressEnter)
-    }
-    componentWillUnmount() {
-        document.removeEventListener('keydown', this.cbkeyPressEnter)
-    }
+    // componentDidMount() {
+    //     //this.refs.mesList.scrollTo(999999, 999999) // из-за этого условия не работает IE
+    //     document.addEventListener('keydown', this.cbkeyPressEnter)
+    // }
+    // componentWillUnmount() {
+    //     document.removeEventListener('keydown', this.cbkeyPressEnter)
+    // }
 
     render() {
-        
+        //console.log("allSmiliesArr",this.state.allSmiliesArr)
         return (
             <div className={this.props.dialogueCompleted ? "ChatWindowDisplayMessagesNone" : "ChatWindowDisplayMessages"}
                  ref="mesList"
