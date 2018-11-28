@@ -12,17 +12,20 @@
   }
 
 
+
  .Emoji_Smile {
   float: left;
   padding: 1px;
   cursor: pointer;
 }
+
 .Emoji_Smile > div {
   width: 26px;
   height: 26px;
   line-height: 26px;
   text-align: center;
 }
+
  .Emoji_Smile > div i {
   display:inline-block;
   margin-top: 5px;

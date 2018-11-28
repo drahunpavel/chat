@@ -5,7 +5,9 @@ import PropTypes from "prop-types";
 import MessageList from "./MessageList";
 //import renderThanksCallBack from "./RenderBlocks";
 import ChooseSmiley from "./ChooseSmiley";
+import MessageField from "./MessageField";
 //import SendMessageForm from "./SendMessageForm";
+import ActiveChatEntryField from "./ActiveChatEntryField";
 
 import "./BlockWindowWrap.scss";
 
@@ -60,8 +62,7 @@ class BlockWindowWrap extends React.Component {
         //переключатель для выбора оценки чата
         chatRatingSelected: false,
 
-        //переключатель окна выбора смайлов, по умолчанию выключено=false
-        selectionWindowSmile: false,
+
         //название выбранного смайла при оценке чата
         selectedSmile: "",
 
@@ -497,29 +498,14 @@ class BlockWindowWrap extends React.Component {
         });
     };
 
-    //функция открытия окна смайликов в чате
-    openWindowSmiles = () => {
-        console.log("The window with smiles");
-        this.setState({
-            selectionWindowSmile: !this.state.selectionWindowSmile
-            //sendMessageUpdate:false,
-        });
-    };
-    //функция добавляет к набранному тексту выбранные смайлики
-    cbсonvertSmile = (newSmile) => {
 
-      
-        //console.log(newSmile)
 
-        // this.state.allSmiliesArr.map((v)=>{
-        //     if(newSmile===v.title){
-        //         newSmile='😊'        
-        //     }
-        // })
+
+    //принимает ID smile
+    cbсonvertSmile = (smileID) => {
         this.setState({
-            //Добавление описание смайлов к тексту
-            textMessage: this.state.textMessage + newSmile
-        });
+            smileID:smileID,
+        })
     };
 
     cbPressEnter = () => {
@@ -527,34 +513,7 @@ class BlockWindowWrap extends React.Component {
         this.sendMessage();
     };
 
-    sendMessage = () => {
-        console.log("Send Message");
-        //console.log(this.state.messageList)
 
-        let newMessage = {};
-
-        //console.log(this.state.textMessage.length)
-        if (this.state.textMessage.length > 1) {
-            //если нет символов, пустое поле не будет отправляться в чат
-            let messageListCounter = this.state.messageListLenght2 + 1;
-            newMessage["code"] = messageListCounter;
-            newMessage["id"] = "user";
-            newMessage["message"] = this.state.textMessage;
-
-            let addNewMessage = this.state.messageList.concat(newMessage);
-
-            //this.state.messageList2++;
-            this.setState({
-                // newMessage:this.state.newMessage,
-                messageList: addNewMessage,
-                messageListLenght2: messageListCounter,
-                textMessage: "",
-                sendMessageUpdate: true, //при отправки сообщения состояние true
-                selectionWindowSmile: false
-                //sendMessageUpdate:
-            });
-        }
-    };
 
 
 
@@ -922,6 +881,7 @@ class BlockWindowWrap extends React.Component {
         return out
     }
 
+    //функция нигде не вызывается
     entryFieldonChange = (e) => {
         e.preventDefault();
 
@@ -1003,70 +963,35 @@ class BlockWindowWrap extends React.Component {
                 }
             >
                 <a onClick={this.сhatCompleteDialogue}>Завершить диалог</a>
-                <div className="ActiveChatEntryField">
-                    <form className="ActiveChatEntryFieldText">
-                        {/* <textarea
-                            className="ActiveChatFooterInput"
-                            type="text"
-                            placeholder="Напишите что-нибудь"
-                            onChange={this.entryFieldonChange}
-                            value={this.state.textMessage}
-                        /> */}
 
 
-                        <div
-                            className="ActiveChatFooterInput"
-                            data-type="input"
-                            placeholder="Напишите что-нибудь"
-                            contentEditable="true"
-                            suppressContentEditableWarning={true}//Что бы убрать предупреждение "A component is `contentEditable` and contains `children` managed by React" 
-                            //value={ this.state.textMessage }
-                            //onPaste={ this.onPaste }
-                            // ref={this.textInput}
-                            //ref="textInput"
-                            //ref={e => this.textInput = e} 
-                            // ref="login"
-                            //onInput={ this.onTextChange }
-                            //onInput={ this.handleInput.bind(this) }
-                            ref="textInput"
-                            //ref={element => this.textInput = element}
-                            //onInput={this.handleNoteChange.bind(this)}
-                            //onInput={ this.onTextChange }
-                            // onMouseOver={this.setSelectionRange(this.value.length,this.value.length)}
-                        >
-                            {/* {this.state.textMessage} */}
-                            {/* {this.transformationMessage(this.state.textMessage)} */}
-                        </div>
+                {/* <div className="ActiveChatEntryField"> */}
 
-                        <input
-                        onInput={ this.handleInput.bind(this) }
-                        >
-                        
-                        </input>
+                    {/* <MessageField
+                        smileID={this.state.smileID}
+                    /> */}
 
-                    </form>
-                    {/*окно со смайлами */}
-                    {/* <div
-                        className={this.state.selectionWindowSmile ? "WindowSmilies" : "WindowSmiliesNone"}
-                        style={{ backgroundColor: "white" }}>
-                    </div> */}
-                    <ChooseSmiley
+                    {/* <ChooseSmiley
                         selectionWindowSmile={this.state.selectionWindowSmile}
                         cbсonvertSmile={this.cbсonvertSmile}
                         sendMessageUpdate={this.state.sendMessageUpdate}
-                    />
+                    /> */}
                     {/*кнопка Открыть\закрыть окно со смайлами */}
-                    <div
+                    {/* <div
                         className={
                             this.state.selectionWindowSmile
                                 ? "ActiveChatFooterSmileActive"
                                 : "ActiveChatFooterSmile"
                         }
                         onClick={this.openWindowSmiles}
-                    />
+                    /> */}
                     {/* кнопка Отправки сообщения */}
-                    <div className="ActiveChatFooterButton" onClick={this.sendMessage} />
-                </div>
+                    {/* <div className="ActiveChatFooterButton" onClick={this.sendMessage} /> */}
+                {/* </div> */}
+                    <ActiveChatEntryField
+                        
+                    />
+
             </div>
         );
     };

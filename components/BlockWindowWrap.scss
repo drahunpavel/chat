@@ -178,24 +178,8 @@
     cursor: pointer;
     text-decoration: underline;
   }
-  .ActiveChatEntryField {
-    left: 0;
-    margin-top: 10px;
-    border-bottom: 1px solid #cccccc;
-    background: #ffffff;
-    margin-bottom: 5px;
-    line-height: 1;
-    padding: 4px;
-    color: #666666;
-    box-shadow: 0 0 10px rgba(65, 64, 64, 0.5);
-  }
-  .ActiveChatEntryFieldText {
-    width: 72%;
-    overflow-y: scroll;
-    text-align: left;
-    height: 35px;
-    padding-left: 2px;
-  }
+
+//со старой версии поля ввода
   .ActiveChatFooterInput {
     // direction: rtl ;
     font-size: 14px;
@@ -211,36 +195,7 @@
     border-radius: 5px;
     
   }
-  .ActiveChatFooterSmile {
-    width: 30px;
-    height: 30px;
-    background-image: url("/src/images/openSmile.png");
-    position: absolute;
-    bottom: 5px;
-    right: 50px;
-    cursor: pointer;
-    background-size: 100%;
-  }
-  .ActiveChatFooterSmile:hover {
-    width: 30px;
-    height: 30px;
-    background-image: url("/src/images/openSmile2.png");
-    position: absolute;
-    bottom: 5px;
-    right: 50px;
-    cursor: pointer;
-    background-size: 100%;
-  }
-  .ActiveChatFooterSmileActive {
-    width: 30px;
-    height: 30px;
-    background-image: url("/src/images/openSmile2.png");
-    position: absolute;
-    bottom: 5px;
-    right: 50px;
-    cursor: pointer;
-    background-size: 100%;
-  }
+
 
   ///////////////////////////////////////////
   //окно с со смайлами
@@ -263,26 +218,7 @@
     width: 100px;
     height: 100px;
   }
-  .ActiveChatFooterButton {
-    width: 30px;
-    height: 30px;
-    background-image: url("/src/images/arrow.png");
-    position: absolute;
-    bottom: 5px;
-    right: 5px;
-    cursor: pointer;
-    background-size: 100%;
-  }
-  .ActiveChatFooterButton:hover {
-    width: 30px;
-    height: 30px;
-    background-image: url("/src/images/arrow2.png");
-    position: absolute;
-    bottom: 5px;
-    right: 5px;
-    cursor: pointer;
-    background-size: 100%;
-  }
+
   .ChatWindowAppreciateDialogue {
     //padding: 30px;
     text-align: center;

@@ -1,0 +1,32 @@
+
+
+.ActiveChatEntryFieldText {
+    width: 72%;
+    overflow-y: scroll;
+    text-align: left;
+    height: 35px;
+    border-bottom:1px solid #aaaaaa;
+    border-radius: 10px;
+}
+    .MessageField{
+        outline:none;
+        padding-left: 1px;
+        padding-right: 1px;
+        border: 0px solid rgb(57, 57, 57);
+        margin: 0.2em 0;
+        line-height: 1.3em;
+        -webkit-appearance: textfield;
+        appearance: textfield;
+    }
+
+    img {
+        vertical-align: top;
+        max-height: 1.4em;
+        max-width: 1.4em;
+    }
+    
+    .selectable-icons img {
+        cursor: pointer;
+    }
+
+  

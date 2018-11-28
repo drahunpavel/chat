@@ -16,7 +16,6 @@ class ChooseSmiley extends React.Component {
 
     state = {
         allSmiliesArr: allSmilies,
-        smileArr:[]
     }
     //получает ID смайла и передает его родителю
     chooseSmile=(EO)=>{
