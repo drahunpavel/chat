@@ -903,7 +903,7 @@ class BlockWindowWrap extends React.Component {
         //     //sendMessageUpdate:false,
         // });
     };
-
+//Не вызывается функция
       getText=(el)=> {
           console.log("el",el)
           
@@ -938,7 +938,7 @@ class BlockWindowWrap extends React.Component {
     //     return text;
     //   }
 
-
+      //не вызывается функция
     onTextChange=(e)=> {
         //let text = ev.target.value;
         //console.log(this.refs.textInput)
@@ -948,7 +948,7 @@ class BlockWindowWrap extends React.Component {
         //this.setState({ text: text });
 
       }
-
+      //не вызыввается
       handleInput=(e)=>{ 
           console.log(e.target.value)
         //this.setState({ textValue: e.target.value })

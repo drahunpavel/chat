@@ -14,6 +14,8 @@ class MessageField extends React.Component {
 
         //переключатель окна выбора смайлов, по умолчанию выключено=false
         selectionWindowSmile: false,
+
+        textMessage: "",
     }
 
 
@@ -28,6 +30,11 @@ class MessageField extends React.Component {
 
     //получает текст из поле ввода
     getMessageText=(EO)=>{
+        if(EO!=undefined){
+            // this.setState({
+            //     textMessage: EO.target.innerText,
+            // });
+        }
         if(window.getSelection){
             let sel2 = window.getSelection();
             return sel2;
@@ -37,6 +44,7 @@ class MessageField extends React.Component {
     //добавляет смайлы в поле ввода
     addEmotions=(EO)=>{
         console.log(EO.target.title)
+        let imgToString;
         if(EO.target.title){
 
         let smile=EO.target.title;
@@ -46,6 +54,7 @@ class MessageField extends React.Component {
         let img = document.createElement("IMG");
         img.className ="emoji desc"+smile;
         img.src="/src/images/opacity.png";
+
         if(window.getSelection){
             let sel=this.getMessageText();
             // if (sel.getRangeAt && sel.rangeCount) {
@@ -67,6 +76,11 @@ class MessageField extends React.Component {
         }
             inputElement.appendChild(img);
             this.SetCursorToEnd(inputElement);  
+
+
+            // this.setState({
+            //     textMessage:this.state.textMessage+imgToString,
+            // })
         }  
     }
     //устанавливает курсор в конец элемента
@@ -95,34 +109,77 @@ class MessageField extends React.Component {
         this.SetRange(range);
     }
 
-
+    // при отправке сообщения заменяет теги img на ID смайла
     sendMessage = () => {
         console.log("Send Message");
+        let input=ReactDOM.findDOMNode(this.inputElement);
+        //console.log(input.innerHTML)
+        let contentInput=input.innerHTML;
+        let newContentInput =this.conversionText(contentInput);
+        //console.log(contentInput)
+        this.setState({
+            text:newContentInput,
+            selectionWindowSmile:false,
+        })
+        input.innerHTML="";
+
+
         //console.log(this.state.messageList)
 
-        let newMessage = {};
+        // let newMessage = {};
 
         //console.log(this.state.textMessage.length)
-        if (this.state.textMessage.length > 1) {
-            //если нет символов, пустое поле не будет отправляться в чат
-            let messageListCounter = this.state.messageListLenght2 + 1;
-            newMessage["code"] = messageListCounter;
-            newMessage["id"] = "user";
-            newMessage["message"] = this.state.textMessage;
+        // if (this.state.textMessage.length > 1) {
+        //     //если нет символов, пустое поле не будет отправляться в чат
+        //     let messageListCounter = this.state.messageListLenght2 + 1;
+        //     newMessage["code"] = messageListCounter;
+        //     newMessage["id"] = "user";
+        //     newMessage["message"] = this.state.textMessage;
 
-            let addNewMessage = this.state.messageList.concat(newMessage);
+        //     let addNewMessage = this.state.messageList.concat(newMessage);
 
-            //this.state.messageList2++;
-            this.setState({
-                // newMessage:this.state.newMessage,
-                messageList: addNewMessage,
-                messageListLenght2: messageListCounter,
-                textMessage: "",
-                sendMessageUpdate: true, //при отправки сообщения состояние true
-                selectionWindowSmile: false
-                //sendMessageUpdate:
-            });
+        //     //this.state.messageList2++;
+        //     this.setState({
+        //         // newMessage:this.state.newMessage,
+        //         messageList: addNewMessage,
+        //         messageListLenght2: messageListCounter,
+        //         textMessage: "",
+        //         sendMessageUpdate: true, //при отправки сообщения состояние true
+        //         selectionWindowSmile: false
+        //         //sendMessageUpdate:
+        //     });
+        // }
+    };
+
+    conversionText=(text)=>{
+        let textMessage=text;
+        let allTagImgArr = text.match(/\<img([^>]*)>/gi);
+        let allTextDesc;
+        let allSmileDeskArr=[];
+        
+        if(allTagImgArr!=null){            
+            for(let i=0;i<allTagImgArr.length;i++){
+                allTextDesc=allTagImgArr[i].match(/emoji descD83D[\w]{4}/gi);//вырезает значение класса
+                allSmileDeskArr.push(allTextDesc);
+                textMessage=this.replacingEmotionDescription(textMessage,allTagImgArr[i],allSmileDeskArr[i][0]);
+            }
         }
+        this.setState({
+            textMessage:textMessage,
+        })
+    };
+
+    replacingEmotionDescription=(text,imgSmile,nameSmile)=>{
+        //console.log("--1",nameSmile)
+            //console.log("--myFunc",imgSmile,nameSmile);
+            let newreg= RegExp(imgSmile,'g');
+            let str=nameSmile;  
+            //console.log(newreg,str)
+           
+            let transText=text.replace(newreg," :"+str+": ");
+        //return deskSmile;
+        
+        return transText;
     };
 
     //скроллит окно ввода сообщения вниз при каждом выборе смайла
@@ -133,7 +190,8 @@ class MessageField extends React.Component {
 
     render() {
         let { smileID } = this.props; //деструктуризация
-
+        let { textMessage } = this.state; //деструктуризация
+        //console.log("textMessage",textMessage)
         return (
 
 
@@ -158,7 +216,7 @@ class MessageField extends React.Component {
 
                 {/*кнопка Открыть\закрыть окно со смайлами */}
                 <div className={
-                        this.props.selectionWindowSmile
+                        this.state.selectionWindowSmile
                             ? "ActiveChatFooterSmileActive"
                             : "ActiveChatFooterSmile"
                     }
