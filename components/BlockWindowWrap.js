@@ -486,11 +486,44 @@ class BlockWindowWrap extends React.Component {
         });
     };
 
-    keepDialog = () => {
-        console.log("keepDialog");
+    saveDialog = () => {
+        console.log("saveDialog");
     };
     printDialog = () => {
         console.log("printDialog");
+        let allMessage=this.state.messageList;
+
+        var printString = document.createElement('div');
+        printString.className = 'resultPrint';
+
+        let resultChat = JSON.stringify(allMessage);
+        console.log(resultChat)
+
+        var str = '';
+
+        allMessage.forEach(function(item) {
+           
+            str += item.id + '\n';
+            str += item.message + '\n';
+            //str += t.time + '\n';
+            str += '==============================' + '\n';
+          });
+          console.log(str)
+          printString.innerText = str;
+          document.body.appendChild(printString);
+          window.print();
+        // if (resultChat) {
+        //     resultChat.forEach(function (t) {
+        //       str += t.type + '\n';
+        //       str += t.text + '\n';
+        //       str += t.time + '\n';
+        //       str += '==============================' + '\n';
+        //     });
+        //     printString.innerText = str;
+        //     document.body.className = 'printSelected';
+        //     document.body.appendChild(printString);
+        //   }
+        // window.print();
     };
     //рейтинг чата
     rateChat = (evaluation) => {
@@ -552,11 +585,26 @@ class BlockWindowWrap extends React.Component {
                 //sendMessageUpdate:
             });
         }
-        if(this.props.hasErrors){
-            let messageListCounter = this.state.messageListLenght2 + 1;
-            newMessage["code"] = messageListCounter;
-            newMessage["message"]="Уважаемый клиент! К сожалению, в данный момент наблюдается технический сбой в работе чата. Повторите Ваш "
-        }
+        
+        // if(this.props.hasErrors){
+        //     let messageListCounter = this.state.messageListLenght2 + 1;
+        //     newMessage["code"] = messageListCounter;
+        //     newMessage["id"] = "servis";
+        //     newMessage["message"]="Уважаемый клиент! К сожалению, в данный момент наблюдается технический сбой в работе чата. Повторите Ваш "
+        
+        //     let addNewMessage = this.state.messageList.concat(newMessage);
+
+        //     this.setState({
+        //         // newMessage:this.state.newMessage,
+        //         messageList: addNewMessage,
+        //         messageListLenght2: messageListCounter,
+        //         //textMessage: "",
+        //         sendMessageUpdate: true, //при отправки сообщения состояние true
+        //         //selectionWindowSmile: false
+        //         //sendMessageUpdate:
+        //     });
+        
+        // }
 
     }
 
@@ -1037,7 +1085,7 @@ class BlockWindowWrap extends React.Component {
                 }
             >
                 <div className="AppreciateDialogueButton ">
-                    <a onClick={this.keepDialog} className="ViewButton1">
+                    <a onClick={this.saveDialog} className="ViewButton1">
                         Сохранить
           </a>
                     <a onClick={this.printDialog} className="ViewButton1">
@@ -1054,6 +1102,7 @@ class BlockWindowWrap extends React.Component {
         return (
             <MessageList
                 hasErrors={this.props.hasErrors}
+                //printDialog={this.printDialog}
 
                 messageList={this.state.messageList}
                 dialogueCompleted={this.state.dialogueCompleted}
@@ -1064,6 +1113,12 @@ class BlockWindowWrap extends React.Component {
         );
     };
     //////////////////////////////////Конец Рендера чата
+
+    // componentDidUpdate() {
+    //     if(this.props.Chat&&this.props.hasErrors){
+    //         this.cbSendMessage();
+    //     }
+    // }
 
     //Объявляем
     componentDidMount() {
