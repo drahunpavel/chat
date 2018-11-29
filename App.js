@@ -19,8 +19,8 @@ class App extends React.Component {
     errorMessage:errorMessage,
 
     //состояние подключения
-    status:false,
-
+    status:true,
+    hasErrors:false,
     //состояние общего меню
     menuOpen: false,
 
@@ -229,6 +229,11 @@ class App extends React.Component {
       status:!this.state.status,
     })
   }
+  changeValues2=()=>{
+    this.setState({
+      hasErrors:!this.state.hasErrors,
+    })
+  }
 
   render() {
     //размеры окна
@@ -241,12 +246,15 @@ class App extends React.Component {
       <div>
         <div>
           Status Online:<button onClick={this.changeValues}>{String(this.state.status)}</button>
+          <br/>
+          has Errors:<button onClick={this.changeValues2}>{String(this.state.hasErrors)}</button>
         </div>
 
         {/* CallBack-заказать звонок */}
         <BlockWindowWrap
           errorMessage={this.state.errorMessage}
           status={this.state.status}
+          hasErrors={this.state.hasErrors}
 
           CallBack
           // PositionNumber={this.state.selectedHash.indexOf("CallBack")}
@@ -269,7 +277,7 @@ class App extends React.Component {
         <BlockWindowWrap
           errorMessage={this.state.errorMessage}
           status={this.state.status}
-
+          hasErrors={this.state.hasErrors}
 
           Mail
           // PositionNumber={this.state.selectedHash.indexOf("Mail")}
@@ -289,7 +297,7 @@ class App extends React.Component {
         <BlockWindowWrap
           errorMessage={this.state.errorMessage}
           status={this.state.status}
-
+          hasErrors={this.state.hasErrors}
 
           Chat
           // PositionNumber={this.state.selectedHash.indexOf("Chat")}

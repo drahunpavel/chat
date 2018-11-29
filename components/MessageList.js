@@ -52,7 +52,7 @@ class MessageList extends React.Component {
            
 
             if (textMessage[i] === ":" && textMessage[i + 19] === ":") {
-                
+                //переделать
                 let smileyСode = textMessage[i + 1] + textMessage[i + 2] + textMessage[i + 3] + textMessage[i + 4] + textMessage[i + 5]+textMessage[i + 6]+textMessage[i + 7]
                 +textMessage[i + 8]+textMessage[i + 9]+textMessage[i + 10]+textMessage[i + 11]+textMessage[i + 12]+textMessage[i + 13]+textMessage[i + 14]+textMessage[i + 15]+textMessage[i + 16]
                 +textMessage[i + 17]+textMessage[i + 18];
@@ -97,6 +97,7 @@ class MessageList extends React.Component {
 
     render() {
         //console.log("allSmiliesArr",this.state.allSmiliesArr)
+     
         return (
             <div className={this.props.dialogueCompleted ? "ChatWindowDisplayMessagesNone" : "ChatWindowDisplayMessages"}
                  ref="mesList"

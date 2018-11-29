@@ -40,6 +40,16 @@ div[contenteditable=true] {
     box-shadow: 0 0 10px rgba(65, 64, 64, 0.5);
   }
 
+  .ActiveChatFooterSmileDisabled {
+    width: 30px;
+    height: 30px;
+    background-image: url("/src/images/openSmile.png");
+    position: absolute;
+    bottom: 5px;
+    right: 50px;
+    // cursor: pointer;
+    background-size: 100%;
+  }
   .ActiveChatFooterSmile {
     width: 30px;
     height: 30px;
@@ -70,7 +80,16 @@ div[contenteditable=true] {
     cursor: pointer;
     background-size: 100%;
   }
-
+  .ActiveChatFooterButtonDisabled {
+    width: 30px;
+    height: 30px;
+    background-image: url("/src/images/arrow.png");
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    //cursor: pointer;
+    background-size: 100%;
+  }
   .ActiveChatFooterButton {
     width: 30px;
     height: 30px;
@@ -98,6 +117,19 @@ div[contenteditable=true] {
     height: 35px;
     border-bottom:1px solid #aaaaaa;
     border-radius: 10px;
+}
+
+.MessageFieldDisabled{
+  background: #d9d9db;
+    outline:none;
+    height: 100%;//для закрашивания поля ввода
+    padding-left: 1px;
+    padding-right: 1px;
+    border: 6px solid rgb(57, 57, 57);
+    margin: 0.2em 0;
+    line-height: 1.3em;
+    -webkit-appearance: textfield;
+    appearance: textfield;
 }
     .MessageField{
         outline:none;

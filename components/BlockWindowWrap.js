@@ -7,6 +7,7 @@ import PropTypes from "prop-types";
 import MessageList from "./MessageList";
 import ActiveChatEntryField from "./ActiveChatEntryField";
 import "./BlockWindowWrap.scss";
+import { throws } from "assert";
 
 
 
@@ -29,6 +30,8 @@ class BlockWindowWrap extends React.Component {
     };
 
     state = {
+        hasErrors:this.props.hasErrors,
+
         //состояния ошибок полей с именем, номером
         nameChatIsEmpty: false,
         numberChatIsEmpty: false,
@@ -535,7 +538,7 @@ class BlockWindowWrap extends React.Component {
             newMessage["id"] = "user";
             newMessage["message"] = receivedMessage;
 
-             let addNewMessage = this.state.messageList.concat(newMessage);
+            let addNewMessage = this.state.messageList.concat(newMessage);
 
              //console.log("---1",addNewMessage)
         //     //this.state.messageList2++;
@@ -548,6 +551,11 @@ class BlockWindowWrap extends React.Component {
                 //selectionWindowSmile: false
                 //sendMessageUpdate:
             });
+        }
+        if(this.props.hasErrors){
+            let messageListCounter = this.state.messageListLenght2 + 1;
+            newMessage["code"] = messageListCounter;
+            newMessage["message"]="Уважаемый клиент! К сожалению, в данный момент наблюдается технический сбой в работе чата. Повторите Ваш "
         }
 
     }
@@ -671,7 +679,7 @@ class BlockWindowWrap extends React.Component {
     renderThanksCallBack = () => {
         return (
             <div>
-                {this.props.status?
+                {!this.props.status?
                     <div>
                         {this.props.errorMessage.map(v => (
                             
@@ -798,7 +806,7 @@ class BlockWindowWrap extends React.Component {
         return (
             <div>
 
-                {this.props.status?
+                {!this.props.status?
                     <div>
                         {this.props.errorMessage.map(v => (
                             
@@ -830,7 +838,7 @@ class BlockWindowWrap extends React.Component {
     renderChatWelcome = () => {
         return (
             <div>
-                {this.props.status?
+                {!this.props.status?
                     <div>
                         {this.props.errorMessage.map(v => (
                             <div key={v.code} className="errorMessage">{v.generalErrorMessage}</div>
@@ -838,7 +846,7 @@ class BlockWindowWrap extends React.Component {
                     </div>
                     :
                 <div className="WindowWelcome">
-                    Вас приветствует БПС-Сбербанк. Задайте интересующий вопрос. м Уважаемый клиент! К сожалению, в данный момент наблюдается технический сбой в  
+                    Вас приветствует БПС-Сбербанк. Задайте интересующий вопрос.  
                 </div>
                 }
             </div>
@@ -957,6 +965,7 @@ class BlockWindowWrap extends React.Component {
             <div className={this.state.dialogueCompleted ? "ActiveChatNone" : "ActiveChat"}>
                 <a onClick={this.сhatCompleteDialogue}>Завершить диалог</a>
                 <ActiveChatEntryField 
+                    hasErrors={this.props.hasErrors}
                     cbSendMessage={this.cbSendMessage}
                 />
             </div>
@@ -1044,6 +1053,8 @@ class BlockWindowWrap extends React.Component {
     renderActiveChatMain = () => {
         return (
             <MessageList
+                hasErrors={this.props.hasErrors}
+
                 messageList={this.state.messageList}
                 dialogueCompleted={this.state.dialogueCompleted}
                 sendMessageUpdate={this.state.sendMessageUpdate}
@@ -1096,7 +1107,7 @@ class BlockWindowWrap extends React.Component {
             obj,
             messageListLenght2
         } = this.state;
-       
+      
        
         return (
             <div
@@ -1147,7 +1158,7 @@ class BlockWindowWrap extends React.Component {
                         ? null
                         : this.props.Chat && this.renderChatWelcome()}
                     {this.state.toShowRenderActiveChat
-                        ? this.props.Chat && this.renderActiveChatMain()
+                        ? this.props.Chat && this.renderActiveChatMain()//
                         : this.props.Chat && this.renderChatMain()}
                     {/* Отображает информацию после нажатия на Завершить диалог */}
                     {this.state.dialogueCompleted

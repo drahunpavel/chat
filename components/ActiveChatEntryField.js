@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import './ActiveChatEntryField.scss';
 import './ChooseSmiley.scss';
+import { throws } from 'assert';
 
 let allSmilies = require("../src/allSmilies.json");
 
@@ -22,10 +23,12 @@ class MessageField extends React.Component {
 
     //функция открытия окна смайликов в чате
     openWindowSmiles = () => {
-        console.log("The window with smiles");
-        this.setState({
-            selectionWindowSmile: !this.state.selectionWindowSmile
-        });
+        if(!this.props.hasErrors){
+            console.log("The window with smiles");
+            this.setState({
+                selectionWindowSmile: !this.state.selectionWindowSmile
+            });
+        }
     };
 
     //получает текст из поле ввода
@@ -111,21 +114,24 @@ class MessageField extends React.Component {
 
     // при отправке сообщения заменяет теги img на ID смайла
     sendMessage = () => {
-        console.log("Send Message");
-        let input=ReactDOM.findDOMNode(this.inputElement);
-        //console.log(input.innerHTML)
-        let contentInput=input.innerHTML;
-        let newContentInput =this.conversionText(contentInput);
-        //console.log(contentInput)
-        this.setState({
-            text:newContentInput,
-            selectionWindowSmile:false,
-        })
-        input.innerHTML="";
+
+
+        if(!this.props.hasErrors){
+            console.log("Send Message");
+            let input=ReactDOM.findDOMNode(this.inputElement);
+            //console.log(input.innerHTML)
+            let contentInput=input.innerHTML;
+            let newContentInput =this.conversionText(contentInput);
+            //console.log(contentInput)
+            this.setState({
+                text:newContentInput,
+                selectionWindowSmile:false,
+            })
+            input.innerHTML="";
 
 
         //console.log(this.state.messageList)
-
+    }
 
     };
     //замены символов
@@ -185,6 +191,19 @@ class MessageField extends React.Component {
         }
     }
 
+    componentDidUpdate() {
+        
+        let inputElementField=ReactDOM.findDOMNode(this.inputElement);
+        
+        //при ошибке меняет состояние contenteditable, чтобы не было возможности редактировать
+        if(this.props.hasErrors){
+            inputElementField.setAttribute("contenteditable", "false");
+            this.state.selectionWindowSmile=false
+        }else{
+            inputElementField.setAttribute("contenteditable", "true");
+        }
+      }
+
     componentDidMount() {
         //this.refs.mesList.scrollTo(999999, 999999) // из-за этого условия не работает IE
         document.addEventListener('keydown', this.keyPressEnter)
@@ -204,7 +223,15 @@ class MessageField extends React.Component {
             <div className="ActiveChatEntryField">
 
                 <form className="ActiveChatEntryFieldText">
-                    <div data-type="input" data-text="Напишите что-нибудь" className="MessageField"  ref={(node)=>{this.inputElement=node}} autoFocus  contentEditable="true" tabIndex="1" onInput={this.getMessageText} ></div>
+                    <div className={!this.props.hasErrors? "MessageField":"MessageFieldDisabled"}  
+                        data-type="input" 
+                        data-text="Напишите что-нибудь"  
+                        ref={(node)=>{this.inputElement=node}} 
+                        autoFocus  
+                        contentEditable="true" 
+                        tabIndex="1" 
+                        onInput={this.getMessageText}>
+                    </div>
                 </form>
 
                 <div
@@ -221,16 +248,15 @@ class MessageField extends React.Component {
                 </div>
 
                 {/*кнопка Открыть\закрыть окно со смайлами */}
-                <div className={
-                        this.state.selectionWindowSmile
+                <div className={this.state.selectionWindowSmile
                             ? "ActiveChatFooterSmileActive"
-                            : "ActiveChatFooterSmile"
+                            : !this.props.hasErrors ? "ActiveChatFooterSmile":"ActiveChatFooterSmileDisabled"
                     }
                     onClick={this.openWindowSmiles}
                 />
 
                 {/* кнопка Отправки сообщения */}
-                <div className="ActiveChatFooterButton" onClick={this.sendMessage} />
+                <div className={!this.props.hasErrors? "ActiveChatFooterButton":"ActiveChatFooterButtonDisabled"} onClick={this.sendMessage} />
 
             </div>
 
