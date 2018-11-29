@@ -24,6 +24,7 @@
     .WindowHead {
       margin: 5px;
     }
+
   }
 
   .main {
@@ -94,6 +95,15 @@
     input::placeholder {
       color: rgb(129, 127, 127);
       font-weight: normal;
+    }
+    .errorMessage{
+      background: #2d9d2d;
+      //padding-left:30px; 
+      text-align: center;
+      font-weight: bold;
+      color: #fff;
+      cursor: move;
+      margin-bottom:30px; 
     }
   }
 

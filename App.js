@@ -6,12 +6,21 @@ import ReactDOM from "react-dom";
 import "./components/App.scss";
 
 import BlockWindowWrap from "./components/BlockWindowWrap";
+import { throws } from "assert";
 
 let SocButtons = require('./src/socButtons.json')
+let errorMessage=require('./src/errorMessage.json');
+
 
 
 class App extends React.Component {
   state = {
+    //содержание ошибки
+    errorMessage:errorMessage,
+
+    //состояние подключения
+    status:false,
+
     //состояние общего меню
     menuOpen: false,
 
@@ -215,6 +224,11 @@ class App extends React.Component {
   //   }
   // }
 
+  changeValues=()=>{
+    this.setState({
+      status:!this.state.status,
+    })
+  }
 
   render() {
     //размеры окна
@@ -222,11 +236,18 @@ class App extends React.Component {
     let clientHeight = window.innerHeight;
     // console.log('counterZindex APP',this.state.counterZindex)
     // console.log("isCallBack",this.state.cht1)
+
     return (
       <div>
+        <div>
+          Status Online:<button onClick={this.changeValues}>{String(this.state.status)}</button>
+        </div>
 
         {/* CallBack-заказать звонок */}
         <BlockWindowWrap
+          errorMessage={this.state.errorMessage}
+          status={this.state.status}
+
           CallBack
           // PositionNumber={this.state.selectedHash.indexOf("CallBack")}
           isCallBack={this.state.cht1}
@@ -246,6 +267,10 @@ class App extends React.Component {
 
         {/* Mail-ответить email */}
         <BlockWindowWrap
+          errorMessage={this.state.errorMessage}
+          status={this.state.status}
+
+
           Mail
           // PositionNumber={this.state.selectedHash.indexOf("Mail")}
           isMail={this.state.cht2}
@@ -262,6 +287,10 @@ class App extends React.Component {
 
         {/* Chat-чат с оператором */}
         <BlockWindowWrap
+          errorMessage={this.state.errorMessage}
+          status={this.state.status}
+
+
           Chat
           // PositionNumber={this.state.selectedHash.indexOf("Chat")}
           isChat={this.state.cht3}

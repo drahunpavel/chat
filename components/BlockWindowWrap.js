@@ -671,13 +671,26 @@ class BlockWindowWrap extends React.Component {
     renderThanksCallBack = () => {
         return (
             <div>
-                <div className="ThanksCallBack-img">
-                    {/* <img    src="/src/images/callback.jpg"/> */}
-                </div>
-                <div className="renderThanks-text">
-                    <h4>Спасибо!</h4>
-                    <p>Мы перезвоним Вам в указанное Вами время!</p>
-                </div>
+                {this.props.status?
+                    <div>
+                        {this.props.errorMessage.map(v => (
+                            
+                            <div key={v.code} className="errorMessage">   
+                                {v.generalErrorMessage}
+                            </div>
+                        ))}
+                    </div>
+                :
+                    <div>
+                        <div className="ThanksCallBack-img">
+                            {/* <img    src="/src/images/callback.jpg"/> */}
+                        </div>
+                        <div className="renderThanks-text">
+                            <h4>Спасибо!</h4>
+                            <p>Мы перезвоним Вам в указанное Вами время!</p>
+                        </div>
+                    </div>
+                }
             </div>
         );
     };
@@ -784,13 +797,27 @@ class BlockWindowWrap extends React.Component {
     renderThanksMail = () => {
         return (
             <div>
-                <div className="ThanksMail-img">
-                    {/* <img    src="/src/images/callback.jpg"/> */}
+
+                {this.props.status?
+                    <div>
+                        {this.props.errorMessage.map(v => (
+                            
+                            <div key={v.code} className="errorMessage">   
+                                {v.generalErrorMessage}
+                            </div>
+                        ))}
+                    </div>
+                :
+                <div>
+                    <div className="ThanksMail-img">
+                        {/* <img    src="/src/images/callback.jpg"/> */}
+                    </div>
+                    <div className="renderThanks-text">
+                        <h4>Спасибо!</h4>
+                        <p>Мы свяжемся с Вами</p>
+                    </div>
                 </div>
-                <div className="renderThanks-text">
-                    <h4>Спасибо!</h4>
-                    <p>Мы свяжемся с Вами</p>
-                </div>
+                }
             </div>
         );
     };
@@ -802,9 +829,19 @@ class BlockWindowWrap extends React.Component {
     };
     renderChatWelcome = () => {
         return (
-            <div className="WindowWelcome">
-                Вас приветствует БПС-Сбербанк. Задайте интересующий вопрос.
-      </div>
+            <div>
+                {this.props.status?
+                    <div>
+                        {this.props.errorMessage.map(v => (
+                            <div key={v.code} className="errorMessage">{v.generalErrorMessage}</div>
+                        ))}                        
+                    </div>
+                    :
+                <div className="WindowWelcome">
+                    Вас приветствует БПС-Сбербанк. Задайте интересующий вопрос. м Уважаемый клиент! К сожалению, в данный момент наблюдается технический сбой в  
+                </div>
+                }
+            </div>
         );
     };
     renderChatMain = () => {

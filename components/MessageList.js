@@ -90,13 +90,10 @@ class MessageList extends React.Component {
         this.scrollToBottom();
       }
 
-    // componentDidMount() {
-    //     //this.refs.mesList.scrollTo(999999, 999999) // из-за этого условия не работает IE
-    //     document.addEventListener('keydown', this.cbkeyPressEnter)
-    // }
-    // componentWillUnmount() {
-    //     document.removeEventListener('keydown', this.cbkeyPressEnter)
-    // }
+    componentDidMount() {
+        this.refs.mesList.scrollTo(999999, 999999) // из-за этого условия не работает IE
+    }
+
 
     render() {
         //console.log("allSmiliesArr",this.state.allSmiliesArr)
