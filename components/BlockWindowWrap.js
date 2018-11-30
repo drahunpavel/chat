@@ -491,8 +491,37 @@ class BlockWindowWrap extends React.Component {
 
     saveDialog = () => {
         console.log("saveDialog");
+
+        let allMessage=this.state.messageList;
+        let str = '';
+        //перебераю все сообщения в массиве и записываю их
+        allMessage.forEach(function(item) {
+            //console.log(item)
+            str += item.id + '<br/>';
+            str += item.message + '<br/>';
+            //str += t.time + '\n';
+            str += '==============================' + '<br/><br/>';
+        });
+
+        let textToSave=str;
+        let textToSaveAsBlob = new Blob([textToSave], {type:"text/plain"}); 
+        let textToSaveAsURL = window.URL.createObjectURL(textToSaveAsBlob);
+        let fileNameToSaveAs = "chatdialogue";
+
+        let downloadLink = document.createElement("a");
+        downloadLink.download = fileNameToSaveAs;
+        downloadLink.innerHTML = "Download File";
+        downloadLink.href = textToSaveAsURL;
+        downloadLink.onclick = this.destroyClickedElement;
+        downloadLink.style.display = "none";
+        document.body.appendChild(downloadLink);
+    
+        downloadLink.click();
     };
 
+    destroyClickedElement=(event)=>{
+        document.body.removeChild(event.target);
+    }
 
     printDialog = () => {
         console.log("PrintDialog")
@@ -502,7 +531,7 @@ class BlockWindowWrap extends React.Component {
         let str = '';
         //перебераю все сообщения в массиве и записываю их
         allMessage.forEach(function(item) {
-            console.log(item)
+            //console.log(item)
             str += item.id + '<br/>';
             str += item.message + '<br/>';
             //str += t.time + '\n';
