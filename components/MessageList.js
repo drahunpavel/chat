@@ -94,7 +94,7 @@ class MessageList extends React.Component {
       }
 
     componentDidMount() {
-        this.refs.mesList.scrollTo(999999, 999999) // из-за этого условия не работает IE
+        //this.refs.mesList.scrollTo(999999, 999999) // из-за этого условия не работает IE
         
     }
 

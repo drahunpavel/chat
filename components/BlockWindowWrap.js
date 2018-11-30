@@ -495,95 +495,41 @@ class BlockWindowWrap extends React.Component {
 
 
     printDialog = () => {
-
         console.log("PrintDialog")
+
         let allMessage=this.state.messageList;
         
         let str = '';
-
+        //перебераю все сообщения в массиве и записываю их
         allMessage.forEach(function(item) {
-           
+            console.log(item)
             str += item.id + '<br/>';
             str += item.message + '<br/>';
             //str += t.time + '\n';
             str += '==============================' + '<br/><br/>';
-          });
+        });
 
-            //console.log(str);
-
-            var myWindow = window.open("", "", "width=400,height=600");
-            let headstr = "<html><head><title>printDialog</title></head><body>";
-            let footstr = "</body>";
-            let printBlock = document.createElement('div');
-            printBlock.innerHTML="<p>"+str+"</p>"
-            let newstr = printBlock.innerHTML;
-            let oldstr = document.body.innerHTML;
-
-            myWindow.document.write(headstr+newstr+footstr)//заполняет страницу текстом
-            myWindow.print();
-            myWindow.close();
-
-            //document.body.innerHTML = headstr+newstr+footstr;
-            // window.print();
-            // let headstr = "<html><head><title>printDialog</title></head><body>";
-            // let footstr = "</body>";
-            // let printBlock = document.createElement('div');
-            // printBlock.innerHTML="<p>"+str+"</p>"
-            // let newstr = printBlock.innerHTML;
-            // let oldstr = document.body.innerHTML;
-            // document.body.innerHTML = headstr+newstr+footstr;
-            // //window.close();
-            // document.body.innerHTML = oldstr;
-            
-        // let allMessage=this.state.messageList;
-
-        // var printString = document.createElement('div');
-        // printString.className = 'resultPrint';
-
-        // let resultChat = JSON.stringify(allMessage);
-        // console.log(resultChat)
-
-        // var str = '';
-
-        // allMessage.forEach(function(item) {
-           
-        //     str += item.id + '\n';
-        //     str += item.message + '\n';
-        //     //str += t.time + '\n';
-        //     str += '==============================' + '\n';
-        //   });
-        //   console.log(str)
-        //   //printString.innerText = str;
-        //   //document.body.appendChild(printString);
+        //создаю всплывающее окно,наполняю, вызываю его print, затем close
+        var myWindow = window.open("", "", "width=600,height=800");
+        let headstr = "<html><head><title>chatdialogue</title></head><body>";
+        let footstr = "</body>";
+        let printBlock = document.createElement('div');
+        printBlock.innerHTML="<p>"+str+"</p>"
+        let newstr = printBlock.innerHTML;
 
 
-        //   printString.innerText = str;
-        //   var originalContents = document.body.innerHTML;
-
-        // console.log("--3",printString)
-
-        //   document.body.innerHTML = printString;
-
-        //   window.print();
-        //   document.body.innerHTML = originalContents;
-        // // if (resultChat) {
-        // //     resultChat.forEach(function (t) {
-        // //       str += t.type + '\n';
-        // //       str += t.text + '\n';
-        // //       str += t.time + '\n';
-        // //       str += '==============================' + '\n';
-        // //     });
-        // //     printString.innerText = str;
-        // //     document.body.className = 'printSelected';
-        // //     document.body.appendChild(printString);
-        // //   }
-        // // window.print();
+        myWindow.document.write(headstr+newstr+footstr)//заполняет страницу текстом
+        //close-focus-primt-close - условие для работа во всех браузерах
+        myWindow.document.close();
+        myWindow.focus();
+        myWindow.print();
+        myWindow.close();
     };
 
 
     //рейтинг чата
     rateChat = (evaluation) => {
-        //console.log(evaluation)
+        console.log(evaluation)
         this.setState({
             selectedSmile: evaluation,
             chatRatingSelected: true
