@@ -30,6 +30,9 @@ class BlockWindowWrap extends React.Component {
     };
 
     state = {
+  
+
+
         hasErrors:this.props.hasErrors,
 
         //состояния ошибок полей с именем, номером
@@ -489,42 +492,95 @@ class BlockWindowWrap extends React.Component {
     saveDialog = () => {
         console.log("saveDialog");
     };
+
+
     printDialog = () => {
-        console.log("printDialog");
+
+        console.log("PrintDialog")
         let allMessage=this.state.messageList;
-
-        var printString = document.createElement('div');
-        printString.className = 'resultPrint';
-
-        let resultChat = JSON.stringify(allMessage);
-        console.log(resultChat)
-
-        var str = '';
+        
+        let str = '';
 
         allMessage.forEach(function(item) {
            
-            str += item.id + '\n';
-            str += item.message + '\n';
+            str += item.id + '<br/>';
+            str += item.message + '<br/>';
             //str += t.time + '\n';
-            str += '==============================' + '\n';
+            str += '==============================' + '<br/><br/>';
           });
-          console.log(str)
-          printString.innerText = str;
-          document.body.appendChild(printString);
-          window.print();
-        // if (resultChat) {
-        //     resultChat.forEach(function (t) {
-        //       str += t.type + '\n';
-        //       str += t.text + '\n';
-        //       str += t.time + '\n';
-        //       str += '==============================' + '\n';
-        //     });
-        //     printString.innerText = str;
-        //     document.body.className = 'printSelected';
-        //     document.body.appendChild(printString);
-        //   }
-        // window.print();
+
+            //console.log(str);
+
+            var myWindow = window.open("", "", "width=400,height=600");
+            let headstr = "<html><head><title>printDialog</title></head><body>";
+            let footstr = "</body>";
+            let printBlock = document.createElement('div');
+            printBlock.innerHTML="<p>"+str+"</p>"
+            let newstr = printBlock.innerHTML;
+            let oldstr = document.body.innerHTML;
+
+            myWindow.document.write(headstr+newstr+footstr)//заполняет страницу текстом
+            myWindow.print();
+            myWindow.close();
+
+            //document.body.innerHTML = headstr+newstr+footstr;
+            // window.print();
+            // let headstr = "<html><head><title>printDialog</title></head><body>";
+            // let footstr = "</body>";
+            // let printBlock = document.createElement('div');
+            // printBlock.innerHTML="<p>"+str+"</p>"
+            // let newstr = printBlock.innerHTML;
+            // let oldstr = document.body.innerHTML;
+            // document.body.innerHTML = headstr+newstr+footstr;
+            // //window.close();
+            // document.body.innerHTML = oldstr;
+            
+        // let allMessage=this.state.messageList;
+
+        // var printString = document.createElement('div');
+        // printString.className = 'resultPrint';
+
+        // let resultChat = JSON.stringify(allMessage);
+        // console.log(resultChat)
+
+        // var str = '';
+
+        // allMessage.forEach(function(item) {
+           
+        //     str += item.id + '\n';
+        //     str += item.message + '\n';
+        //     //str += t.time + '\n';
+        //     str += '==============================' + '\n';
+        //   });
+        //   console.log(str)
+        //   //printString.innerText = str;
+        //   //document.body.appendChild(printString);
+
+
+        //   printString.innerText = str;
+        //   var originalContents = document.body.innerHTML;
+
+        // console.log("--3",printString)
+
+        //   document.body.innerHTML = printString;
+
+        //   window.print();
+        //   document.body.innerHTML = originalContents;
+        // // if (resultChat) {
+        // //     resultChat.forEach(function (t) {
+        // //       str += t.type + '\n';
+        // //       str += t.text + '\n';
+        // //       str += t.time + '\n';
+        // //       str += '==============================' + '\n';
+        // //     });
+        // //     printString.innerText = str;
+        // //     document.body.className = 'printSelected';
+        // //     document.body.appendChild(printString);
+        // //   }
+        // // window.print();
     };
+
+
     //рейтинг чата
     rateChat = (evaluation) => {
         //console.log(evaluation)
@@ -1102,7 +1158,9 @@ class BlockWindowWrap extends React.Component {
         return (
             <MessageList
                 hasErrors={this.props.hasErrors}
-                //printDialog={this.printDialog}
+                // printDialog={this.props.printDialog}
+
+                
 
                 messageList={this.state.messageList}
                 dialogueCompleted={this.state.dialogueCompleted}
@@ -1163,7 +1221,7 @@ class BlockWindowWrap extends React.Component {
             messageListLenght2
         } = this.state;
       
-       
+        
         return (
             <div
                 //  контроль для Zиндекса для разных окон

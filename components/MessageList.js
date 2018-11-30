@@ -35,6 +35,8 @@ class MessageList extends React.Component {
     //     }
     // }
 
+   
+    
 
     messageUpdate = () => {
         if (this.props.sendMessageUpdate) {
@@ -88,16 +90,18 @@ class MessageList extends React.Component {
 
     componentDidUpdate() {//автоскролл сообщений
         this.scrollToBottom();
+
       }
 
     componentDidMount() {
         this.refs.mesList.scrollTo(999999, 999999) // из-за этого условия не работает IE
+        
     }
 
 
     render() {
         //console.log("allSmiliesArr",this.state.allSmiliesArr)
-     
+       
         return (
             <div className={this.props.dialogueCompleted ? "ChatWindowDisplayMessagesNone" : "ChatWindowDisplayMessages"}
                  ref="mesList"
