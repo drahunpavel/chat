@@ -503,25 +503,43 @@ class BlockWindowWrap extends React.Component {
             str += '==============================' + '<br/><br/>';
         });
 
-        let textToSave=str;
-        let textToSaveAsBlob = new Blob([textToSave], {type:"text/plain"}); 
-        let textToSaveAsURL = window.URL.createObjectURL(textToSaveAsBlob);
-        let fileNameToSaveAs = "chatdialogue";
+        var fileName =  'tags.doc'; // You can use the .txt extension if you want
 
-        let downloadLink = document.createElement("a");
-        downloadLink.download = fileNameToSaveAs;
-        downloadLink.innerHTML = "Download File";
-        downloadLink.href = textToSaveAsURL;
-        downloadLink.onclick = this.destroyClickedElement;
-        downloadLink.style.display = "none";
-        document.body.appendChild(downloadLink);
+        let saveBlock = document.createElement('div');
+        saveBlock.innerHTML="<p>"+str+"</p>"
+        //console.log(saveBlock)
+        let elHtml = saveBlock.innerText;
+        
+        let link = document.createElement('a');
+        link.setAttribute('download', 'Chating history.doc');
+        link.setAttribute('href', 'data:' + 'text/doc' + ';charset=utf-8,' + encodeURIComponent(elHtml));
+        //console.log(link);
+        link.click(); 
+        // str="dkghd dfkgjhfdkgjdhfgkj"
+        // let z1="-----------"
+        // let z2="dfgkdgkjdlgdlgjdlfkgjdlkgjldfkgjl"
+
+        // let textToSave=str;
+        // let textToSaveAsBlob = new Blob(["343434"], {type:"text/doc"}); 
+        // let textToSaveAsBlob2 = new Blob(["345435kdrjhgdkjg"], {type:"text/plain"}); 
+        // console.log(textToSaveAsBlob,textToSaveAsBlob2)
+        // let textToSaveAsURL = window.URL.createObjectURL(textToSaveAsBlob);
+        // let fileNameToSaveAs = "chatdialogue";
+
+        // let downloadLink = document.createElement("a");
+        // downloadLink.download = fileNameToSaveAs;
+        // downloadLink.innerHTML = "Download File";
+        // downloadLink.href = textToSaveAsURL;
+        // downloadLink.onclick = this.destroyClickedElement;
+        // downloadLink.style.display = "none";
+        // document.body.appendChild(downloadLink);
     
-        downloadLink.click();
+        // downloadLink.click();
     };
 
-    destroyClickedElement=(event)=>{
-        document.body.removeChild(event.target);
-    }
+    // destroyClickedElement=(event)=>{
+    //     document.body.removeChild(event.target);
+    // }
 
     printDialog = () => {
         console.log("PrintDialog")
