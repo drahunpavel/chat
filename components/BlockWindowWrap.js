@@ -1143,7 +1143,8 @@ class BlockWindowWrap extends React.Component {
 
                 messageList={this.state.messageList}
                 dialogueCompleted={this.state.dialogueCompleted}
-                sendMessageUpdate={this.state.sendMessageUpdate}
+                //sendMessageUpdate={this.state.sendMessageUpdate}
+                
                 //cbkeyPressEnter={this.cbPressEnter}
             //cbScroll={this.sendMessage}
             />

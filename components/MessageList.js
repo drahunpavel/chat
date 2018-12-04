@@ -12,7 +12,7 @@ import './MessageList.scss';
 
 //let messageList=require("../src/messageList.json");
 
-class MessageList extends React.Component {
+class MessageList extends React.PureComponent {
 
     static propTypes = {
         //messageList
@@ -88,9 +88,10 @@ class MessageList extends React.Component {
         // this.messageList.scrollTop = maxScrollTop > 0 ? maxScrollTop : 0;
       }
 
-    componentDidUpdate() {//автоскролл сообщений
-        //this.scrollToBottom();
-
+    componentDidUpdate() {
+        //console.log("---1")
+        this.scrollToBottom();//некоректно работает
+        //this.refs.mesList.scrollTop=90000;//автоскролл сообщений при загрузке чата
       }
 
     componentDidMount() {
@@ -101,7 +102,7 @@ class MessageList extends React.Component {
 
 
     render() {
-        //console.log("allSmiliesArr",this.state.allSmiliesArr)
+        //console.log("props",this.props.sendMessageUpdate)
        
         return (
             <div className={this.props.dialogueCompleted ? "ChatWindowDisplayMessagesNone" : "ChatWindowDisplayMessages"}
