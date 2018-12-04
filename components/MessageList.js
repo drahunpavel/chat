@@ -63,7 +63,7 @@ class MessageList extends React.PureComponent {
 
                     if (smileyСode === v.className) {
                         
-                        out.push(<img key={i} className={v.className}></img>)
+                        out.push(<div style={{display:"inline-block", height:16+"px", width:16+"px",cursor:"text",marginRight:2+"px",marginBottom:-2+"px"}} key={i} className={v.className}></div>)
                         i += 19;
                     }
                 }
