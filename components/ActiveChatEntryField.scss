@@ -120,12 +120,12 @@ div[contenteditable=true] {
 }
 
 .MessageFieldDisabled{
-  background: #d9d9db;
+  background: #f1f3f4;
     outline:none;
     height: 100%;//для закрашивания поля ввода
     padding-left: 1px;
     padding-right: 1px;
-    border: 6px solid rgb(57, 57, 57);
+    //border: 6px solid rgb(57, 57, 57);
     margin: 0.2em 0;
     line-height: 1.3em;
     -webkit-appearance: textfield;
