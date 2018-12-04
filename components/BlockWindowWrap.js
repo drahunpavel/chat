@@ -502,44 +502,27 @@ class BlockWindowWrap extends React.Component {
             //str += t.time + '\n';
             str += '==============================' + '<br/><br/>';
         });
-
-        var fileName =  'tags.doc'; // You can use the .txt extension if you want
-
+        //new code
         let saveBlock = document.createElement('div');
         saveBlock.innerHTML="<p>"+str+"</p>"
         //console.log(saveBlock)
-        let elHtml = saveBlock.innerText;
-        
-        let link = document.createElement('a');
-        link.setAttribute('download', 'Chating history.doc');
-        link.setAttribute('href', 'data:' + 'text/doc' + ';charset=utf-8,' + encodeURIComponent(elHtml));
-        //console.log(link);
-        link.click(); 
-        // str="dkghd dfkgjhfdkgjdhfgkj"
-        // let z1="-----------"
-        // let z2="dfgkdgkjdlgdlgjdlfkgjdlkgjldfkgjl"
 
-        // let textToSave=str;
-        // let textToSaveAsBlob = new Blob(["343434"], {type:"text/doc"}); 
-        // let textToSaveAsBlob2 = new Blob(["345435kdrjhgdkjg"], {type:"text/plain"}); 
-        // console.log(textToSaveAsBlob,textToSaveAsBlob2)
-        // let textToSaveAsURL = window.URL.createObjectURL(textToSaveAsBlob);
-        // let fileNameToSaveAs = "chatdialogue";
+        let filename="Chating history.doc";
+        let elHtml=saveBlock.innerText||saveBlock.textContent;////e.textContent || e.innerText;Во всех браузерах, кроме FF. Вместо innerText надо использовать textContent.
+        let mimeType='text/plain';
 
-        // let downloadLink = document.createElement("a");
-        // downloadLink.download = fileNameToSaveAs;
-        // downloadLink.innerHTML = "Download File";
-        // downloadLink.href = textToSaveAsURL;
-        // downloadLink.onclick = this.destroyClickedElement;
-        // downloadLink.style.display = "none";
-        // document.body.appendChild(downloadLink);
+        if(navigator.msSaveBlob){
+            navigator.msSaveBlob(new Blob([elHtml], { type: mimeType + ';charset=utf-8;' }), filename);
+        }else{
+            let link = document.createElement('a');
+            mimeType = mimeType || 'text/plain';
     
-        // downloadLink.click();
+            link.setAttribute('download', filename);
+            link.setAttribute('href', 'data:' + mimeType  +  ';charset=utf-8,' + encodeURIComponent(elHtml));
+            link.click(); 
+        }
     };
 
-    // destroyClickedElement=(event)=>{
-    //     document.body.removeChild(event.target);
-    // }
 
     printDialog = () => {
         console.log("PrintDialog")
