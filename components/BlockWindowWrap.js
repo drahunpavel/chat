@@ -512,14 +512,17 @@ class BlockWindowWrap extends React.Component {
         let mimeType='text/plain';
 
         if(navigator.msSaveBlob){
-            navigator.msSaveBlob(new Blob([elHtml], { type: mimeType + ';charset=utf-8;' }), filename);
+            navigator.msSaveBlob(new Blob([elHtml], { type: mimeType + ';charset=utf-8;' }), filename);//for IE
+            //console.log(navigator.msSaveBlob(new Blob([elHtml], { type: mimeType + ';charset=utf-8;' }), filename))
         }else{
             let link = document.createElement('a');
             mimeType = mimeType || 'text/plain';
     
             link.setAttribute('download', filename);
             link.setAttribute('href', 'data:' + mimeType  +  ';charset=utf-8,' + encodeURIComponent(elHtml));
+            document.body.appendChild(link);//for FF предположительно, Firefox не любит нажатия элементов, которые не являются «на странице»:
             link.click(); 
+            document.body.removeChild(link);//for FF
         }
     };
 
