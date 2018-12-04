@@ -110,24 +110,17 @@ class MessageList extends React.PureComponent {
             >
                     <ul className="message-list">
                         {this.props.messageList.map(v =>
-                            <li key={v.code}
-                                className="message"
-                                
-                            >
+                            <li key={v.code} className="message">
                                 {v.id === "operator" &&
                                     <div className="messageContent" >
-                                        <div className="message-author" style={{ backgroundImage: v.image }}></div>
-                                        <div  className="message-text" style={{ backgroundColor: "#eeeff2", textAlign: "left" }}>{this.transformationMessage(v.message)}</div>
+                                        <div className=" logoOperator" style={{backgroundImage: v.image}}></div>
+                                        <div className=" messageOperator" style={{ }}>{this.transformationMessage(v.message)}</div>
                                     </div>
                                 }
                                 {v.id === "user" &&
                                     <div className="messageContent">
-                                        <div className=""></div>
-                                        <div 
-                                            style={{ backgroundColor: "#c3efb3", textAlign: "right" }}
-                                            className="message-text">
-                                            {this.transformationMessage(v.message)}
-                                        </div>
+                                        <div className=" logoUser" style={{}}></div>
+                                        <div className=" messageUser" style={{}}>{this.transformationMessage(v.message)}</div>
                                     </div>
                                 }
                             </li>
