@@ -89,12 +89,13 @@ class MessageList extends React.Component {
       }
 
     componentDidUpdate() {//автоскролл сообщений
-        this.scrollToBottom();
+        //this.scrollToBottom();
 
       }
 
     componentDidMount() {
         //this.refs.mesList.scrollTo(999999, 999999) // из-за этого условия не работает IE
+        this.refs.mesList.scrollTop=90000;//автоскролл сообщений при загрузке чата
         
     }
 
