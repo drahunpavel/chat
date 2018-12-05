@@ -254,7 +254,7 @@ class App extends React.Component {
         <BlockWindowWrap
           errorMessage={this.state.errorMessage}
           status={this.state.status}
-          hasErrors={this.state.hasErrors}
+          //hasErrors={this.state.hasErrors}
 
           CallBack
           // PositionNumber={this.state.selectedHash.indexOf("CallBack")}
@@ -277,7 +277,7 @@ class App extends React.Component {
         <BlockWindowWrap
           errorMessage={this.state.errorMessage}
           status={this.state.status}
-          hasErrors={this.state.hasErrors}
+          //hasErrors={this.state.hasErrors}
 
           Mail
           // PositionNumber={this.state.selectedHash.indexOf("Mail")}

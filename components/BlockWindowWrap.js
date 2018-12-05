@@ -18,7 +18,7 @@ let chatRatingSmiles = require("../src/chatRatingSmiles.json");
 
 let messageList = require("../src/messageList.json");
 
-class BlockWindowWrap extends React.Component {
+class BlockWindowWrap extends React.PureComponent {
     static propTypes = {
         btn: PropTypes.string //Имя кнопки компонента
     };
@@ -608,8 +608,6 @@ class BlockWindowWrap extends React.Component {
 
             let addNewMessage = this.state.messageList.concat(newMessage);
 
-             //console.log("---1",addNewMessage)
-        //     //this.state.messageList2++;
             this.setState({
                 // newMessage:this.state.newMessage,
                 messageList: addNewMessage,
@@ -620,27 +618,25 @@ class BlockWindowWrap extends React.Component {
                 //sendMessageUpdate:
             });
         }
+                // if(this.props.Chat&&this.props.hasErrors){
+        //     console.log("Im working")
+        //     //             let messageListCounter = this.state.messageListLenght2 + 1;
+        //     // newMessage["code"] = messageListCounter;
+        //     // newMessage["id"] = "servis";
+        //     // newMessage["message"]="Уважаемый клиент! К сожалению, в данный момент наблюдается технический сбой в работе чата. Повторите Ваш "
         
-        // if(this.props.hasErrors){
-        //     let messageListCounter = this.state.messageListLenght2 + 1;
-        //     newMessage["code"] = messageListCounter;
-        //     newMessage["id"] = "servis";
-        //     newMessage["message"]="Уважаемый клиент! К сожалению, в данный момент наблюдается технический сбой в работе чата. Повторите Ваш "
-        
-        //     let addNewMessage = this.state.messageList.concat(newMessage);
+        //     // let addNewMessage = this.state.messageList.concat(newMessage);
 
-        //     this.setState({
-        //         // newMessage:this.state.newMessage,
-        //         messageList: addNewMessage,
-        //         messageListLenght2: messageListCounter,
-        //         //textMessage: "",
-        //         sendMessageUpdate: true, //при отправки сообщения состояние true
-        //         //selectionWindowSmile: false
-        //         //sendMessageUpdate:
-        //     });
-        
+        //     // this.setState({
+        //     //     // newMessage:this.state.newMessage,
+        //     //     messageList: addNewMessage,
+        //     //     messageListLenght2: messageListCounter,
+        //     //     //textMessage: "",
+        //     //     sendMessageUpdate: true, //при отправки сообщения состояние true
+        //     //     //selectionWindowSmile: false
+        //     //     //sendMessageUpdate:
+        //     // });
         // }
-
     }
 
     //Отображение содержимого в окошках
@@ -1017,32 +1013,7 @@ class BlockWindowWrap extends React.Component {
             </div>
         );
     };
-    
-    
-    transformationMessage = (textMessage) => {
 
-        let out = [];
-        for (let i = 0; i < textMessage.length; i++) {
-
-            if (textMessage[i] === ":" && textMessage[i + 5] === ":") {
-                let smileyСode = textMessage[i] + textMessage[i + 1] + textMessage[i + 2] + textMessage[i + 3] + textMessage[i + 4] + textMessage[i + 5]
-                //console.log(smileyСode)
-                this.state.allSmiliesArr.map((v) => {
-                    if (smileyСode === v.title) {
-                        out.push(<img key={i} className={v.className2}></img>)
-                        i += 5;
-                    }
-                }
-                )
-            } else {
-                out.push(textMessage[i])
-            }
-        }
-        // let reg=textMessage.replace( /[:]{1}[0-9]{2}[a-z]{2}[:]{1}/g )
-
-        return out
-    }
-      
     renderActiveChatFooter = () => {
         return (
             <div className={this.state.dialogueCompleted ? "ActiveChatNone" : "ActiveChat"}>
@@ -1152,11 +1123,50 @@ class BlockWindowWrap extends React.Component {
     };
     //////////////////////////////////Конец Рендера чата
 
-    // componentDidUpdate() {
-    //     if(this.props.Chat&&this.props.hasErrors){
-    //         this.cbSendMessage();
-    //     }
-    // }
+
+        //let newMessage = {};
+        // if(this.props.Chat&&this.props.hasErrors){
+        //     console.log("Im working")
+        //     //             let messageListCounter = this.state.messageListLenght2 + 1;
+        //     // newMessage["code"] = messageListCounter;
+        //     // newMessage["id"] = "servis";
+        //     // newMessage["message"]="Уважаемый клиент! К сожалению, в данный момент наблюдается технический сбой в работе чата. Повторите Ваш "
+        
+        //     // let addNewMessage = this.state.messageList.concat(newMessage);
+
+        //     // this.setState({
+        //     //     // newMessage:this.state.newMessage,
+        //     //     messageList: addNewMessage,
+        //     //     messageListLenght2: messageListCounter,
+        //     //     //textMessage: "",
+        //     //     sendMessageUpdate: true, //при отправки сообщения состояние true
+        //     //     //selectionWindowSmile: false
+        //     //     //sendMessageUpdate:
+        //     // });
+        // }
+
+
+                // if(this.props.hasErrors){
+        //     let messageListCounter = this.state.messageListLenght2 + 1;
+        //     newMessage["code"] = messageListCounter;
+        //     newMessage["id"] = "servis";
+        //     newMessage["message"]="Уважаемый клиент! К сожалению, в данный момент наблюдается технический сбой в работе чата. Повторите Ваш "
+        
+        //     let addNewMessage = this.state.messageList.concat(newMessage);
+
+        //     this.setState({
+        //         // newMessage:this.state.newMessage,
+        //         messageList: addNewMessage,
+        //         messageListLenght2: messageListCounter,
+        //         //textMessage: "",
+        //         sendMessageUpdate: true, //при отправки сообщения состояние true
+        //         //selectionWindowSmile: false
+        //         //sendMessageUpdate:
+        //     });
+        
+        // }
+    
+
 
     //Объявляем
     componentDidMount() {
@@ -1200,7 +1210,7 @@ class BlockWindowWrap extends React.Component {
             obj,
             messageListLenght2
         } = this.state;
-      
+      //console.log("blockW",this.props.Chat&&this.props.hasErrors)
         
         return (
             <div

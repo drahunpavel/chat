@@ -103,7 +103,7 @@ class MessageList extends React.PureComponent {
 
     render() {
         //console.log("props",this.props.sendMessageUpdate)
-       
+        console.log("MesList",this.props.hasErrors)
         return (
             <div className={this.props.dialogueCompleted ? "ChatWindowDisplayMessagesNone" : "ChatWindowDisplayMessages"}
                  ref="mesList"
@@ -123,6 +123,12 @@ class MessageList extends React.PureComponent {
                                         <div className=" messageUser" style={{}}>{this.transformationMessage(v.message)}</div>
                                     </div>
                                 }
+                                {v.id === "error" &&
+                                    <div className="messageContent">
+                                        {/* <div className=" logoUser" style={{}}></div> */}
+                                        <div className="messageServis" style={{}}>{v.message}</div>
+                                    </div>
+                                }                                
                             </li>
                         )}
                     </ul>
