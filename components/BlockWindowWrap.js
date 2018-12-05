@@ -1005,7 +1005,8 @@ class BlockWindowWrap extends React.PureComponent {
                         !this.state.field1 ||
                         !this.state.field2 ||
                         this.state.nameChatIsEmpty ||
-                        this.state.numberChatIsEmpty
+                        this.state.numberChatIsEmpty||
+                        !this.props.status
                     }
                 >
                     Начать чат
