@@ -1220,7 +1220,7 @@ class BlockWindowWrap extends React.PureComponent {
                 onMouseDown={() => this.changeZIndex("click")}
                 style={{
                     position: this.state.position,
-                    top: this.state.locationY + "px",
+                    top: this.state.locationY + "px", //начальные координты
                     left: this.state.locationX + "px",
                     width: this.state.sizeX + "px",
                     height: this.state.sizeY + "px",

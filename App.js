@@ -235,19 +235,31 @@ class App extends React.Component {
     })
   }
 
+//при создании компонента
+
+
+
   render() {
     //размеры окна
     let clientWidth = window.innerWidth;
     let clientHeight = window.innerHeight;
     // console.log('counterZindex APP',this.state.counterZindex)
     // console.log("isCallBack",this.state.cht1)
-
+    
+    
+    console.log("Chat clientWidth", clientWidth-320)
+    console.log()
     return (
       <div>
         <div>
           Status Online:<button onClick={this.changeValues}>{String(this.state.status)}</button>
           <br/>
           has Errors:<button onClick={this.changeValues2}>{String(this.state.hasErrors)}</button>
+          <br/>
+          <br/>
+          clientWidth: {String(clientWidth)}
+          <br/>
+          clientHeight: {String(clientHeight)}
         </div>
 
         {/* CallBack-заказать звонок */}
@@ -269,8 +281,10 @@ class App extends React.Component {
 
 
           //startLeftChat, startTopChat - координаты стартового расположения полей
-          startLeftChat={clientWidth - 420}
-          startTopChat={clientHeight - 510}
+          //startLeftChat={clientWidth - 420}
+          startLeftChat={clientWidth>420? clientWidth-420:clientWidth-320}
+          //startTopChat={clientHeight - 510}
+          startTopChat={clientWidth>420?clientHeight - 450:clientHeight - 540}
         />
 
         {/* Mail-ответить email */}
@@ -289,8 +303,10 @@ class App extends React.Component {
           cbchangeZIndex={this.cbZindex}
           counterZindex={this.state.counterZindex}
 
-          startLeftChat={clientWidth - 420}
-          startTopChat={clientHeight - 480}
+         //startLeftChat={clientWidth - 420}
+        startLeftChat={clientWidth>420? clientWidth-420:clientWidth-320}
+        //startTopChat={clientHeight - 480}
+        startTopChat={clientWidth>420?clientHeight - 450:clientHeight - 540}
         />
 
         {/* Chat-чат с оператором */}
@@ -307,8 +323,10 @@ class App extends React.Component {
           cbchangeZIndex={this.cbZindex}
           counterZindex={this.state.counterZindex}
 
-          startLeftChat={clientWidth - 420}
-          startTopChat={clientHeight - 450}
+          //startLeftChat={clientWidth>320? clientWidth- 300:clientWidth-420}
+          startLeftChat={clientWidth>420? clientWidth-420:clientWidth-320}
+          //startTopChat={clientHeight - 450}
+          startTopChat={clientWidth>420?clientHeight - 450:clientHeight - 540}
         />
 
         <div onClick={this.menuIsOpen} className={this.state.menuOpen ? 'ISocMenuClose' : 'ISocMenu'}>
