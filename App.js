@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 
-import PictogramsComponent from "../BPSchat/components/PictogramsComponent/PictogramsComponent";
+import PictogramsComponent from "../chat/components/PictogramsComponent/PictogramsComponent";
 
 ReactDOM.render(
 	

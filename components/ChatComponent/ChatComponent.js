@@ -1055,7 +1055,13 @@ class ChatComponent extends React.PureComponent {
     }
 
     handleClick=(EO)=>{
-        this.refFieldName===document.activeElement?console.log("1"):console.log("0")
+        if(this.refFieldName===EO.target){
+            console.log("--1")
+            document.body.scrollIntoView(true);
+            // this.refFieldName.scrollIntoView();
+            // window.scrollTo(0,100)
+        }
+        // this.refFieldName===EO.target?console.log("1"):console.log("0")
     }
 
     componentDidUpdate() {
@@ -1087,7 +1093,8 @@ class ChatComponent extends React.PureComponent {
 
     componentDidMount(){
         window.addEventListener("keydown", this.controlKeyboardsButtonStartChat);
-        window.addEventListener('click', this.handleClick, false);
+        // window.addEventListener('click', this.handleClick, false);
+        window.addEventListener('touchstart', this.handleClick, false);
 
         // fix
         window.onfocus=()=>{
@@ -1122,7 +1129,8 @@ class ChatComponent extends React.PureComponent {
     
     componentWillUnmount() {
         window.removeEventListener("keydown", this.controlKeyboardsButtonStartChat);
-        window.removeEventListener('click', this.handleClick, false);
+        // window.removeEventListener('click', this.handleClick, false);
+        window.removeEventListener('touchstart', this.handleClick, false);
         // clearTimeout(this.timerCompleteSession);
         clearInterval(this.timerInactiveTab);
     }
@@ -1141,7 +1149,7 @@ class ChatComponent extends React.PureComponent {
         // console.log("receivedStatus", this.state.receivedStatus, "errorCode",this.state.errorCode, "exceptionMessage",this.state.exceptionMessage)
         // console.log("--authorized",this.props.authorized)
         // console.log("props",this.props.nameChat,this.props.numberChat)
-        console.log("--1",this.refFieldName, this.refFieldNumber)
+        // console.log("--1",this.refFieldName, this.refFieldNumber)
         return (
 
             <div className="windowChat">

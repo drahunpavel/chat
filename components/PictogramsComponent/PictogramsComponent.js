@@ -209,7 +209,7 @@ class PictogramsComponent extends React.Component {
     return (
       <div>
         <div className="testPanel">
-          <p>test panel</p>
+          <p>test panel clientHeight: {String(clientHeight)}</p>
           <br />
           <br />
           <p>clientWidth: {String(clientWidth)}</p>

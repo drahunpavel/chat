@@ -159,7 +159,7 @@ class BlockWindowWrap extends React.PureComponent {
 
 
     touchmove=(EO)=>{
-        console.log(EO)
+        // console.log(EO)
     }
 
     mouseMove = (EO) => {
@@ -415,7 +415,7 @@ class BlockWindowWrap extends React.PureComponent {
                 //  контроль для Zиндекса для разных окон
                 onMouseDown={() => this.changeZIndex("click")}
                 style={{
-                    // position: this.state.position,
+                    position: "absolute",
                     top: this.state.locationY + "px", //начальные координты
                     left: this.state.locationX + "px",
                     width: this.state.sizeX + "px",
