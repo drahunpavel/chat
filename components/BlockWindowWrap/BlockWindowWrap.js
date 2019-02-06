@@ -342,7 +342,11 @@ class BlockWindowWrap extends React.PureComponent {
 
   componentDidUpdate() {
     this.fadeInOut();
-  }
+    if(this.props.Chat){    
+    // console.log("окно реально",window.innerHeight)
+    // console.log("окно из родиеля",this.props.clH)
+    }
+}
 
     //Объявляем
     componentDidMount() {

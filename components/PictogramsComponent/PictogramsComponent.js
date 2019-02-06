@@ -198,7 +198,8 @@ class PictogramsComponent extends React.Component {
     })
   }
 //////////////////////////////////////////////////////////////////////////////////////
-  render() {
+
+render() {
     //размеры окна
     let clientWidth = window.innerWidth;
     let clientHeight = window.innerHeight;
@@ -328,6 +329,7 @@ class PictogramsComponent extends React.Component {
           }
           scrollTOP={scrollTOP}
 
+
           ////////test
           errormail={this.state.errormail}
           /////////////
@@ -366,9 +368,11 @@ class PictogramsComponent extends React.Component {
           }
           //startTopChat={clientHeight - 450}
           startTopChat={
-            clientWidth > 420 ? clientHeight - 450 : clientHeight - 540
+            clientWidth > 420 ? clientHeight - 450 : clientHeight
           }
           scrollTOP={scrollTOP}
+
+          clH={clientHeight}
 
           ////////test
           hasErrors={this.state.hasErrors}
