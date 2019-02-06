@@ -340,6 +340,17 @@ class BlockWindowWrap extends React.PureComponent {
       }
   }
 
+
+    cbTouchClick=(value)=>{
+        value.focus();
+        // document.documentElement.scrollBy(0,50);
+        // value.focus();
+        console.log("value",value);
+        value.scrollIntoView({block: "start", behavior: "smooth"});
+
+       
+    }
+
   componentDidUpdate() {
     this.fadeInOut();
     if(this.props.Chat){    
@@ -491,7 +502,7 @@ class BlockWindowWrap extends React.PureComponent {
                         sizeXentryField={this.state.sizeX-85}//fix
 
                         cbgetNumberUnreadMessages={this.cbgetNumberUnreadMessages}
-
+                        cbTouchClick={this.cbTouchClick}
 
                         //test////////////////////
                         hasErrors={this.props.hasErrors}

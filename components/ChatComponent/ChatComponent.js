@@ -1056,10 +1056,18 @@ class ChatComponent extends React.PureComponent {
 
     handleClick=(EO)=>{
         if(this.refFieldName===EO.target){
-            console.log("--1")
-            document.body.scrollIntoView(true);
+            // console.log("--1")
+            // document.body.scrollIntoView(true);
             // this.refFieldName.scrollIntoView();
             // window.scrollTo(0,100)
+            this.props.cbTouchClick(this.refFieldName)
+        }
+        if(this.refFieldNumber===EO.target){
+            // console.log("--1")
+            // document.body.scrollIntoView(true);
+            // this.refFieldName.scrollIntoView();
+            // window.scrollTo(0,100)
+            this.props.cbTouchClick(this.refFieldNumber)
         }
         // this.refFieldName===EO.target?console.log("1"):console.log("0")
     }
