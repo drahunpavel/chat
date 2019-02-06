@@ -346,6 +346,15 @@ class BlockWindowWrap extends React.PureComponent {
     // console.log("окно реально",window.innerHeight)
     // console.log("окно из родиеля",this.props.clH)
     }
+
+        //присваивает позиционирование, зависит от innerWidth
+        let client_W=window.innerWidth;
+        let client_H=window.innerHeight;
+        if(client_W<=768){
+            this.BlockWindowWrap.style.position="absolute"
+        }else{
+            this.BlockWindowWrap.style.position="fixed";
+        }
 }
 
     //Объявляем
@@ -419,7 +428,7 @@ class BlockWindowWrap extends React.PureComponent {
                 //  контроль для Zиндекса для разных окон
                 onMouseDown={() => this.changeZIndex("click")}
                 style={{
-                    position: "absolute",
+                    // position: "absolute",
                     top: this.state.locationY + "px", //начальные координты
                     left: this.state.locationX + "px",
                     width: this.state.sizeX + "px",

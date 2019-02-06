@@ -203,7 +203,7 @@ render() {
     //размеры окна
     let clientWidth = window.innerWidth;
     let clientHeight = window.innerHeight;
-    let scrollTOP=window.pageYOffset || document.documentElement.scrollTop;
+    let scrollTOP = window.pageYOffset || document.documentElement.scrollTop;
     // console.log("status",this.state.status,"errorCode",this.state.errorCode,"exceptionMessage",this.state.exceptionMessage)
     // console.log("---","clientWidth",clientWidth,"clientHeight",clientHeight,"scrollTop",scrollTOP)
 
@@ -363,12 +363,12 @@ render() {
           counterZindex={this.state.counterZindex}
           cbgetNumberUnreadMessages={this.cbgetNumberUnreadMessages}
           //startLeftChat={clientWidth>320? clientWidth- 300:clientWidth-420}
-          startLeftChat={
-            clientWidth > 420 ? clientWidth - 420 : clientWidth - 320
+          startLeftChat={//150 - 1/2 Width чата по умолчанию
+            clientWidth >= 768 ? clientWidth - 420 : clientWidth / 2 - 150
           }
           //startTopChat={clientHeight - 450}
-          startTopChat={
-            clientWidth > 420 ? clientHeight - 450 : clientHeight
+          startTopChat={//150 hardcode
+            clientWidth >= 768 ? clientHeight - 450 : 150
           }
           scrollTOP={scrollTOP}
 
