@@ -122,7 +122,7 @@ class ChatComponent extends React.PureComponent {
         return (
             <div>
                 {/* поле с именем */}
-                <div className="BlockWindowFieldLabel">
+                <div className="BlockWindowFieldLabel" ref={BlockrefFieldName => { this.BlockrefFieldName = BlockrefFieldName; }}>
                     Ваше имя:
                     <div className={this.state.nameChatIsEmpty? "BlockWindowFieldControlFrameError": "BlockWindowFieldControlFrame"}>
                         <input disabled={this.props.status === "OFFLINE" ? true : false}//оставляем пропс статус
@@ -133,13 +133,14 @@ class ChatComponent extends React.PureComponent {
                             // defaultValue={this.props.nameChat}
                             value={this.state.nameChat}
                             onChange={this.onFieldChange.bind(this, "nameChatIsEmpty")}
+
                         />
                     </div>
 
                     <div className={this.state.nameChatIsEmpty ? "BlockWindowFieldError": "BlockWindowFieldErrorDisplayNone"}>{this.state.descriptionNameError}</div>
                 </div>
                 {/* поле с номером телефона */}
-                <div className="BlockWindowFieldLabel">Номер телефона:
+                <div className="BlockWindowFieldLabel" ref={BlockrefFieldNumber => { this.BlockrefFieldNumber = BlockrefFieldNumber; }}>Номер телефона:
                     <div className={this.state.numberChatIsEmpty ? "BlockWindowFieldControlFrameError": "BlockWindowFieldControlFrame"}>
                         <input disabled={this.props.status === "OFFLINE" ? true : false}//оставляем пропс статус
                             className="BlockWindowFieldEdit"
@@ -150,6 +151,7 @@ class ChatComponent extends React.PureComponent {
                             // defaultValue={this.props.numberChat}
                             value={this.state.numberChat}
                             onChange={this.onFieldChange.bind(this, "numberChatIsEmpty")}
+
                         />
                     </div>
 
@@ -1055,21 +1057,26 @@ class ChatComponent extends React.PureComponent {
     }
 
     handleClick=(EO)=>{
+        let active;
         if(this.refFieldName===EO.target){
-            // console.log("--1")
+            active=true;
             // document.body.scrollIntoView(true);
             // this.refFieldName.scrollIntoView();
             // window.scrollTo(0,100)
-            this.props.cbTouchClick(this.refFieldName)
+            this.props.cbTouchClick(this.refFieldName, this.BlockrefFieldName,active)
         }
-        if(this.refFieldNumber===EO.target){
-            // console.log("--1")
-            // document.body.scrollIntoView(true);
-            // this.refFieldName.scrollIntoView();
-            // window.scrollTo(0,100)
-            this.props.cbTouchClick(this.refFieldNumber)
-        }
-        // this.refFieldName===EO.target?console.log("1"):console.log("0")
+        // else{
+        //     active=false;
+        //     this.props.cbTouchClick(null, this.BlockrefFieldName,active)
+        // }
+
+        // if(this.refFieldNumber===EO.target){
+        //     this.props.cbTouchClick(this.refFieldNumber,this.BlockrefFieldNumber,active)
+        // }else{
+        //     active=false;
+        //     this.props.cbTouchClick(null, this.BlockrefFieldNumber,active)
+        // }
+ 
     }
 
     componentDidUpdate() {

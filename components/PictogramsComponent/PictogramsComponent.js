@@ -199,6 +199,14 @@ class PictogramsComponent extends React.Component {
   }
 //////////////////////////////////////////////////////////////////////////////////////
 
+componentDidMount() {
+  let clH=document.documentElement.clientHeight;
+// console.log(document.documentElement.clientHeight)
+  this.setState({
+    clH:clH,
+  })
+};
+
 render() {
     //размеры окна
     let clientWidth = window.innerWidth;
@@ -206,10 +214,11 @@ render() {
     let scrollTOP = window.pageYOffset || document.documentElement.scrollTop;
     // console.log("status",this.state.status,"errorCode",this.state.errorCode,"exceptionMessage",this.state.exceptionMessage)
     // console.log("---","clientWidth",clientWidth,"clientHeight",clientHeight,"scrollTop",scrollTOP)
+  // clientWidth/Height
 
     return (
       <div>
-        <div className="testPanel">
+        <div ref={panel => { this.panel = panel; }} className="testPanel">
           <p>test panel clientHeight: {String(clientHeight)}</p>
           <br />
           <br />
@@ -372,8 +381,8 @@ render() {
           }
           scrollTOP={scrollTOP}
 
-          clH={clientHeight}
-
+          clH={this.state.clH}
+ 
           ////////test
           hasErrors={this.state.hasErrors}
           /////////////          

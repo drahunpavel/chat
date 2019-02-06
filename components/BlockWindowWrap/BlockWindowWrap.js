@@ -67,6 +67,9 @@ class BlockWindowWrap extends React.PureComponent {
         //
         isFirstRun:true,
         isReRecord:true,
+
+        //наличие клавиаутры
+        isKeyboard:false,
     };
 
     timerHidingDelay=null;
@@ -341,22 +344,51 @@ class BlockWindowWrap extends React.PureComponent {
   }
 
 
-    cbTouchClick=(value)=>{
-        value.focus();
-        // document.documentElement.scrollBy(0,50);
+    cbTouchClick=(value, block, active)=>{
+        let state;
+        
         // value.focus();
-        console.log("value",value);
-        value.scrollIntoView({block: "start", behavior: "smooth"});
+        // document.documentElement.scrollBy(0,50);
+        // value===document.activeElement?console.log("Да"):console.log("Нет")
+        // console.log("active",active)
 
-       
+        // console.log(this.props.panel)
+
+        console.log("value",value, block);
+
+        // value.focus();
+        // block.scrollIntoView({block: "start", behavior: "smooth"});
+        console.log(this.state.isKeyboard)
+
     }
 
+    resizeFunc=()=>{
+        console.log('resized');
+        let currentFieldSize=document.documentElement.clientHeight;
+
+        // console.log("актуальный ",currentFieldSize);
+
+        if(currentFieldSize<this.state.clH){
+            document.documentElement.scrollBy(0,40)
+            console.log("up")
+            this.setState({
+                isKeyboard:true,
+                
+            })
+        }else{
+            document.documentElement.scrollBy(0,-40)
+            console.log("down")
+            this.setState({
+                isKeyboard:false,
+            })
+        }
+    }
+    
   componentDidUpdate() {
+    // console.log(document.documentElement.clientHeight)
+
     this.fadeInOut();
-    if(this.props.Chat){    
-    // console.log("окно реально",window.innerHeight)
-    // console.log("окно из родиеля",this.props.clH)
-    }
+
 
         //присваивает позиционирование, зависит от innerWidth
         let client_W=window.innerWidth;
@@ -370,11 +402,18 @@ class BlockWindowWrap extends React.PureComponent {
 
     //Объявляем
     componentDidMount() {
+        let clH=document.documentElement.clientHeight;
+
+        this.setState({
+            clH:clH, 
+        })
+
         window.addEventListener("mousedown", this.onMouseDown);
         window.addEventListener("mouseup", this.forceMouseUp);
         window.addEventListener("mousemove", this.mouseMove);
 
         window.addEventListener("touchmove", this.touchmove);
+        window.addEventListener('resize', this.resizeFunc);
 
     };
     //Удаляем
@@ -385,7 +424,7 @@ class BlockWindowWrap extends React.PureComponent {
         window.removeEventListener("mousemove", this.mouseMove);
 
         window.removeEventListener("touchmove", this.touchmove);
-
+        window.addEventListener('resize', this.resizeFunc);
     };
 
     static getDerivedStateFromProps(props, state) {
@@ -426,6 +465,7 @@ class BlockWindowWrap extends React.PureComponent {
 
 
     render() {
+        // console.log("начальный размер экрана",this.state.clH);
         let { btn, title, welcome, status, CallBack, Mail, Chat, isCallBack, isMail, isChat } = this.props; //деструктуризация
         let { textMessage, newMessage, lengthArr, selectedSmile, obj, messageListLenght2, dialogueCompleted, activeTab, hideRatingFinishSession } = this.state;
         // console.log("startX",this.state.startX,"startY", this.state.startY)
@@ -454,6 +494,7 @@ class BlockWindowWrap extends React.PureComponent {
                     onMouseDown={() => this.myResize("click3")}
                     onMouseUp={() => this.myResize("click4")}
                     className="header"
+                    ref={refBlockWindowWrapHeader => { this.refBlockWindowWrapHeader = refBlockWindowWrapHeader; }}
                 >
                 </div>
 
