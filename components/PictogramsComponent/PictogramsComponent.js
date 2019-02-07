@@ -165,6 +165,9 @@ class PictogramsComponent extends React.Component {
       })
     }
   }
+
+
+
 //////////////////////////////////////////////////////////////////////////////////////
   testCall=()=>{
     this.setState({
@@ -363,6 +366,7 @@ render() {
           crmId={!this.state.authorized?"":this.props.crmId}
           /////////////
 
+          mobileBrowser={this.state.mobileBrowser}
 
           status={this.state.status}
           Chat

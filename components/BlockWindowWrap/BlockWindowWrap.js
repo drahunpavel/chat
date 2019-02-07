@@ -354,36 +354,54 @@ class BlockWindowWrap extends React.PureComponent {
 
         // console.log(this.props.panel)
 
-        console.log("value",value, block);
+        // console.log("value",value, block);
 
         // value.focus();
         // block.scrollIntoView({block: "start", behavior: "smooth"});
-        console.log(this.state.isKeyboard)
+        // console.log(this.state.isKeyboard)
 
     }
 
     resizeFunc=()=>{
-        console.log('resized');
+        // console.log('resized');
         let currentFieldSize=document.documentElement.clientHeight;
 
         // console.log("актуальный ",currentFieldSize);
 
-        if(currentFieldSize<this.state.clH){
+        if(currentFieldSize<this.state.clH&&this.state.mobileBrowser){
             document.documentElement.scrollBy(0,40)
-            console.log("up")
+            // console.log("up")
             this.setState({
                 isKeyboard:true,
                 
             })
         }else{
             document.documentElement.scrollBy(0,-40)
-            console.log("down")
+            // console.log("down")
             this.setState({
                 isKeyboard:false,
             })
         }
     }
-    
+    //получае утройство, с которого сидит юзер
+    detectTheThing=()=>{
+        let uagent = navigator.userAgent.toLowerCase();
+  
+        if (uagent.search("iphone") > -1 || uagent.search("ipad") > -1 
+        || uagent.search("android") > -1 || uagent.search("blackberry") > -1
+        || uagent.search("webos") > -1){
+            console.log(uagent)
+          this.setState({
+            mobileBrowser:true,
+          })
+        }else{
+            console.log(uagent)
+          this.setState({
+            mobileBrowser:false,
+          })
+        }
+    }
+
   componentDidUpdate() {
     // console.log(document.documentElement.clientHeight)
 
@@ -402,6 +420,8 @@ class BlockWindowWrap extends React.PureComponent {
 
     //Объявляем
     componentDidMount() {
+        this.detectTheThing();
+
         let clH=document.documentElement.clientHeight;
 
         this.setState({
@@ -465,6 +485,7 @@ class BlockWindowWrap extends React.PureComponent {
 
 
     render() {
+        console.log(this.state.mobileBrowser)
         // console.log("начальный размер экрана",this.state.clH);
         let { btn, title, welcome, status, CallBack, Mail, Chat, isCallBack, isMail, isChat } = this.props; //деструктуризация
         let { textMessage, newMessage, lengthArr, selectedSmile, obj, messageListLenght2, dialogueCompleted, activeTab, hideRatingFinishSession } = this.state;
