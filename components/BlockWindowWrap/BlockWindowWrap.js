@@ -363,21 +363,18 @@ class BlockWindowWrap extends React.PureComponent {
     }
 
     resizeFunc=()=>{
-        // console.log('resized');
+        let {isCallBack, isMail, isChat } = this.props;
         let currentFieldSize=document.documentElement.clientHeight;
 
-        // console.log("актуальный ",currentFieldSize);
-
-        if(currentFieldSize<this.state.clH&&this.state.mobileBrowser){
-            document.documentElement.scrollBy(0,40)
-            // console.log("up")
+        if(currentFieldSize<this.state.clH&&this.state.mobileBrowser&&(isChat||isCallBack||isMail)){
+            window.scrollBy(0,60)
+            console.log('test1')
             this.setState({
                 isKeyboard:true,
-                
             })
-        }else{
-            document.documentElement.scrollBy(0,-40)
-            // console.log("down")
+        }else if(currentFieldSize>=this.state.clH&&this.state.mobileBrowser&&(isChat||isCallBack||isMail)){
+            window.scrollBy(0,-60)
+            console.log('test2')
             this.setState({
                 isKeyboard:false,
             })

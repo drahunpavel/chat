@@ -207,7 +207,40 @@ class ActiveChatEntryField extends React.Component {
         entryElem.innerHTML=text+data;
         this.props.cbgetHeightEntryField(this.InputElement.scrollHeight);
     }
+    resizeFunc=()=>{
+        let currentFieldSize=document.documentElement.clientHeight;
 
+        if(currentFieldSize<this.state.clH&&this.state.mobileBrowser){
+            // document.documentElement.scrollBy(0,60)
+            window.scrollBy(0,70)
+            this.setState({
+                isKeyboard:true,
+            })
+        }else{
+            window.scrollBy(0,-70)
+            // document.documentElement.scrollBy(0,-60)
+            this.setState({
+                isKeyboard:false,
+            })
+        }
+    }
+
+    //получае утройство, с которого сидит юзер
+    detectTheThing=()=>{
+        let uagent = navigator.userAgent.toLowerCase();
+
+        if (uagent.search("iphone") > -1 || uagent.search("ipad") > -1
+            || uagent.search("android") > -1 || uagent.search("blackberry") > -1
+            || uagent.search("webos") > -1){
+            this.setState({
+                mobileBrowser:true,
+            })
+        }else{
+            this.setState({
+                mobileBrowser:false,
+            })
+        }
+    }
     componentDidUpdate() {
         let inputElementField=this.InputElement;
         //при ошибке меняет состояние contenteditable, чтобы не было возможности редактировать
@@ -221,18 +254,29 @@ class ActiveChatEntryField extends React.Component {
       }
 
     componentDidMount() {
+        this.detectTheThing();
+        let clH=document.documentElement.clientHeight;
+        this.setState({
+            clH:clH,
+        })
+
+
         //this.refs.mesList.scrollTo(999999, 999999) // из-за этого условия не работает IE
         document.addEventListener('keydown', this.controlKeyboardsButton);
 
         //past text in div
         let inElement=this.InputElement;
         inElement.addEventListener('paste', this.handlePaste);
+
+        window.addEventListener('resize', this.resizeFunc);
     }
     componentWillUnmount() {
         document.removeEventListener('keydown', this.controlKeyboardsButton);
 
         let inElement=this.InputElement;
         inElement.removeEventListener('paste', this.handlePaste);
+
+        window.addEventListener('resize', this.resizeFunc);
     }
 
 
