@@ -362,24 +362,64 @@ class BlockWindowWrap extends React.PureComponent {
 
     }
 
+    // resizeFunc=()=>{
+
+    //     let {isCallBack, isMail, isChat } = this.props;
+    //     let currentFieldSize=document.documentElement.clientHeight;
+    //     console.log(currentFieldSize, this.state.clH )
+
+    //     if(currentFieldSize>=this.state.clH){
+
+    //         // this.BlockWindowWrap.scrollBy(0,30)
+    //         console.log('нет клавы')
+    //         this.setState({
+    //             isKeyboard:false,
+    //         })
+    //     }else{
+    //         // this.BlockWindowWrap.scrollBy(0,-30)
+    //         console.log('Есть клава')
+    //         this.setState({
+    //             isKeyboard:true,
+    //         })
+    //     }
+    // }
     resizeFunc=()=>{
         let {isCallBack, isMail, isChat } = this.props;
         let currentFieldSize=document.documentElement.clientHeight;
 
-        if(currentFieldSize<this.state.clH&&this.state.mobileBrowser&&(isChat||isCallBack||isMail)){
-            window.scrollBy(0,60)
-            console.log('test1')
+        if(currentFieldSize<this.state.clH){
+            window.scrollBy(0,30)
+            console.log('Экран стал меньше, появилась клава')
             this.setState({
                 isKeyboard:true,
             })
-        }else if(currentFieldSize>=this.state.clH&&this.state.mobileBrowser&&(isChat||isCallBack||isMail)){
-            window.scrollBy(0,-60)
-            console.log('test2')
+        }else if(currentFieldSize>this.state.clH){
+            console.log('Спряталось окно с УРЛом')
+            window.scrollBy(0,0)
+        }else{
+            window.scrollBy(0,-30)
+            console.log('Экран вернулся')
             this.setState({
                 isKeyboard:false,
             })
         }
     }
+    onMouseUp=(EO)=>{
+        console.log('click');
+        var selectedTextArea = document.activeElement;
+        console.log('selectedTextArea',selectedTextArea);
+        // console.log(EO.target.tagName)
+        // if(EO.target.tagName==='INPUT'&&this.state.mobileBrowser){
+            if(EO.target.tagName==='INPUT'&&this.state.isKeyboard){
+            console.log('попадание в инпут')
+            // selectedTextArea.scrollIntoView(false);
+            window.scrollBy(0,30)
+        }else{
+            window.scrollBy(0,-30)
+        }
+
+    }
+
     //получае утройство, с которого сидит юзер
     detectTheThing=()=>{
         let uagent = navigator.userAgent.toLowerCase();
@@ -432,6 +472,8 @@ class BlockWindowWrap extends React.PureComponent {
         window.addEventListener("touchmove", this.touchmove);
         window.addEventListener('resize', this.resizeFunc);
 
+        this.BlockWindowWrap.addEventListener("mouseup", this.onMouseUp, false);
+
     };
     //Удаляем
     componentWillUnmount() {
@@ -442,6 +484,8 @@ class BlockWindowWrap extends React.PureComponent {
 
         window.removeEventListener("touchmove", this.touchmove);
         window.addEventListener('resize', this.resizeFunc);
+
+        this.BlockWindowWrap.removeEventListener("mouseup", this.onMouseUp, false);
     };
 
     static getDerivedStateFromProps(props, state) {
