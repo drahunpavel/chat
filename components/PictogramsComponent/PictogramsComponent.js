@@ -165,6 +165,9 @@ class PictogramsComponent extends React.Component {
       })
     }
   }
+
+
+
 //////////////////////////////////////////////////////////////////////////////////////
   testCall=()=>{
     this.setState({
@@ -243,55 +246,96 @@ render() {
           -----------------------------------------------
           <p>errorMail<button onClick={this.testMail}>{String(this.state.errormail)}</button></p>
           <p>test panel</p>
-          <br />          <p>test panel</p>
-          <br />          <p>test panel</p>
-          <br />          <p>test panel</p>
-          <br />          <p>test panel</p>
-          <br />          <p>test panel</p>
-          <br />          <p>test panel</p>
-          <br />          <p>test panel</p>
-          <br />          <p>test panel</p>
-          <br />          <p>test panel</p>
-          <br />          <p>test panel</p>
-          <br />          <p>test panel</p>
-          <br />          <p>test panel</p>
-          <br />          <p>test panel</p>
-          <br />          <p>test panel</p>
-          <br />          <p>test panel</p>
-          <br />          <p>test panel</p>
-          <br />          <p>test panel</p>
-          <br />          <p>test panel</p>
-          <br />          <p>test panel</p>
-          <br />          <p>test panel</p>
-          <br />          <p>test panel</p>
-          <br />          <p>test panel</p>
-          <br />          <p>test panel</p>
-          <br />          <p>test panel</p>
-          <br />          <p>test panel</p>
-          <br />          <p>test panel</p>
-          <br />          <p>test panel</p>
-          <br />          <p>test panel</p>
-          <br />          <p>test panel</p>
-          <br />          <p>test panel</p>
-          <br />          <p>test panel</p>
-          <br />          <p>test panel</p>
-          <br />          <p>test panel</p>
-          <br />          <p>test panel</p>
-          <br />          <p>test panel</p>
-          <br />          <p>test panel</p>
-          <br />          <p>test panel</p>
-          <br />          <p>test panel</p>
-          <br />          <p>test panel</p>
-          <br />          <p>test panel</p>
-          <br />          <p>test panel</p>
-          <br />          <p>test panel</p>
-          <br />          <p>test panel</p>
-          <br />          <p>test panel</p>
-          <br />          <p>test panel</p>
-          <br />          <p>test panel</p>
-          <br />          <p>test panel</p>
-          <br />          <p>test panel</p>
-          <br />          <p>test panel</p>
+          <br />          <p style={{background:"black"}}>test panel</p>
+          <br />          <p style={{background:"green"}}>test panel</p>
+          <br />          <p style={{background:"yellow"}}>test panel</p>
+          <br />          <p style={{background:"black"}}>test panel</p>
+          <br />          <p style={{background:"#ff4000"}}>test panel</p>
+          <br />          <p style={{background:"black"}}>test panel</p>
+          <br />          <p style={{background:"green"}}>test panel</p>
+          <br />          <p style={{background:"yellow"}}>test panel</p>
+          <br />          <p style={{background:"black"}}>test panel</p>
+          <br />          <p style={{background:"#ff4000"}}>test panel</p>
+          <br />          <p style={{background:"black"}}>test panel</p>
+          <br />          <p style={{background:"green"}}>test panel</p>
+          <br />          <p style={{background:"yellow"}}>test panel</p>
+          <br />          <p style={{background:"black"}}>test panel</p>
+          <br />          <p style={{background:"#ff4000"}}>test panel</p>
+          <br />          <p style={{background:"black"}}>test panel</p>
+          <br />          <p style={{background:"green"}}>test panel</p>
+          <br />          <p style={{background:"yellow"}}>test panel</p>
+          <br />          <p style={{background:"black"}}>test panel</p>
+          <br />          <p style={{background:"#ff4000"}}>test panel</p>
+          <br />          <p style={{background:"black"}}>test panel</p>
+          <br />          <p style={{background:"green"}}>test panel</p>
+          <br />          <p style={{background:"yellow"}}>test panel</p>
+          <br />          <p style={{background:"black"}}>test panel</p>
+          <br />          <p style={{background:"#ff4000"}}>test panel</p>
+          <br />          <p style={{background:"black"}}>test panel</p>
+          <br />          <p style={{background:"green"}}>test panel</p>
+          <br />          <p style={{background:"yellow"}}>test panel</p>
+          <br />          <p style={{background:"black"}}>test panel</p>
+          <br />          <p style={{background:"#ff4000"}}>test panel</p>
+          <br />          <p style={{background:"black"}}>test panel</p>
+          <br />          <p style={{background:"green"}}>test panel</p>
+          <br />          <p style={{background:"yellow"}}>test panel</p>
+          <br />          <p style={{background:"black"}}>test panel</p>
+          <br />          <p style={{background:"#ff4000"}}>test panel</p>
+          <br />          <p style={{background:"black"}}>test panel</p>
+          <br />          <p style={{background:"green"}}>test panel</p>
+          <br />          <p style={{background:"yellow"}}>test panel</p>
+          <br />          <p style={{background:"black"}}>test panel</p>
+          <br />          <p style={{background:"#ff4000"}}>test panel</p>
+          <br />          <p style={{background:"black"}}>test panel</p>
+          <br />          <p style={{background:"green"}}>test panel</p>
+          <br />          <p style={{background:"yellow"}}>test panel</p>
+          <br />          <p style={{background:"black"}}>test panel</p>
+          <br />          <p style={{background:"#ff4000"}}>test panel</p>
+          <br />          <p style={{background:"black"}}>test panel</p>
+          <br />          <p style={{background:"green"}}>test panel</p>
+          <br />          <p style={{background:"yellow"}}>test panel</p>
+          <br />          <p style={{background:"black"}}>test panel</p>
+          <br />          <p style={{background:"#ff4000"}}>test panel</p>
+          <br />          <p style={{background:"black"}}>test panel</p>
+          <br />          <p style={{background:"green"}}>test panel</p>
+          <br />          <p style={{background:"yellow"}}>test panel</p>
+          <br />          <p style={{background:"black"}}>test panel</p>
+          <br />          <p style={{background:"#ff4000"}}>test panel</p>
+          <br />          <p style={{background:"black"}}>test panel</p>
+          <br />          <p style={{background:"green"}}>test panel</p>
+          <br />          <p style={{background:"yellow"}}>test panel</p>
+          <br />          <p style={{background:"black"}}>test panel</p>
+          <br />          <p style={{background:"#ff4000"}}>test panel</p>
+          <br />          <p style={{background:"black"}}>test panel</p>
+          <br />          <p style={{background:"green"}}>test panel</p>
+          <br />          <p style={{background:"yellow"}}>test panel</p>
+          <br />          <p style={{background:"black"}}>test panel</p>
+          <br />          <p style={{background:"#ff4000"}}>test panel</p>
+          <br />          <p style={{background:"black"}}>test panel</p>
+          <br />          <p style={{background:"green"}}>test panel</p>
+          <br />          <p style={{background:"yellow"}}>test panel</p>
+          <br />          <p style={{background:"black"}}>test panel</p>
+          <br />          <p style={{background:"#ff4000"}}>test panel</p>
+          <br />          <p style={{background:"black"}}>test panel</p>
+          <br />          <p style={{background:"green"}}>test panel</p>
+          <br />          <p style={{background:"yellow"}}>test panel</p>
+          <br />          <p style={{background:"black"}}>test panel</p>
+          <br />          <p style={{background:"#ff4000"}}>test panel</p>
+          <br />          <p style={{background:"black"}}>test panel</p>
+          <br />          <p style={{background:"green"}}>test panel</p>
+          <br />          <p style={{background:"yellow"}}>test panel</p>
+          <br />          <p style={{background:"black"}}>test panel</p>
+          <br />          <p style={{background:"#ff4000"}}>test panel</p>
+          <br />          <p style={{background:"black"}}>test panel</p>
+          <br />          <p style={{background:"green"}}>test panel</p>
+          <br />          <p style={{background:"yellow"}}>test panel</p>
+          <br />          <p style={{background:"black"}}>test panel</p>
+          <br />          <p style={{background:"#ff4000"}}>test panel</p>
+          <br />          <p style={{background:"black"}}>test panel</p>
+          <br />          <p style={{background:"green"}}>test panel</p>
+          <br />          <p style={{background:"yellow"}}>test panel</p>
+          <br />          <p style={{background:"black"}}>test panel</p>
+          <br />          <p style={{background:"#ff4000"}}>test panel</p>
           <br />
         </div>
 
@@ -363,6 +407,7 @@ render() {
           crmId={!this.state.authorized?"":this.props.crmId}
           /////////////
 
+          mobileBrowser={this.state.mobileBrowser}
 
           status={this.state.status}
           Chat
@@ -377,7 +422,7 @@ render() {
           }
           //startTopChat={clientHeight - 450}
           startTopChat={//150 hardcode
-            clientWidth >= 768 ? clientHeight - 450 : 150
+            clientWidth >= 768 ? clientHeight - 450 : 650
           }
           scrollTOP={scrollTOP}
 

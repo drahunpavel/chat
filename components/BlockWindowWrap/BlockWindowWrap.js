@@ -362,8 +362,29 @@ class BlockWindowWrap extends React.PureComponent {
 
     }
 
+    // resizeFunc=()=>{
+
+    //     let {isCallBack, isMail, isChat } = this.props;
+    //     let currentFieldSize=document.documentElement.clientHeight;
+    //     console.log(currentFieldSize, this.state.clH )
+
+    //     if(currentFieldSize>=this.state.clH){
+
+    //         // this.BlockWindowWrap.scrollBy(0,30)
+    //         console.log('нет клавы')
+    //         this.setState({
+    //             isKeyboard:false,
+    //         })
+    //     }else{
+    //         // this.BlockWindowWrap.scrollBy(0,-30)
+    //         console.log('Есть клава')
+    //         this.setState({
+    //             isKeyboard:true,
+    //         })
+    //     }
+    // }
     resizeFunc=()=>{
-        console.log('resized');
+        let {isCallBack, isMail, isChat } = this.props;
         let currentFieldSize=document.documentElement.clientHeight;
 
         // console.log("актуальный ",currentFieldSize);
@@ -374,6 +395,9 @@ class BlockWindowWrap extends React.PureComponent {
             this.setState({
                 isKeyboard:true,
             })
+        }else if(currentFieldSize>this.state.clH){
+            console.log('Спряталось окно с УРЛом')
+            window.scrollBy(0,0)
         }else{
             document.documentElement.scrollBy(0,-100)
             console.log("down")
@@ -382,7 +406,41 @@ class BlockWindowWrap extends React.PureComponent {
             })
         }
     }
-    
+    onMouseUp=(EO)=>{
+        console.log('click');
+        var selectedTextArea = document.activeElement;
+        console.log('selectedTextArea',selectedTextArea);
+        // console.log(EO.target.tagName)
+        // if(EO.target.tagName==='INPUT'&&this.state.mobileBrowser){
+            if(EO.target.tagName==='INPUT'&&this.state.isKeyboard){
+            console.log('попадание в инпут')
+            // selectedTextArea.scrollIntoView(false);
+            window.scrollBy(0,30)
+        }else{
+            window.scrollBy(0,-30)
+        }
+
+    }
+
+    //получае утройство, с которого сидит юзер
+    detectTheThing=()=>{
+        let uagent = navigator.userAgent.toLowerCase();
+  
+        if (uagent.search("iphone") > -1 || uagent.search("ipad") > -1 
+        || uagent.search("android") > -1 || uagent.search("blackberry") > -1
+        || uagent.search("webos") > -1){
+            console.log(uagent)
+          this.setState({
+            mobileBrowser:true,
+          })
+        }else{
+            console.log(uagent)
+          this.setState({
+            mobileBrowser:false,
+          })
+        }
+    }
+
   componentDidUpdate() {
     // console.log(document.documentElement.clientHeight)
 
@@ -401,6 +459,8 @@ class BlockWindowWrap extends React.PureComponent {
 
     //Объявляем
     componentDidMount() {
+        this.detectTheThing();
+
         let clH=document.documentElement.clientHeight;
 
         this.setState({
@@ -414,6 +474,8 @@ class BlockWindowWrap extends React.PureComponent {
         window.addEventListener("touchmove", this.touchmove);
         window.addEventListener('resize', this.resizeFunc);
 
+        this.BlockWindowWrap.addEventListener("mouseup", this.onMouseUp, false);
+
     };
     //Удаляем
     componentWillUnmount() {
@@ -424,6 +486,8 @@ class BlockWindowWrap extends React.PureComponent {
 
         window.removeEventListener("touchmove", this.touchmove);
         window.addEventListener('resize', this.resizeFunc);
+
+        this.BlockWindowWrap.removeEventListener("mouseup", this.onMouseUp, false);
     };
 
     static getDerivedStateFromProps(props, state) {
@@ -464,6 +528,7 @@ class BlockWindowWrap extends React.PureComponent {
 
 
     render() {
+        console.log(this.state.mobileBrowser)
         // console.log("начальный размер экрана",this.state.clH);
         let { btn, title, welcome, status, CallBack, Mail, Chat, isCallBack, isMail, isChat } = this.props; //деструктуризация
         let { textMessage, newMessage, lengthArr, selectedSmile, obj, messageListLenght2, dialogueCompleted, activeTab, hideRatingFinishSession } = this.state;
