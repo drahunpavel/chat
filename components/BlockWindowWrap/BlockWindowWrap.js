@@ -354,11 +354,11 @@ class BlockWindowWrap extends React.PureComponent {
 
         // console.log(this.props.panel)
 
-        console.log("value",value, block);
+        // console.log("value",value, block);
 
         // value.focus();
         // block.scrollIntoView({block: "start", behavior: "smooth"});
-        console.log(this.state.isKeyboard)
+        // console.log(this.state.isKeyboard)
 
     }
 
@@ -367,16 +367,15 @@ class BlockWindowWrap extends React.PureComponent {
         let currentFieldSize=document.documentElement.clientHeight;
 
         // console.log("актуальный ",currentFieldSize);
-
+        // 100 -много
         if(currentFieldSize<this.state.clH){
-            document.documentElement.scrollBy(0,40)
+            document.documentElement.scrollBy(0,100)
             console.log("up")
             this.setState({
                 isKeyboard:true,
-                
             })
         }else{
-            document.documentElement.scrollBy(0,-40)
+            document.documentElement.scrollBy(0,-100)
             console.log("down")
             this.setState({
                 isKeyboard:false,

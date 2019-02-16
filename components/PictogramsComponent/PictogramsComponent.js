@@ -215,7 +215,7 @@ render() {
     // console.log("status",this.state.status,"errorCode",this.state.errorCode,"exceptionMessage",this.state.exceptionMessage)
     // console.log("---","clientWidth",clientWidth,"clientHeight",clientHeight,"scrollTop",scrollTOP)
   // clientWidth/Height
-
+  console.log(this.state.menuOpen)
     return (
       <div>
         <div ref={panel => { this.panel = panel; }} className="testPanel">
