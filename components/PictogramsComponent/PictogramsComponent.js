@@ -218,9 +218,9 @@ render() {
     // console.log("status",this.state.status,"errorCode",this.state.errorCode,"exceptionMessage",this.state.exceptionMessage)
     // console.log("---","clientWidth",clientWidth,"clientHeight",clientHeight,"scrollTop",scrollTOP)
   // clientWidth/Height
-  console.log(this.state.menuOpen)
+
     return (
-      <div>
+      <div style={{width:'100%'}}>
         <div ref={panel => { this.panel = panel; }} className="testPanel">
           <p>test panel clientHeight: {String(clientHeight)}</p>
           <br />
@@ -422,7 +422,7 @@ render() {
           }
           //startTopChat={clientHeight - 450}
           startTopChat={//150 hardcode
-            clientWidth >= 768 ? clientHeight - 450 : 650
+            clientWidth >= 768 ? clientHeight - 450 : 150
           }
           scrollTOP={scrollTOP}
 
