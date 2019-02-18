@@ -393,108 +393,76 @@ class BlockWindowWrap extends React.PureComponent {
     resizeFunc=()=>{
         let {isCallBack, isMail, isChat } = this.props;
         let currentFieldSize=document.documentElement.clientHeight;
-        // this.state.clH //размер экрана при загрузке страницы
-        // console.log(this.props.isChat)
 
-        // console.log("актуальный ",currentFieldSize);
-        // 100 -много
-        // if(currentFieldSize>this.state.clH){
-        //     console.log('Размер окна стал больше')
-        // }
 
-        // var wasScroll=false;
-        console.log('inputFieldIisActive', this.state.inputFieldIisActive,'---')
-        
 
-        if(currentFieldSize<this.state.clH&&this.state.inputFieldIisActive){
-            window.scrollBy(0,60);
+        let windowClientSize=this.getWindowClientSize(); 
+        // // console.log('реальный размер',windowClientSize.height, 'ТОП', this.state.inputPos);
+        // console.log(currentFieldSize, windowClientSize.height)
+        let realWinSize=windowClientSize.height;
 
-            // wasScroll=true;
-            // console.log('wasScroll',wasScroll)
+        // console.log('--1',realWinSize,'--2',this.state.clH)
+        var requiredScrollSize;
+       
+        // console.log('----1',this.state.inputPos-realWinSize)
+        if(realWinSize<=this.state.inputPos){
+            console.log('---ROZ', this.state.inputPos-realWinSize)
+            requiredScrollSize=(this.state.inputPos-realWinSize)/2;
+            // console.log('клавиатура на поле ввода',requiredScrollSize/2);
             this.setState({
-                wasScroll:true,
-            },()=>{console.log('----2',this.state.wasScroll)})
-        }
-
-
-        if(currentFieldSize>=this.state.clH&&this.state.inputFieldIisActive){
-            window.scrollBy(0,-60);
-            // wasScroll=false;
-            this.setState({
-                wasScroll:false,
+                requiredScrollSize:requiredScrollSize,
             })
         }
 
 
+        if(currentFieldSize<this.state.clH&&this.state.inputFieldIisActive){
+            alert('--1', requiredScrollSize)
+            window.scrollBy(0,requiredScrollSize);
 
+            this.setState({
+                wasScroll:true,
+            })
+        }
 
+ 
 
-        // if(currentFieldSize>=this.state.clH&&!this.state.inputFieldIisActive&&this.state.wasScroll){
-        //     alert('поле не активно')
-        //     window.scrollBy(0,-60);
-        //     this.setState({
-        //         wasScroll:false,
-        //     })
-        // }
+        console.log('--requiredScrollSize',requiredScrollSize)
 
+        if(currentFieldSize>=this.state.clH&&this.state.inputFieldIisActive){
+            
+            alert('--2', requiredScrollSize)
+            window.scrollBy(0,-50);
+
+            this.setState({
+                wasScroll:false,
+            })
+        }
+    
     }
-    selActiveEl=(EO)=>{
-        // console.log('click');
-        let firstInputActive=false;
-        let firstinputActiveFalse;
-        console.log('was',this.state.wasScroll)
 
+    selActiveEl=(EO)=>{
         var selectedTextArea = document.activeElement;
-        // console.log('selectedTextArea',selectedTextArea);
-        // if(selectedTextArea.tagName==='INPUT'){
-            // console.log(selectedTextArea.getElementsByClassName('BlockWindowFieldEdit'))
+
             if(selectedTextArea.tagName==='INPUT'&&selectedTextArea.className==='BlockWindowFieldEdit'){
-                // if(firstInputActive===false){
-                //     firstInputActive===true;
-                //     console.log('--inputFieldIisActive:true');
-                //     this.setState({
-                //         inputFieldIisActive:true,
-                //     })
-                // }
-                console.log('--inputFieldIisActive:true')
+ 
+                let inputPos=this.getElementPos(selectedTextArea); // положение относительно окна браузера
+
                 this.setState({
                     inputFieldIisActive:true,
+                    inputPos:inputPos.top,
                 })
         }else{
-            console.log('--inputFieldIisActive:false')
             this.setState({
                 inputFieldIisActive:false,
             })            
         }
 
         if(this.state.wasScroll){
-            window.scrollBy(0,-60);
+            window.scrollBy(0,-this.state.requiredScrollSize);
             this.setState({
                 wasScroll:false,
             })
         }
-
-        // document.getElementsByClassName('article');
-
-        // if(EO.target.tagName==='INPUT'){
-        //     // console.log('попадание в INPUT')
-        //     this.setState({
-        //         inputFieldIisActive:true,
-        //     })
-        // }else{
-        //     this.setState({
-        //         inputFieldIisActive:false,
-        //     })
-        // }
-        // // console.log(EO.target.tagName)
-        // // if(EO.target.tagName==='INPUT'&&this.state.mobileBrowser){
-        //     if(EO.target.tagName==='INPUT'&&this.state.isKeyboard){
-        //     console.log('попадание в инпут')
-        //     // selectedTextArea.scrollIntoView(false);
-        //     window.scrollBy(0,30)
-        // }else{
-        //     window.scrollBy(0,-30)
-        // }
 
 
     }
@@ -518,9 +486,49 @@ class BlockWindowWrap extends React.PureComponent {
         }
     }
 
+    getElementPos=(elem)=> {
+        var bbox=elem.getBoundingClientRect();
+    
+        var body=document.body;
+        var docEl=document.documentElement;
+    
+        var scrollTop=window.pageYOffset||docEl.scrollTop||body.scrollTop;
+        var scrollLeft=window.pageXOffset||docEl.scrollLeft||body.scrollLeft;
+    
+        var clientTop=docEl.clientTop||body.clientTop||0;
+        var clientLeft=docEl.clientLeft||body.clientLeft||0;
+    
+        var top=bbox.top+scrollTop-clientTop;
+        var left=bbox.left+scrollLeft-clientLeft;
+    
+        return {
+            left: left,
+            top: top
+        };
+    }
+
+    getWindowClientSize=()=> {
+        var uaB=navigator.userAgent.toLowerCase();
+        var isOperaB = (uaB.indexOf('opera')  > -1);
+        var isIEB=(!isOperaB && uaB.indexOf('msie') > -1);
+    
+        var clientWidth=((document.compatMode||isIEB)&&!isOperaB)?
+            (document.compatMode=='CSS1Compat')?
+                document.documentElement.clientWidth:
+                document.body.clientWidth:
+            (document.parentWindow||document.defaultView).innerWidth;
+    
+        var clientHeight=((document.compatMode||isIEB)&&!isOperaB)?
+            (document.compatMode=='CSS1Compat')?
+                document.documentElement.clientHeight:
+                document.body.clientHeight:
+            (document.parentWindow||document.defaultView).innerHeight;
+    
+        return {width:clientWidth, height:clientHeight};
+    }
+
   componentDidUpdate() {
     // console.log(document.documentElement.clientHeight)
-
     this.fadeInOut();
 
 
