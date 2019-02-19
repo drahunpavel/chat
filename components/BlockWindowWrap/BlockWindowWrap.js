@@ -404,10 +404,19 @@ class BlockWindowWrap extends React.PureComponent {
         // console.log('--1',realWinSize,'--2',this.state.clH)
         var requiredScrollSize;
        
+        var selectedTextArea = document.activeElement;
+        
+
         // console.log('----1',this.state.inputPos-realWinSize)
         if(realWinSize<=this.state.inputPos){
-            console.log('---ROZ', this.state.inputPos-realWinSize)
-            requiredScrollSize=(this.state.inputPos-realWinSize)/2;
+
+            if(selectedTextArea.tagName==='DIV'&&selectedTextArea.className==='BlockMessageField'){
+                requiredScrollSize=(this.state.inputPos-realWinSize)/3;
+            }else{
+                requiredScrollSize=(this.state.inputPos-realWinSize)/2;
+            }
+
+            
             // console.log('клавиатура на поле ввода',requiredScrollSize/2);
             this.setState({
                 requiredScrollSize:requiredScrollSize,
@@ -415,8 +424,8 @@ class BlockWindowWrap extends React.PureComponent {
         }
 
 
-        if(currentFieldSize<this.state.clH&&this.state.inputFieldIisActive){
-            alert('--1', requiredScrollSize)
+        if(currentFieldSize<this.state.clH&&this.state.inputFieldIisActive&&this.state.mobileBrowser){
+
             window.scrollBy(0,requiredScrollSize);
 
             this.setState({
@@ -424,14 +433,15 @@ class BlockWindowWrap extends React.PureComponent {
             })
         }
 
- 
 
-        console.log('--requiredScrollSize',requiredScrollSize)
-
-        if(currentFieldSize>=this.state.clH&&this.state.inputFieldIisActive){
+        if(currentFieldSize>=this.state.clH&&this.state.inputFieldIisActive&&this.state.mobileBrowser){
             
-            alert('--2', requiredScrollSize)
-            window.scrollBy(0,-50);
+            if(selectedTextArea.tagName==='DIV'&&selectedTextArea.className==='BlockMessageField'){
+                window.scrollBy(0,-90);
+            }else{
+                window.scrollBy(0,-60);
+            }
+            
 
             this.setState({
                 wasScroll:false,
@@ -443,7 +453,7 @@ class BlockWindowWrap extends React.PureComponent {
     selActiveEl=(EO)=>{
         var selectedTextArea = document.activeElement;
 
-            if(selectedTextArea.tagName==='INPUT'&&selectedTextArea.className==='BlockWindowFieldEdit'){
+            if(selectedTextArea.tagName==='INPUT'&&selectedTextArea.className==='BlockWindowFieldEdit'||selectedTextArea.tagName==='DIV'&&selectedTextArea.className==='BlockMessageField'){
  
                 let inputPos=this.getElementPos(selectedTextArea); // положение относительно окна браузера
 
