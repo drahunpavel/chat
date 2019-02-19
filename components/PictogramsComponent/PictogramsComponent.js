@@ -91,6 +91,13 @@ class PictogramsComponent extends React.Component {
   //2. cht2=Mail
   //3. cht3=Chat
   isSelected = fieldNumber => {
+    // console.log('1111111',this.state.mobileBrowser)
+
+    if(this.state.mobileBrowser){
+      var scrollingElement = document.scrollingElement || document.documentElement;
+      scrollingElement.scrollTop = 0;
+    }
+
     if (fieldNumber === 1) {
       //console.log("open CallBack");
       this.setState({
@@ -201,8 +208,29 @@ class PictogramsComponent extends React.Component {
     })
   }
 //////////////////////////////////////////////////////////////////////////////////////
+    //получае утройство, с которого сидит юзер
+    detectTheThing=()=>{
+      let uagent = navigator.userAgent.toLowerCase();
+
+      if (uagent.search("iphone") > -1 || uagent.search("ipad") > -1 
+      || uagent.search("android") > -1 || uagent.search("blackberry") > -1
+      || uagent.search("webos") > -1){
+          // console.log(uagent)
+        this.setState({
+          mobileBrowser:true,
+        })
+      }else{
+          // console.log(uagent)
+        this.setState({
+          mobileBrowser:false,
+        })
+      }
+  }
+//////////////////////////////////////////////////////////////////////////////////////
+
 
 componentDidMount() {
+  this.detectTheThing()
   let clH=document.documentElement.clientHeight;
 // console.log(document.documentElement.clientHeight)
   this.setState({
@@ -351,11 +379,11 @@ render() {
           //startLeftChat, startTopChat - координаты стартового расположения полей
           //startLeftChat={clientWidth - 420}
           startLeftChat={
-            clientWidth > 420 ? clientWidth - 420 : clientWidth - 320
+            clientWidth >= 768 ? clientWidth - 420 : clientWidth - 320
           }
           //startTopChat={clientHeight - 510}
           startTopChat={
-            clientWidth > 420 ? clientHeight - 510 : clientHeight - 540
+            clientWidth >= 768 ? clientHeight - 510 : 150
           }
           scrollTOP={scrollTOP}
 
@@ -374,11 +402,11 @@ render() {
           counterZindex={this.state.counterZindex}
           //startLeftChat={clientWidth - 420}
           startLeftChat={
-            clientWidth > 420 ? clientWidth - 420 : clientWidth - 320
+            clientWidth >= 768  ? clientWidth - 420 : clientWidth - 320
           }
           //startTopChat={clientHeight - 480}
           startTopChat={
-            clientWidth > 420 ? clientHeight - 480 : clientHeight - 540
+            clientWidth >= 768  ? clientHeight - 480 : 150
           }
           scrollTOP={scrollTOP}
 
@@ -418,7 +446,7 @@ render() {
           cbgetNumberUnreadMessages={this.cbgetNumberUnreadMessages}
           //startLeftChat={clientWidth>320? clientWidth- 300:clientWidth-420}
           startLeftChat={//150 - 1/2 Width чата по умолчанию
-            clientWidth >= 768 ? clientWidth - 420 : clientWidth / 2 - 150
+            clientWidth >= 768 ? clientWidth - 420 : clientWidth - 320
           }
           //startTopChat={clientHeight - 450}
           startTopChat={//150 hardcode
